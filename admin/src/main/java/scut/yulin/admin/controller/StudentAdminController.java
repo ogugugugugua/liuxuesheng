@@ -27,6 +27,7 @@ public class StudentAdminController {
 
     @RequestMapping("all")
     public List<Student> listAllStudent(){
+        System.out.println("hey!");
         return studentAdminService.listAll();
     }
 }

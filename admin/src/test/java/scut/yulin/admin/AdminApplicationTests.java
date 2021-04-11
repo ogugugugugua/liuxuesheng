@@ -13,6 +13,10 @@ class AdminApplicationTests {
     @Autowired
     DataSource dataSource;
 
+    /**
+     * 测试数据库连通性
+     * @throws SQLException
+     */
     @Test
     void contextLoads() throws SQLException {
         System.out.println("获取的数据库连接为:"+dataSource.getConnection().toString());
