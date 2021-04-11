@@ -1,4 +1,4 @@
-package scut.yulin.admin.mbg.model;
+package scut.yulin.admin.model;
 
 import java.util.ArrayList;
 import java.util.Date;

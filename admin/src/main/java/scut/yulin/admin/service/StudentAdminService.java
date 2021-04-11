@@ -1,6 +1,6 @@
 package scut.yulin.admin.service;
 
-import scut.yulin.admin.mbg.model.Student;
+import scut.yulin.admin.model.Student;
 
 import java.util.List;
 

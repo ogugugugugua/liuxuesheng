@@ -1,10 +1,12 @@
 package scut.yulin.admin.mbg.mapper;
 
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import scut.yulin.admin.mbg.model.Student;
-import scut.yulin.admin.mbg.model.StudentExample;
+import scut.yulin.admin.model.Student;
+import scut.yulin.admin.model.StudentExample;
 
+import java.util.List;
+@Mapper
 public interface StudentMapper {
     long countByExample(StudentExample example);
 
