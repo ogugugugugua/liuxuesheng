@@ -6,6 +6,7 @@ import scut.yulin.admin.mbg.mapper.StudentMapper;
 import scut.yulin.admin.model.Student;
 import scut.yulin.admin.model.StudentExample;
 import scut.yulin.admin.service.StudentAdminService;
+import scut.yulin.common.constant.CommonConstant;
 
 import java.util.List;
 
@@ -16,6 +17,40 @@ public class StudentAdminServiceImpl implements StudentAdminService {
 
     @Override
     public List<Student> listAll() {
-        return studentMapper.selectByExample(new StudentExample());
+        StudentExample studentExample = new StudentExample();
+        studentExample.createCriteria().andDeletedEqualTo(CommonConstant.NOT_DELETED);
+        return studentMapper.selectByExample(studentExample);
+    }
+
+    @Override
+    public Student listById(Long id) {
+        StudentExample studentExample = new StudentExample();
+        studentExample.createCriteria().andDeletedEqualTo(CommonConstant.NOT_DELETED).andIdEqualTo(id);
+        List<Student> studentList = studentMapper.selectByExample(studentExample);
+        if (studentList.size()>0){
+            return studentMapper.selectByExample(studentExample).get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public Student listByAccountName(String name) {
+        StudentExample studentExample = new StudentExample();
+        studentExample.createCriteria().andDeletedEqualTo(CommonConstant.NOT_DELETED).andAccountNameEqualTo(name);
+        List<Student> studentList = studentMapper.selectByExample(studentExample);
+        if (studentList.size()>0){
+            return studentMapper.selectByExample(studentExample).get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public Integer add(Student student) {
+        return studentMapper.insertSelective(student);
+    }
+
+    @Override
+    public Integer update(Student studentParam) {
+        return studentMapper.updateByPrimaryKeySelective(studentParam);
     }
 }
