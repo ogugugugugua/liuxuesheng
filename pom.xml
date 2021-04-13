@@ -46,6 +46,7 @@
         <aliyun-oss.version>2.5.0</aliyun-oss.version>
         <logstash-logback.version>5.3</logstash-logback.version>
         <minio.version>7.1.0</minio.version>
+        <spring-boot-starter-data-redis.version>2.3.0.RELEASE</spring-boot-starter-data-redis.version>
     </properties>
 
     <dependencies>
@@ -106,6 +107,13 @@
 <!--                <artifactId>mall-security</artifactId>-->
 <!--                <version>${mall-security.version}</version>-->
 <!--            </dependency>-->
+            <!--redis依赖配置-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
+            </dependency>
+
             <!--MyBatis分页插件starter-->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>

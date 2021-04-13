@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import scut.yulin.admin.mbg.mapper.StudentMapper;
 import scut.yulin.admin.model.Student;
 import scut.yulin.admin.model.StudentExample;
+import scut.yulin.admin.service.RedisService;
 import scut.yulin.admin.service.StudentAdminService;
 import scut.yulin.common.constant.CommonConstant;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class StudentAdminServiceImpl implements StudentAdminService {
     @Autowired
     StudentMapper studentMapper;
+    @Autowired
+    RedisService redisService;
 
     @Override
     public List<Student> listAll() {

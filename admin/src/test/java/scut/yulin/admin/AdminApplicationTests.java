@@ -3,6 +3,7 @@ package scut.yulin.admin;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import scut.yulin.admin.service.RedisService;
 import scut.yulin.common.constant.ResultCode;
 import scut.yulin.common.vo.ResponseVO;
 
@@ -15,7 +16,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 class AdminApplicationTests {
     @Autowired
     DataSource dataSource;
-
+    @Autowired
+    RedisService redisService;
     /**
      * 测试数据库连通性
      * @throws SQLException
@@ -36,5 +38,11 @@ class AdminApplicationTests {
     @Test
     void testExceptionHandler() throws SQLIntegrityConstraintViolationException {
         throw new SQLIntegrityConstraintViolationException("test handler");
+    }
+
+    @Test
+    void testRedis(){
+        redisService.set("tel","0608100167");
+        System.out.println(redisService.get("tel"));
     }
 }

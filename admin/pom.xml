@@ -108,14 +108,11 @@
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
         </dependency>
-
-        <!-- MyBatis-->
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis</groupId>-->
-<!--            <artifactId>mybatis</artifactId>-->
-<!--        </dependency>-->
-
-
+        <!--redis依赖配置-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--Mysql数据库驱动-->
         <dependency>
             <groupId>mysql</groupId>
@@ -125,7 +122,6 @@
             <groupId>scut.yulin</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
-<!--            <scope>test</scope>-->
         </dependency>
     </dependencies>
 
