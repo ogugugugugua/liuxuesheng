@@ -12,6 +12,7 @@
     <modules>
         <module>admin</module>
         <module>common</module>
+        <module>trip</module>
     </modules>
 
     <parent>
