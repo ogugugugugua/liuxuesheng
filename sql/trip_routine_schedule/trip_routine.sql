@@ -2,7 +2,7 @@ CREATE TABLE routine
 (
     id           BIGINT       NOT NULL AUTO_INCREMENT COMMENT 'id',
     uuid         CHAR(36)     NOT NULL COMMENT 'uuid',
-    current_date DATE         NOT NULL COMMENT '当前日期',
+    cur_date     DATE         NOT NULL COMMENT '当前日期',
     supplement   VARCHAR(128) NOT NULL COMMENT '补充信息',
     created_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
