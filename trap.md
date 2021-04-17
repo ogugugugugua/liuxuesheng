@@ -91,3 +91,8 @@ public class AdminApplication {
 
 ### 全局异常处理注意点
 1. 不要定义包含重复Exception的handler
+
+
+
+# 预期优化点
+1. 使用观察者模式，多线程优化schedule子类的加载：主要因为其中有多个于外表的关联需要加载
