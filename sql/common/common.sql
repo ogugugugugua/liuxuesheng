@@ -22,17 +22,17 @@ CREATE TABLE comment
 
 CREATE TABLE image
 (
-    id                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT 'id',
-    uuid               CHAR(36)     NOT NULL COMMENT 'uuid',
-    schedule_uuid      CHAR(36)     NOT NULL COMMENT '关联行程uuid',
-    schedule_type_uuid CHAR(36)     NOT NULL COMMENT '关联行程类型uuid',
-    name               VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '图片名称',
-    url                VARCHAR(128) NOT NULL COMMENT 'url连接',
-    head_image         VARCHAR(1)   NOT NULL DEFAULT 0 COMMENT '头图 yes:1,no:0',
-    creator_uuid       CHAR(36)     NOT NULL COMMENT '创建人uuid',
-    created_time       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_time       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted            VARCHAR(1)   NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
+    id                 BIGINT        NOT NULL AUTO_INCREMENT COMMENT 'id',
+    uuid               CHAR(36)      NOT NULL COMMENT 'uuid',
+    schedule_uuid      CHAR(36)      NOT NULL COMMENT '关联行程uuid',
+    schedule_type_uuid CHAR(36)      NOT NULL COMMENT '关联行程类型uuid',
+    name               VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '图片名称',
+    url                VARCHAR(1024) NOT NULL COMMENT 'url连接',
+    head_image         VARCHAR(1)    NOT NULL DEFAULT 0 COMMENT '头图 yes:1,no:0',
+    creator_uuid       CHAR(36)      NOT NULL COMMENT '创建人uuid',
+    created_time       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_time       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted            VARCHAR(1)    NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
     UNIQUE KEY uniq_image_uuid (uuid)
 ) ENGINE = InnoDB
