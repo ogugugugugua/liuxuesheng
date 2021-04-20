@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.CommentDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Comment">
+    <id column="comment_id" jdbcType="BIGINT" property="id" />
+    <result column="comment_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="comment_schedule_uuid" jdbcType="CHAR" property="scheduleUuid" />
+    <result column="comment_schedule_type_uuid" jdbcType="CHAR" property="scheduleTypeUuid" />
+    <result column="comment_creator_uuid" jdbcType="CHAR" property="creatorUuid" />
+    <result column="comment_parent_uuid" jdbcType="CHAR" property="parentUuid" />
+    <result column="comment_content" jdbcType="VARCHAR" property="content" />
+    <result column="comment_preference" jdbcType="VARCHAR" property="preference" />
+    <result column="comment_approved" jdbcType="INTEGER" property="approved" />
+    <result column="comment_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="comment_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="comment_state" jdbcType="VARCHAR" property="state" />
+    <result column="comment_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    comment.id as comment_id, comment.uuid as comment_uuid, comment.schedule_uuid as comment_schedule_uuid, 
+    comment.schedule_type_uuid as comment_schedule_type_uuid, comment.creator_uuid as comment_creator_uuid, 
+    comment.parent_uuid as comment_parent_uuid, comment.content as comment_content, comment.preference as comment_preference, 
+    comment.approved as comment_approved, comment.created_time as comment_created_time, 
+    comment.updated_time as comment_updated_time, comment.`state` as `comment_state`, 
+    comment.deleted as comment_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.CommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment comment
+    where comment.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.CommentExample">
+    delete from comment comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Comment" useGeneratedKeys="true">
+    insert into comment (uuid, schedule_uuid, schedule_type_uuid, 
+      creator_uuid, parent_uuid, content, 
+      preference, approved, created_time, 
+      updated_time, `state`, deleted
+      )
+    values (#{uuid,jdbcType=CHAR}, #{scheduleUuid,jdbcType=CHAR}, #{scheduleTypeUuid,jdbcType=CHAR}, 
+      #{creatorUuid,jdbcType=CHAR}, #{parentUuid,jdbcType=CHAR}, #{content,jdbcType=VARCHAR}, 
+      #{preference,jdbcType=VARCHAR}, #{approved,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Comment" useGeneratedKeys="true">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid,
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid,
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid,
+      </if>
+      <if test="parentUuid != null">
+        parent_uuid,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="preference != null">
+        preference,
+      </if>
+      <if test="approved != null">
+        approved,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="creatorUuid != null">
+        #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="parentUuid != null">
+        #{parentUuid,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="preference != null">
+        #{preference,jdbcType=VARCHAR},
+      </if>
+      <if test="approved != null">
+        #{approved,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.CommentExample" resultType="java.lang.Long">
+    select count(*) from comment comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment comment
+    <set>
+      <if test="record.id != null">
+        comment.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        comment.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleUuid != null">
+        comment.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleTypeUuid != null">
+        comment.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorUuid != null">
+        comment.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.parentUuid != null">
+        comment.parent_uuid = #{record.parentUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.content != null">
+        comment.content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preference != null">
+        comment.preference = #{record.preference,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approved != null">
+        comment.approved = #{record.approved,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null">
+        comment.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        comment.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        comment.`state` = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleted != null">
+        comment.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment comment
+    set comment.id = #{record.id,jdbcType=BIGINT},
+      comment.uuid = #{record.uuid,jdbcType=CHAR},
+      comment.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      comment.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      comment.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      comment.parent_uuid = #{record.parentUuid,jdbcType=CHAR},
+      comment.content = #{record.content,jdbcType=VARCHAR},
+      comment.preference = #{record.preference,jdbcType=VARCHAR},
+      comment.approved = #{record.approved,jdbcType=INTEGER},
+      comment.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      comment.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      comment.`state` = #{record.state,jdbcType=VARCHAR},
+      comment.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Comment">
+    update comment
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="parentUuid != null">
+        parent_uuid = #{parentUuid,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="preference != null">
+        preference = #{preference,jdbcType=VARCHAR},
+      </if>
+      <if test="approved != null">
+        approved = #{approved,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Comment">
+    update comment
+    set uuid = #{uuid,jdbcType=CHAR},
+      schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      parent_uuid = #{parentUuid,jdbcType=CHAR},
+      content = #{content,jdbcType=VARCHAR},
+      preference = #{preference,jdbcType=VARCHAR},
+      approved = #{approved,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      `state` = #{state,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

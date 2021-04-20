@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.ImageDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Image">
+    <id column="image_id" jdbcType="BIGINT" property="id" />
+    <result column="image_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="image_schedule_uuid" jdbcType="CHAR" property="scheduleUuid" />
+    <result column="image_schedule_type_uuid" jdbcType="CHAR" property="scheduleTypeUuid" />
+    <result column="image_name" jdbcType="VARCHAR" property="name" />
+    <result column="image_url" jdbcType="VARCHAR" property="url" />
+    <result column="image_head_image" jdbcType="VARCHAR" property="headImage" />
+    <result column="image_creator_uuid" jdbcType="CHAR" property="creatorUuid" />
+    <result column="image_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="image_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="image_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    image.id as image_id, image.uuid as image_uuid, image.schedule_uuid as image_schedule_uuid, 
+    image.schedule_type_uuid as image_schedule_type_uuid, image.`name` as `image_name`, 
+    image.url as image_url, image.head_image as image_head_image, image.creator_uuid as image_creator_uuid, 
+    image.created_time as image_created_time, image.updated_time as image_updated_time, 
+    image.deleted as image_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.ImageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from image image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from image image
+    where image.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from image
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.ImageExample">
+    delete from image image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Image" useGeneratedKeys="true">
+    insert into image (uuid, schedule_uuid, schedule_type_uuid, 
+      `name`, url, head_image, 
+      creator_uuid, created_time, updated_time, 
+      deleted)
+    values (#{uuid,jdbcType=CHAR}, #{scheduleUuid,jdbcType=CHAR}, #{scheduleTypeUuid,jdbcType=CHAR}, 
+      #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, 
+      #{creatorUuid,jdbcType=CHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Image" useGeneratedKeys="true">
+    insert into image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid,
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="headImage != null">
+        head_image,
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="headImage != null">
+        #{headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorUuid != null">
+        #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.ImageExample" resultType="java.lang.Long">
+    select count(*) from image image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update image image
+    <set>
+      <if test="record.id != null">
+        image.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        image.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleUuid != null">
+        image.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleTypeUuid != null">
+        image.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null">
+        image.`name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        image.url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headImage != null">
+        image.head_image = #{record.headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorUuid != null">
+        image.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.createdTime != null">
+        image.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        image.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        image.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update image image
+    set image.id = #{record.id,jdbcType=BIGINT},
+      image.uuid = #{record.uuid,jdbcType=CHAR},
+      image.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      image.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      image.`name` = #{record.name,jdbcType=VARCHAR},
+      image.url = #{record.url,jdbcType=VARCHAR},
+      image.head_image = #{record.headImage,jdbcType=VARCHAR},
+      image.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      image.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      image.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      image.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Image">
+    update image
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="headImage != null">
+        head_image = #{headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Image">
+    update image
+    set uuid = #{uuid,jdbcType=CHAR},
+      schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR},
+      creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
