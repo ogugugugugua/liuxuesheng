@@ -1,5 +1,6 @@
 package scut.yulin.trip.mbg.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import scut.yulin.trip.model.Image;
@@ -11,6 +12,7 @@ import java.util.List;
  * @date 2021/04/19
  */
 @Repository
+@Mapper
 public interface ImageDao {
     long countByExample(ImageExample example);
 

@@ -6,21 +6,18 @@ import lombok.*;
 @Data
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-
+@NoArgsConstructor
 public class PageQueryDTO {
     /**
      * 页码
      */
-    @NonNull
-    Integer page;
+    Integer page = 1;
 
     /**
      * 每页数据量
      */
-    @NonNull
-    Integer pageSize;
+    Integer pageSize = 10;
 
     /**
      * offset

@@ -6,7 +6,6 @@ import scut.yulin.trip.dto.PageQueryDTO;
 @Data
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 /**
  * 图片查询DTO
@@ -28,4 +27,5 @@ public class QueryImageDTO extends PageQueryDTO {
      * 创建人uuid
      */
     private String creatorUuid;
+
 }

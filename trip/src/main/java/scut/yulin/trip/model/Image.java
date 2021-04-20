@@ -83,10 +83,15 @@ public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Image(String uuid, String scheduleUuid, String scheduleTypeUuid, String name, String url, String headImage){
+    public Image(String uuid,
+                 String scheduleUuid, String scheduleTypeUuid,
+                 String creatorUuid,
+                 String name, String url,
+                 String headImage){
         this.uuid = uuid;
         this.scheduleTypeUuid = scheduleTypeUuid;
         this.scheduleUuid = scheduleUuid;
+        this.creatorUuid = creatorUuid;
         this.name = name;
         this.url = url;
         this.headImage = headImage;

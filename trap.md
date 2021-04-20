@@ -96,3 +96,8 @@ public class AdminApplication {
 
 # 预期优化点
 1. 使用观察者模式，多线程优化schedule子类的加载：主要因为其中有多个于外表的关联需要加载
+
+
+### 需要在xxxDao类上配置@Mapper
+
+### controller方法中，一般都需要使用DTO进行传输数据进行CRUD，需要加上@RequestBody才可以顺利传输这个DTO
