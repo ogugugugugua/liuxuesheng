@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.TransportationTypeDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.TransportationType">
+    <id column="transportation_type_id" jdbcType="BIGINT" property="id" />
+    <result column="transportation_type_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="transportation_type_type" jdbcType="VARCHAR" property="type" />
+    <result column="transportation_type_cn_name" jdbcType="VARCHAR" property="cnName" />
+    <result column="transportation_type_creator_uuid" jdbcType="CHAR" property="creatorUuid" />
+    <result column="transportation_type_deleted" jdbcType="VARCHAR" property="deleted" />
+    <result column="transportation_type_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="transportation_type_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    transportation_type.id as transportation_type_id, transportation_type.uuid as transportation_type_uuid, 
+    transportation_type.`type` as `transportation_type_type`, transportation_type.cn_name as transportation_type_cn_name, 
+    transportation_type.creator_uuid as transportation_type_creator_uuid, transportation_type.deleted as transportation_type_deleted, 
+    transportation_type.created_time as transportation_type_created_time, transportation_type.updated_time as transportation_type_updated_time
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.TransportationTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from transportation_type transportation_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transportation_type transportation_type
+    where transportation_type.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from transportation_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.TransportationTypeExample">
+    delete from transportation_type transportation_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.TransportationType" useGeneratedKeys="true">
+    insert into transportation_type (uuid, `type`, cn_name, 
+      creator_uuid, deleted, created_time, 
+      updated_time)
+    values (#{uuid,jdbcType=CHAR}, #{type,jdbcType=VARCHAR}, #{cnName,jdbcType=VARCHAR}, 
+      #{creatorUuid,jdbcType=CHAR}, #{deleted,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.TransportationType" useGeneratedKeys="true">
+    insert into transportation_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="cnName != null">
+        cn_name,
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null">
+        #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorUuid != null">
+        #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.TransportationTypeExample" resultType="java.lang.Long">
+    select count(*) from transportation_type transportation_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update transportation_type transportation_type
+    <set>
+      <if test="record.id != null">
+        transportation_type.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        transportation_type.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.type != null">
+        transportation_type.`type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cnName != null">
+        transportation_type.cn_name = #{record.cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorUuid != null">
+        transportation_type.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.deleted != null">
+        transportation_type.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        transportation_type.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        transportation_type.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update transportation_type transportation_type
+    set transportation_type.id = #{record.id,jdbcType=BIGINT},
+      transportation_type.uuid = #{record.uuid,jdbcType=CHAR},
+      transportation_type.`type` = #{record.type,jdbcType=VARCHAR},
+      transportation_type.cn_name = #{record.cnName,jdbcType=VARCHAR},
+      transportation_type.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      transportation_type.deleted = #{record.deleted,jdbcType=VARCHAR},
+      transportation_type.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      transportation_type.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.TransportationType">
+    update transportation_type
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null">
+        cn_name = #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.TransportationType">
+    update transportation_type
+    set uuid = #{uuid,jdbcType=CHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      cn_name = #{cnName,jdbcType=VARCHAR},
+      creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
