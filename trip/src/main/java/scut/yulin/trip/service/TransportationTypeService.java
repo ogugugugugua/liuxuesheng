@@ -20,6 +20,6 @@ public interface TransportationTypeService {
   public int deleteTrasportationType(
       QueryTransportationTypeDTO queryTransportationTypeDTO);
 
-  public int modifyNewTrasportationType(
+  public int modifyTrasportationType(
       ModifyTransportationTypeDTO modifyTransportationTypeDTO);
 }

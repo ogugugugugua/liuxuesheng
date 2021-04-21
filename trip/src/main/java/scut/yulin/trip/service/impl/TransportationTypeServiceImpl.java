@@ -24,7 +24,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
   TransportationTypeDao transportationTypeDao;
 
   /**
-   * 根据UUID获取可用交通类型，不包含已被逻辑删除项
+   * 根据UUID获取可用交通方式类型，不包含已被逻辑删除项
    * @param queryTransportationTypeDTO
    * @return
    */
@@ -112,7 +112,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
       TransportationType targerTransportationType = this
           .getTransportationTypeByUUID(queryTransportationTypeDTO);
       if (targerTransportationType == null){
-        log.debug("deleteTrasportationType not found");
+        log.debug("delete Trasportation Type not found");
         return 2;
       }
 
@@ -124,7 +124,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
       transportationTypeDao.updateByExampleSelective(targerTransportationType, example);
       return 1;
     } catch (Exception e) {
-      log.debug("deleteImage exception==>" + e);
+      log.debug("delete Trasportation Type exception==>" + e);
       return 0;
     }
   }
@@ -136,7 +136,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
    * @return 1:ok;  0:ko; 2:not found
    */
   @Override
-  public int modifyNewTrasportationType(ModifyTransportationTypeDTO modifyTransportationTypeDTO) {
+  public int modifyTrasportationType(ModifyTransportationTypeDTO modifyTransportationTypeDTO) {
     try {
       TransportationType targerTransportationType = this
           .getTransportationTypeByUUIDWithDeleted(modifyTransportationTypeDTO);
@@ -161,7 +161,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
       transportationTypeDao.updateByExampleSelective(targerTransportationType, example);
       return 1;
     } catch (Exception e) {
-      log.debug("deleteImage exception==>" + e);
+      log.debug("modifyTrasportationType exception==>" + e);
       return 0;
     }
   }

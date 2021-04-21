@@ -48,12 +48,12 @@ public class TransportationTypeController {
   }
 
   @PutMapping("transportation/type")
-  public ResponseVO modifyNewTrasportationType(
+  public ResponseVO modifyTrasportationType(
       @RequestBody ModifyTransportationTypeDTO modifyTransportationTypeDTO) {
-    if (transportationTypeService.modifyNewTrasportationType(modifyTransportationTypeDTO) == 1) {
+    if (transportationTypeService.modifyTrasportationType(modifyTransportationTypeDTO) == 1) {
       return ResponseVO.success("modify Trasportation Type ok");
     }
-    if (transportationTypeService.modifyNewTrasportationType(modifyTransportationTypeDTO) == 2) {
+    if (transportationTypeService.modifyTrasportationType(modifyTransportationTypeDTO) == 2) {
       return ResponseVO.success("modify Trasportation Type not found");
     }
     return ResponseVO.failed("modify Trasportation Type failed");
