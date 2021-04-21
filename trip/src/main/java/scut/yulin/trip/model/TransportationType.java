@@ -8,7 +8,7 @@ import lombok.Data;
 
 /**
  * transportation_type
- * @author 
+ * @author xieyulin
  */
 @ApiModel(value="scut.yulin.trip.model.TransportationType交通方式类型 ")
 @Data
@@ -62,6 +62,15 @@ public class TransportationType implements Serializable {
     private Date updatedTime;
 
     private static final long serialVersionUID = 1L;
+
+    public TransportationType(String uuid, String type, String cnName, String creatorUuid){
+        this.uuid = uuid;
+        this.type = type;
+        this.cnName = cnName;
+        this.creatorUuid = creatorUuid;
+    }
+
+
 
     @Override
     public boolean equals(Object that) {

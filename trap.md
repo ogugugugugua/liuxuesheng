@@ -101,3 +101,5 @@ public class AdminApplication {
 ### 需要在xxxDao类上配置@Mapper
 
 ### controller方法中，一般都需要使用DTO进行传输数据进行CRUD，需要加上@RequestBody才可以顺利传输这个DTO
+
+### modify时如果需要把deleted考虑上

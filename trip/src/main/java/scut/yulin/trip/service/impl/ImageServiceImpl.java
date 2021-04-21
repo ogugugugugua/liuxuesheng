@@ -66,7 +66,6 @@ public class ImageServiceImpl implements ImageService {
                 name,
                 url,
                 headImage);
-        System.out.println(image.toString());
         return imageDao.insertSelective(image);
     }
 
