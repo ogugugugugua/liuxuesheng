@@ -1,0 +1,4 @@
+1. 需要弄两个列表分别存储所有有效的scheduleUUID和scheduleTypeUUID
+2. 只要对于scheduleUUID或scheduleTypeUUID有增删改查的话，都需要对这两个列表进行更新
+3. 每一个带有scheduleUUID和scheduleTypeUUID类成员的类，在进行增改时都需要进行scheduleUUID和scheduleTypeUUID的有效性判断
+4. 接口幂等性保持问题需要解决：比如对于tranportation的新增，就可能会导致多个相同项

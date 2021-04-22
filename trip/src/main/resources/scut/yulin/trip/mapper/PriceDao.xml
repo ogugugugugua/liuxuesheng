@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.PriceDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Price">
+    <id column="price_id" jdbcType="BIGINT" property="id" />
+    <result column="price_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="price_schedule_uuid" jdbcType="CHAR" property="scheduleUuid" />
+    <result column="price_schedule_type_uuid" jdbcType="CHAR" property="scheduleTypeUuid" />
+    <result column="price_name" jdbcType="VARCHAR" property="name" />
+    <result column="price_original_price" jdbcType="DECIMAL" property="originalPrice" />
+    <result column="price_discount_price" jdbcType="DECIMAL" property="discountPrice" />
+    <result column="price_creator_uuid" jdbcType="CHAR" property="creatorUuid" />
+    <result column="price_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="price_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="price_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    price.id as price_id, price.uuid as price_uuid, price.schedule_uuid as price_schedule_uuid, 
+    price.schedule_type_uuid as price_schedule_type_uuid, price.`name` as `price_name`, 
+    price.original_price as price_original_price, price.discount_price as price_discount_price, 
+    price.creator_uuid as price_creator_uuid, price.created_time as price_created_time, 
+    price.updated_time as price_updated_time, price.deleted as price_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.PriceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from price price
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from price price
+    where price.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from price
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.PriceExample">
+    delete from price price
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Price" useGeneratedKeys="true">
+    insert into price (uuid, schedule_uuid, schedule_type_uuid, 
+      `name`, original_price, discount_price, 
+      creator_uuid, created_time, updated_time, 
+      deleted)
+    values (#{uuid,jdbcType=CHAR}, #{scheduleUuid,jdbcType=CHAR}, #{scheduleTypeUuid,jdbcType=CHAR}, 
+      #{name,jdbcType=VARCHAR}, #{originalPrice,jdbcType=DECIMAL}, #{discountPrice,jdbcType=DECIMAL}, 
+      #{creatorUuid,jdbcType=CHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Price" useGeneratedKeys="true">
+    insert into price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid,
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="discountPrice != null">
+        discount_price,
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null">
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="creatorUuid != null">
+        #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.PriceExample" resultType="java.lang.Long">
+    select count(*) from price price
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update price price
+    <set>
+      <if test="record.id != null">
+        price.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        price.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleUuid != null">
+        price.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleTypeUuid != null">
+        price.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null">
+        price.`name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalPrice != null">
+        price.original_price = #{record.originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountPrice != null">
+        price.discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.creatorUuid != null">
+        price.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.createdTime != null">
+        price.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        price.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        price.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update price price
+    set price.id = #{record.id,jdbcType=BIGINT},
+      price.uuid = #{record.uuid,jdbcType=CHAR},
+      price.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      price.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      price.`name` = #{record.name,jdbcType=VARCHAR},
+      price.original_price = #{record.originalPrice,jdbcType=DECIMAL},
+      price.discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+      price.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      price.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      price.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      price.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Price">
+    update price
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null">
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Price">
+    update price
+    set uuid = #{uuid,jdbcType=CHAR},
+      schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      discount_price = #{discountPrice,jdbcType=DECIMAL},
+      creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

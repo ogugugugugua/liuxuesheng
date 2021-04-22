@@ -98,6 +98,15 @@ public class AdminApplication {
 1. 使用观察者模式，多线程优化schedule子类的加载：主要因为其中有多个于外表的关联需要加载
 
 
+# service功能分类
+需要提供审核的接口：
+1. image
+2. comment
+
+不提供修改接口：
+1. image
+2. comment
+
 # 不同类型的坑
 1. 需要在xxxDao类上配置@Mapper
 
@@ -105,7 +114,7 @@ public class AdminApplication {
 
 3. modify时如果需要把deleted考虑上，所以需要新增一个类内函数用于查找所有行，包括已被逻辑删除的那些
 
-4. 接口幂等性保持问题需要解决：比如对于tranportation的新增，就可能会导致
+4. 接口幂等性保持问题需要解决：比如对于tranportation的新增，就可能会导致多个相同项
 
 5. MyBatis报错 Cannot determine value type from string 'xxxxxx'：有两种情况会导致这个问题
 ：（1）数据库字段和实体类的属性不匹配 （2）重写了实体类的有参构造后，没有写无参构造,补上无参构造即可 
