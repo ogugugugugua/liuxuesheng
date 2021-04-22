@@ -11,7 +11,7 @@ public interface TransportationTypeService {
   public TransportationType getTransportationTypeByUUID(
       QueryTransportationTypeDTO queryTransportationTypeDTO);
 
-  public int addNewTrasportationType(
+  public int addNewTransportationType(
       InsertTransportationTypeDTO insertTransportationTypeDTO);
 
   public List<TransportationType> getTransportationTypeList(

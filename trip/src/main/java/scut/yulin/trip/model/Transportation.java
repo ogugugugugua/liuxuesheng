@@ -6,9 +6,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.NoArgsConstructor;
-import scut.yulin.trip.dto.transportationType.QueryTransportationTypeDTO;
-import scut.yulin.trip.service.TransportationTypeService;
-import scut.yulin.trip.service.impl.TransportationTypeServiceImpl;
 
 /**
  * transportation
@@ -17,11 +14,8 @@ import scut.yulin.trip.service.impl.TransportationTypeServiceImpl;
  */
 @ApiModel(value = "scut.yulin.trip.model.Transportation可用交通方式 ")
 @NoArgsConstructor
-//@Component
 public class Transportation implements Serializable {
 
-//  @Autowired
-  TransportationTypeService transportationTypeService = new TransportationTypeServiceImpl();
   /**
    * id
    */
@@ -51,6 +45,13 @@ public class Transportation implements Serializable {
    */
   @ApiModelProperty(value = "交通工具类型uuid")
   private String transportationTypeUuid;
+
+  /**
+   * 非数据库字段
+   * 交通工具类型
+   */
+  @ApiModelProperty(value = "非数据库字段，交通工具类型")
+  private TransportationType transportationType;
 
   /**
    * 默认价格
@@ -109,11 +110,12 @@ public class Transportation implements Serializable {
     this.creatorUuid = creatorUuid;
   }
 
-  public TransportationType retrieveTransportationType(){
-    QueryTransportationTypeDTO queryTransportationTypeDTO = new QueryTransportationTypeDTO(
-        this.getTransportationTypeUuid());
-    System.out.println("queryTransportationTypeDTO===>"+queryTransportationTypeDTO);
-    return transportationTypeService.getTransportationTypeByUUID(queryTransportationTypeDTO);
+  public TransportationType getTransportationType(){
+    return transportationType;
+  }
+
+  public void setTransportationType(TransportationType transportationType) {
+    this.transportationType = transportationType;
   }
 
   public Long getId() {

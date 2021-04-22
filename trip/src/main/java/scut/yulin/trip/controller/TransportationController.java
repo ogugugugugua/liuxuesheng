@@ -42,8 +42,12 @@ public class TransportationController {
   @PostMapping("transportation")
   public ResponseVO addNewTransportation(
       @RequestBody InsertTransportationDTO insertTransportationDTO) {
-    if (transportationService.addNewTransportation(insertTransportationDTO) == 1) {
+    int status = transportationService.addNewTransportation(insertTransportationDTO);
+    if (status == 1) {
       return ResponseVO.success("addNewTransportation ok");
+    }
+    if (status == -1) {
+      return ResponseVO.failed("modifyTransportation 交通类型错误");
     }
     return ResponseVO.failed("addNewTransportation failed");
   }
@@ -78,14 +82,19 @@ public class TransportationController {
     if (status == 2) {
       return ResponseVO.failed("modifyTransportation not found");
     }
+    if (status == -1) {
+      return ResponseVO.failed("modifyTransportation 交通类型错误");
+    }
     return ResponseVO.failed("modifyTransportation failed");
   }
 
+  /**
+   * 根据交通方式UUID获取其类型
+   */
   @GetMapping("transportation/correspondingtype")
   public ResponseVO getTranportationTypeByTransportation(
       @RequestBody QueryTransportationDTO queryTransportationDTO) {
-    System.out.println("controller ======> "+queryTransportationDTO);
     return ResponseVO.success(transportationService.getTransportationByUUID(queryTransportationDTO)
-        .retrieveTransportationType());
+        .getTransportationType());
   }
 }

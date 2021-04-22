@@ -25,36 +25,24 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
 
   /**
    * 根据UUID获取可用交通方式类型，不包含已被逻辑删除项
-   * @param queryTransportationTypeDTO
-   * @return
    */
   @Override
   public TransportationType getTransportationTypeByUUID(
       QueryTransportationTypeDTO queryTransportationTypeDTO) {
-    System.out.println("TransportationTypeServiceImpl ====> "+queryTransportationTypeDTO);
     TransportationTypeExample example = new TransportationTypeExample();
     String uuid = queryTransportationTypeDTO.getUuid();
-    System.out.println("TransportationTypeServiceImpl ====> "+uuid);
     example.createCriteria()
         .andUuidEqualTo(uuid)
         .andDeletedEqualTo(CommonConstant.NOT_DELETED);
-    System.out.println(example.toString()+"========> example");
-    System.out.println(transportationTypeDao.toString());
     List<TransportationType> transportationTypes = transportationTypeDao.selectByExample(example);
-    System.out.println(transportationTypes.toString());
     if (transportationTypes.size() > 0) {
-      System.out.println("successfully retrieved");
       return transportationTypes.get(0);
     }
     return null;
   }
 
   /**
-   * 类内方法，不向外暴露
-   * 通过UUID查询可用交通类型，包括已经删除的项
-   * 可以用于
-   * @param queryTransportationTypeDTO
-   * @return
+   * 类内方法，不向外暴露 通过UUID查询可用交通类型，包括已经删除的项 可以用于
    */
   public TransportationType getTransportationTypeByUUIDWithDeleted(
       QueryTransportationTypeDTO queryTransportationTypeDTO) {
@@ -71,11 +59,9 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
 
   /**
    * 增加可用交通类型
-   * @param insertTransportationTypeDTO
-   * @return
    */
   @Override
-  public int addNewTrasportationType(InsertTransportationTypeDTO insertTransportationTypeDTO) {
+  public int addNewTransportationType(InsertTransportationTypeDTO insertTransportationTypeDTO) {
     String type = insertTransportationTypeDTO.getType();
     String creatorUuid = Inspections.isNotBlank(insertTransportationTypeDTO.getCreatorUuid())
         ? insertTransportationTypeDTO.getCreatorUuid() : "defaultTrasportationTypeCreatorName";
@@ -93,8 +79,6 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
 
   /**
    * 查询所有可用交通类型，不包含已被逻辑删除项
-   * @param queryTransportationTypeDTO
-   * @return
    */
   @Override
   public List<TransportationType> getTransportationTypeList(
@@ -109,7 +93,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
 
   /**
    * 逻辑删除可用交通类型
-   * @param queryTransportationTypeDTO
+   *
    * @return 1:ok, 2:not found, 0:exception
    */
   @Override
@@ -117,7 +101,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
     try {
       TransportationType targerTransportationType = this
           .getTransportationTypeByUUID(queryTransportationTypeDTO);
-      if (targerTransportationType == null){
+      if (targerTransportationType == null) {
         log.debug("delete Trasportation Type not found");
         return 2;
       }
@@ -136,9 +120,8 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
   }
 
   /**
-   * 修改可用交通类型
-   * 包括将已被逻辑删除的可用交通类型设置为未删除
-   * @param modifyTransportationTypeDTO
+   * 修改可用交通类型 包括将已被逻辑删除的可用交通类型设置为未删除
+   *
    * @return 1:ok;  0:ko; 2:not found
    */
   @Override
@@ -146,7 +129,7 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
     try {
       TransportationType targerTransportationType = this
           .getTransportationTypeByUUIDWithDeleted(modifyTransportationTypeDTO);
-      if (targerTransportationType == null){
+      if (targerTransportationType == null) {
         return 2;
       }
 

@@ -12,10 +12,13 @@ import scut.yulin.common.utils.Inspections;
 import scut.yulin.trip.dto.transportation.InsertTransportationDTO;
 import scut.yulin.trip.dto.transportation.ModifyTransportationDTO;
 import scut.yulin.trip.dto.transportation.QueryTransportationDTO;
+import scut.yulin.trip.dto.transportationType.QueryTransportationTypeDTO;
 import scut.yulin.trip.mbg.mapper.TransportationDao;
 import scut.yulin.trip.model.Transportation;
 import scut.yulin.trip.model.TransportationExample;
+import scut.yulin.trip.model.TransportationType;
 import scut.yulin.trip.service.TransportationService;
+import scut.yulin.trip.service.TransportationTypeService;
 
 /**
  * @Date 2021/4/21
@@ -29,10 +32,11 @@ public class TransportationServiceImpl implements TransportationService {
   @Autowired
   TransportationDao transportationDao;
 
+  @Autowired
+  TransportationTypeService transportationTypeService;
+
   /**
    * 根据UUID获取可用交通方式，不包含已被逻辑删除项
-   * @param queryTransportationDTO
-   * @return
    */
   @Override
   public Transportation getTransportationByUUID(QueryTransportationDTO queryTransportationDTO) {
@@ -42,17 +46,31 @@ public class TransportationServiceImpl implements TransportationService {
         .andUuidEqualTo(uuid)
         .andDeletedEqualTo(CommonConstant.NOT_DELETED);
     List<Transportation> transportationList = transportationDao.selectByExample(example);
+    //存在这个可用交通方式
     if (transportationList.size() > 0) {
-      return transportationList.get(0);
+      Transportation transportation = transportationList.get(0);
+
+      //尝试查询该交通方式类型
+      QueryTransportationTypeDTO queryTransportationTypeDTO = new QueryTransportationTypeDTO(
+          transportation.getTransportationTypeUuid());
+      TransportationType transportationType = transportationTypeService
+          .getTransportationTypeByUUID(queryTransportationTypeDTO);
+
+      //不存在该交通类型，报错
+      if (transportationType == null) {
+        log.debug("transportation not found due to conflicts of transportation type");
+        return null;
+      }
+
+      //设置其交通类型并返回查询结果
+      transportation.setTransportationType(transportationType);
+      return transportation;
     }
     return null;
   }
 
   /**
-   * 类内方法，不向外暴露
-   * 根据UUID获取可用交通方式，包含已被逻辑删除项
-   * @param queryTransportationDTO
-   * @return
+   * 类内方法，不向外暴露 根据UUID获取可用交通方式，包含已被逻辑删除项
    */
   public Transportation getTransportationByUUIDWithDeleted(
       ModifyTransportationDTO queryTransportationDTO) {
@@ -69,7 +87,7 @@ public class TransportationServiceImpl implements TransportationService {
 
   /**
    * 查询所有可用交通方式。不包含已被逻辑删除项
-   * @param queryTransportationDTO
+   *
    * @return 可用交通方式列表
    */
   @Override
@@ -85,16 +103,28 @@ public class TransportationServiceImpl implements TransportationService {
 
   /**
    * 新增可用交通方式
-   * @param insertTransportationDTO
-   * @return 新增结果
+   *
+   * @return 新增结果 -1:不存在所选择的可用交通类型，需要新建对应交通类型； 1:OK
    */
   @Override
   public int addNewTransportation(InsertTransportationDTO insertTransportationDTO) {
-    String vehicleNumber = insertTransportationDTO.getVehicleNumber();
     String transportationTypeUuid = insertTransportationDTO.getTransportationTypeUuid();
+
+    //尝试查询该交通方式类型是否存在
+    QueryTransportationTypeDTO queryTransportationTypeDTO = new QueryTransportationTypeDTO(
+        transportationTypeUuid);
+    TransportationType transportationType = transportationTypeService
+        .getTransportationTypeByUUID(queryTransportationTypeDTO);
+    //不存在该交通类型，报错
+    if (transportationType == null) {
+      log.debug("transportation type 不匹配，新增transportation失败");
+      return -1;
+    }
+
+    String vehicleNumber = insertTransportationDTO.getVehicleNumber();
     String creatorUuid = insertTransportationDTO.getCreatorUuid();
-    String scheduleUuid = insertTransportationDTO.getScheduleUuid();
     String scheduleTypeUuid = insertTransportationDTO.getScheduleTypeUuid();
+    String scheduleUuid = insertTransportationDTO.getScheduleUuid();
     BigDecimal defaultPrice =
         Inspections.isNotEmpty(insertTransportationDTO.getDefaultPrice()) ? insertTransportationDTO
             .getDefaultPrice() : new BigDecimal("-1");
@@ -145,11 +175,13 @@ public class TransportationServiceImpl implements TransportationService {
 
   /**
    * 根据uuid索引并修改该可用交通方式属性
-   * @return 1:ok, 2:not found, 0:exception
+   *
+   * @return 1:ok, 2:not found, 0:exception, -1:不存在所选择的可用交通类型，需要新建对应交通类型
    */
   @Override
   public int modifyTransportation(ModifyTransportationDTO modifyTransportationDTO) {
     try {
+      //先尝试根据uuid找到需要修改的那个交通方式，找不到就直接返回2
       Transportation targetTransportation = this
           .getTransportationByUUIDWithDeleted(modifyTransportationDTO);
       if (targetTransportation == null) {
@@ -157,6 +189,21 @@ public class TransportationServiceImpl implements TransportationService {
       }
 
       String transportationTypeUuid = modifyTransportationDTO.getTransportationTypeUuid();
+
+      //如果指定了新的交通方式类型UUID，则需要检查其合法性
+      if (Inspections.isNotBlank(transportationTypeUuid)) {
+        //尝试查询该交通方式类型是否存在
+        QueryTransportationTypeDTO queryTransportationTypeDTO = new QueryTransportationTypeDTO(
+            transportationTypeUuid);
+        TransportationType transportationType = transportationTypeService
+            .getTransportationTypeByUUID(queryTransportationTypeDTO);
+        //不存在该交通类型，报错
+        if (transportationType == null) {
+          log.debug("transportation type 不匹配 修改transportation失败");
+          return -1;
+        }
+      }
+
       BigDecimal defaultPrice = modifyTransportationDTO.getDefaultPrice();
       String boardingLocation = modifyTransportationDTO.getBoardingLocation();
       String vehicleNumber = modifyTransportationDTO.getVehicleNumber();
@@ -190,6 +237,7 @@ public class TransportationServiceImpl implements TransportationService {
       return 1;
     } catch (Exception e) {
       log.debug("modify exception ===> " + e);
+      e.printStackTrace();
       return 0;
     }
 

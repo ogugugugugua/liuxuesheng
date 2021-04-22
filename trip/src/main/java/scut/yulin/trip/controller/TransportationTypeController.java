@@ -41,7 +41,7 @@ public class TransportationTypeController {
   @PostMapping("transportation/type")
   public ResponseVO addNewTrasportationType(
       @RequestBody InsertTransportationTypeDTO insertTransportationTypeDTO) {
-    if (transportationTypeService.addNewTrasportationType(insertTransportationTypeDTO) == 1) {
+    if (transportationTypeService.addNewTransportationType(insertTransportationTypeDTO) == 1) {
       return ResponseVO.success("add New Trasportation Type ok");
     }
     return ResponseVO.failed("add New Trasportation Type failed");
