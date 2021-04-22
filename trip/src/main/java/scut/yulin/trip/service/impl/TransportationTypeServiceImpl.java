@@ -31,13 +31,19 @@ public class TransportationTypeServiceImpl implements TransportationTypeService 
   @Override
   public TransportationType getTransportationTypeByUUID(
       QueryTransportationTypeDTO queryTransportationTypeDTO) {
+    System.out.println("TransportationTypeServiceImpl ====> "+queryTransportationTypeDTO);
     TransportationTypeExample example = new TransportationTypeExample();
     String uuid = queryTransportationTypeDTO.getUuid();
+    System.out.println("TransportationTypeServiceImpl ====> "+uuid);
     example.createCriteria()
         .andUuidEqualTo(uuid)
         .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    System.out.println(example.toString()+"========> example");
+    System.out.println(transportationTypeDao.toString());
     List<TransportationType> transportationTypes = transportationTypeDao.selectByExample(example);
+    System.out.println(transportationTypes.toString());
     if (transportationTypes.size() > 0) {
+      System.out.println("successfully retrieved");
       return transportationTypes.get(0);
     }
     return null;

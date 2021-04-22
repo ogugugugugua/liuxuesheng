@@ -5,10 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NoArgsConstructor;
 import scut.yulin.trip.dto.transportationType.QueryTransportationTypeDTO;
 import scut.yulin.trip.service.TransportationTypeService;
+import scut.yulin.trip.service.impl.TransportationTypeServiceImpl;
 
 /**
  * transportation
@@ -16,11 +16,12 @@ import scut.yulin.trip.service.TransportationTypeService;
  * @author
  */
 @ApiModel(value = "scut.yulin.trip.model.Transportation可用交通方式 ")
-@Data
+@NoArgsConstructor
+//@Component
 public class Transportation implements Serializable {
 
-  @Autowired
-  TransportationTypeService transportationTypeService;
+//  @Autowired
+  TransportationTypeService transportationTypeService = new TransportationTypeServiceImpl();
   /**
    * id
    */
@@ -108,10 +109,111 @@ public class Transportation implements Serializable {
     this.creatorUuid = creatorUuid;
   }
 
-  public TransportationType getTransportationType(){
+  public TransportationType retrieveTransportationType(){
     QueryTransportationTypeDTO queryTransportationTypeDTO = new QueryTransportationTypeDTO(
         this.getTransportationTypeUuid());
+    System.out.println("queryTransportationTypeDTO===>"+queryTransportationTypeDTO);
     return transportationTypeService.getTransportationTypeByUUID(queryTransportationTypeDTO);
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getUuid() {
+    return uuid;
+  }
+
+  public String getScheduleUuid() {
+    return scheduleUuid;
+  }
+
+  public String getScheduleTypeUuid() {
+    return scheduleTypeUuid;
+  }
+
+  public String getTransportationTypeUuid() {
+    return transportationTypeUuid;
+  }
+
+  public BigDecimal getDefaultPrice() {
+    return defaultPrice;
+  }
+
+  public String getVehicleNumber() {
+    return vehicleNumber;
+  }
+
+  public String getBoardingLocation() {
+    return boardingLocation;
+  }
+
+  public String getCreatorUuid() {
+    return creatorUuid;
+  }
+
+  public Date getCreatedTime() {
+    return createdTime;
+  }
+
+  public Date getUpdatedTime() {
+    return updatedTime;
+  }
+
+  public String getDeleted() {
+    return deleted;
+  }
+
+  public static long getSerialVersionUID() {
+    return serialVersionUID;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setUuid(String uuid) {
+    this.uuid = uuid;
+  }
+
+  public void setScheduleUuid(String scheduleUuid) {
+    this.scheduleUuid = scheduleUuid;
+  }
+
+  public void setScheduleTypeUuid(String scheduleTypeUuid) {
+    this.scheduleTypeUuid = scheduleTypeUuid;
+  }
+
+  public void setTransportationTypeUuid(String transportationTypeUuid) {
+    this.transportationTypeUuid = transportationTypeUuid;
+  }
+
+  public void setDefaultPrice(BigDecimal defaultPrice) {
+    this.defaultPrice = defaultPrice;
+  }
+
+  public void setVehicleNumber(String vehicleNumber) {
+    this.vehicleNumber = vehicleNumber;
+  }
+
+  public void setBoardingLocation(String boardingLocation) {
+    this.boardingLocation = boardingLocation;
+  }
+
+  public void setCreatorUuid(String creatorUuid) {
+    this.creatorUuid = creatorUuid;
+  }
+
+  public void setCreatedTime(Date createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(Date updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setDeleted(String deleted) {
+    this.deleted = deleted;
   }
 
   @Override

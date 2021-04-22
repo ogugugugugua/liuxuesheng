@@ -50,10 +50,13 @@ public class TransportationTypeController {
   @PutMapping("transportation/type")
   public ResponseVO modifyTrasportationType(
       @RequestBody ModifyTransportationTypeDTO modifyTransportationTypeDTO) {
-    if (transportationTypeService.modifyTrasportationType(modifyTransportationTypeDTO) == 1) {
+
+    int status = transportationTypeService.modifyTrasportationType(modifyTransportationTypeDTO);
+
+    if (status == 1) {
       return ResponseVO.success("modify Trasportation Type ok");
     }
-    if (transportationTypeService.modifyTrasportationType(modifyTransportationTypeDTO) == 2) {
+    if (status == 2) {
       return ResponseVO.success("modify Trasportation Type not found");
     }
     return ResponseVO.failed("modify Trasportation Type failed");
@@ -62,10 +65,13 @@ public class TransportationTypeController {
   @DeleteMapping("transportation/type")
   public ResponseVO deleteTrasportationType(
       @RequestBody QueryTransportationTypeDTO queryTransportationTypeDTO) {
-    if (transportationTypeService.deleteTrasportationType(queryTransportationTypeDTO) == 1) {
+
+    int status = transportationTypeService.deleteTrasportationType(queryTransportationTypeDTO);
+
+    if (status == 1) {
       return ResponseVO.success("delete Trasportation Type ok");
     }
-    if (transportationTypeService.deleteTrasportationType(queryTransportationTypeDTO) == 2) {
+    if (status == 2) {
       return ResponseVO.success("delete Trasportation Type not found");
     }
     return ResponseVO.failed("delete Trasportation Type failed");

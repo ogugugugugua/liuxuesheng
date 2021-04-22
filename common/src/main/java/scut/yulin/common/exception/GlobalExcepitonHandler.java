@@ -68,7 +68,7 @@ public class GlobalExcepitonHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value =NullPointerException.class)
   public ResponseVO handler(NullPointerException e){
-    log.error("发生空指针异常！原因是:",e);
+    log.error("发生空指针异常！原因是======>"+e.getMessage()+"\t"+e.getCause());
     return ResponseVO.failed(e.getMessage());
   }
 }
