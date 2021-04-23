@@ -61,6 +61,22 @@ public class PriceServiceImpl implements PriceService {
   }
 
   @Override
+  public List<Price> getPriceListByScheduleUUID(QueryPriceDTO queryPriceDTO) {
+    String scheduleUUID = queryPriceDTO.getScheduleUuid();
+    if (scheduleUUID == null) {
+      return null;
+    }
+
+    PriceExample example = new PriceExample();
+    example.setLimit(queryPriceDTO.getPageSize());
+    example.setOffset(queryPriceDTO.getOffset());
+    example.createCriteria()
+        .andScheduleUuidEqualTo(scheduleUUID)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    return priceDao.selectByExample(example);
+  }
+
+  @Override
   public int addNewPrice(InsertPriceDTO insertPriceDTO) {
     String name = insertPriceDTO.getName();
     BigDecimal discountPrice = insertPriceDTO.getDiscountPrice();

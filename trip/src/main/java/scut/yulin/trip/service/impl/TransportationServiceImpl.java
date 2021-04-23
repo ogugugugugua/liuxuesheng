@@ -40,8 +40,11 @@ public class TransportationServiceImpl implements TransportationService {
    */
   @Override
   public Transportation getTransportationByUUID(QueryTransportationDTO queryTransportationDTO) {
-    TransportationExample example = new TransportationExample();
     String uuid = queryTransportationDTO.getUuid();
+    if (uuid == null) {
+      return null;
+    }
+    TransportationExample example = new TransportationExample();
     example.createCriteria()
         .andUuidEqualTo(uuid)
         .andDeletedEqualTo(CommonConstant.NOT_DELETED);
@@ -102,6 +105,28 @@ public class TransportationServiceImpl implements TransportationService {
   }
 
   /**
+   * 查询某个schedule的所有可用交通方式。不包含已被逻辑删除项
+   *
+   * @return 可用交通方式列表
+   */
+  @Override
+  public List<Transportation> getTransportationListByScheduleUUID(
+      QueryTransportationDTO queryTransportationDTO) {
+    String scheduleUUID = queryTransportationDTO.getUuid();
+    if (scheduleUUID == null) {
+      return null;
+    }
+    TransportationExample example = new TransportationExample();
+    example.setLimit(queryTransportationDTO.getPageSize());
+    example.setOffset(queryTransportationDTO.getOffset());
+
+    example.createCriteria()
+        .andScheduleUuidEqualTo(scheduleUUID)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    return transportationDao.selectByExample(example);
+  }
+
+  /**
    * 新增可用交通方式
    *
    * @return 新增结果 -1:不存在所选择的可用交通类型，需要新建对应交通类型； 1:OK
@@ -149,11 +174,14 @@ public class TransportationServiceImpl implements TransportationService {
   /**
    * 根据uuid逻辑删除该可用交通方式
    *
-   * @return 1:ok, 2:not found, 0:exception
+   * @return 1:ok, 2:not found, other:exception
    */
   @Override
   public int deleteTransportation(QueryTransportationDTO queryTransportationDTO) {
     try {
+      if (queryTransportationDTO.getUuid() == null) {
+        return 2;
+      }
       Transportation targetTransportation = this.getTransportationByUUID(queryTransportationDTO);
       if (targetTransportation == null) {
         log.debug("deleteTrasportation not found");
@@ -181,6 +209,9 @@ public class TransportationServiceImpl implements TransportationService {
   @Override
   public int modifyTransportation(ModifyTransportationDTO modifyTransportationDTO) {
     try {
+      if (modifyTransportationDTO.getUuid() == null) {
+        return 2;
+      }
       //先尝试根据uuid找到需要修改的那个交通方式，找不到就直接返回2
       Transportation targetTransportation = this
           .getTransportationByUUIDWithDeleted(modifyTransportationDTO);

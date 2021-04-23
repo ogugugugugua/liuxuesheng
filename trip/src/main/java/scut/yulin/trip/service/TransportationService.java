@@ -17,6 +17,8 @@ public interface TransportationService {
 
   public List<Transportation> getTransportationList(QueryTransportationDTO queryTransportationDTO);
 
+  public List<Transportation> getTransportationListByScheduleUUID(QueryTransportationDTO queryTransportationDTO);
+
   public int addNewTransportation(InsertTransportationDTO insertTransportationDTO);
 
   public int deleteTransportation(QueryTransportationDTO queryTransportationDTO);

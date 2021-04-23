@@ -32,7 +32,7 @@ public class ImageController {
 
     @GetMapping("image/list/scheduleUUID")
     public ResponseVO findImagesByScheduleUUID(@RequestBody QueryImageDTO queryImageDTO) {
-        return ResponseVO.success(imageService.findImagesByScheduleUUID(queryImageDTO));
+        return ResponseVO.success(imageService.getImageListByScheduleUUID(queryImageDTO));
     }
 
     @DeleteMapping("image")

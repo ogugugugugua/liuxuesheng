@@ -26,5 +26,5 @@ public interface CommentService {
 
     public List<Comment> findAllComments(QueryCommentDTO queryCommentDTO);
 
-    public List<Comment> findCommentsByScheduleTypeAndScheduleUUID(QueryCommentDTO queryCommentDTO);
+    public List<Comment> getCommentListByScheduleUUID(QueryCommentDTO queryCommentDTO);
 }

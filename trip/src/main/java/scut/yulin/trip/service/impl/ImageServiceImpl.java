@@ -84,12 +84,16 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Image> findImagesByScheduleUUID(QueryImageDTO queryImageDTO) {
+    public List<Image> getImageListByScheduleUUID(QueryImageDTO queryImageDTO) {
+        String scheduleUuid = queryImageDTO.getScheduleUuid();
+        if (scheduleUuid == null) {
+            return null;
+        }
         ImageExample example = new ImageExample();
         example.setLimit(queryImageDTO.getPageSize());
         example.setOffset(queryImageDTO.getOffset());
         example.createCriteria()
-                .andScheduleUuidEqualTo(queryImageDTO.getScheduleUuid())
+                .andScheduleUuidEqualTo(scheduleUuid)
                 .andDeletedEqualTo(CommonConstant.NOT_DELETED);
         return imageDao.selectByExample(example);
     }

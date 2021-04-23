@@ -135,13 +135,16 @@ public class CommentServiceImpl implements CommentService {
    * 根据行程类型和uuid获取该行程的所有评论
    */
   @Override
-  public List<Comment> findCommentsByScheduleTypeAndScheduleUUID(QueryCommentDTO queryCommentDTO) {
+  public List<Comment> getCommentListByScheduleUUID(QueryCommentDTO queryCommentDTO) {
+    String scheduleUuid = queryCommentDTO.getScheduleUuid();
+    if (scheduleUuid == null) {
+      return null;
+    }
     CommentExample example = new CommentExample();
     example.setLimit(queryCommentDTO.getPageSize());
     example.setOffset(queryCommentDTO.getOffset());
     example.createCriteria()
-        .andScheduleTypeUuidEqualTo(queryCommentDTO.getScheduleTypeUuid())
-        .andScheduleUuidEqualTo(queryCommentDTO.getScheduleUuid())
+        .andScheduleUuidEqualTo(scheduleUuid)
         .andDeletedEqualTo(CommonConstant.NOT_DELETED)
         .andStateEqualTo(CommonConstant.COMMENT_STATE_VISIBLE);
     return commentDao.selectByExample(example);

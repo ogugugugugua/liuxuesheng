@@ -15,7 +15,7 @@ public interface ImageService {
 
     public Image findImageByUuid(QueryImageDTO queryImageDTO);
 
-    public List<Image> findImagesByScheduleUUID(QueryImageDTO queryImageDTO);
+    public List<Image> getImageListByScheduleUUID(QueryImageDTO queryImageDTO);
 
     List<Image> findImagesByScheduleTypeUUID(QueryImageDTO queryImageDTO);
 

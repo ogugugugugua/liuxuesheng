@@ -17,6 +17,8 @@ public interface PriceService {
 
   public List<Price> getPriceList(QueryPriceDTO queryPriceDTO);
 
+  public List<Price> getPriceListByScheduleUUID(QueryPriceDTO queryPriceDTO);
+
   public int addNewPrice(InsertPriceDTO insertPriceDTO);
 
   public int deletePrice(QueryPriceDTO queryPriceDTO);
