@@ -55,7 +55,7 @@ CREATE TABLE price
     deleted            VARCHAR(1)     NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
     UNIQUE KEY uniq_price_uuid (uuid),
-    UNIQUE KEY uniq_vehicle_type_number (name, original_price, discount_price)
+    UNIQUE KEY uniq_scheduleuuid_name_originalprice_discountprice (schedule_uuid, name, original_price, discount_price)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4

@@ -35,6 +35,9 @@ public class PriceServiceImpl implements PriceService {
   @Override
   public Price getPriceByUUID(QueryPriceDTO queryPriceDTO) {
     String uuid = queryPriceDTO.getUuid();
+    if (uuid == null) {
+      return null;
+    }
     PriceExample example = new PriceExample();
     example.createCriteria()
         .andUuidEqualTo(uuid)
@@ -66,12 +69,19 @@ public class PriceServiceImpl implements PriceService {
     String scheduleUuid = insertPriceDTO.getScheduleUuid();
     String scheduleTypeUuid = insertPriceDTO.getScheduleTypeUuid();
 
-    Assert.notBlank(creatorUuid);
-    Assert.notBlank(scheduleUuid);
-    Assert.notBlank(scheduleTypeUuid);
-    Assert.notNull(discountPrice);
-    Assert.notNull(originalPrice);
-    Assert.notBlank(name);
+    Assert.notBlank(creatorUuid,"creatorUuid blank");
+    Assert.notBlank(scheduleUuid,"scheduleUuid blank");
+    Assert.notBlank(scheduleTypeUuid,"scheduleTypeUuid blank");
+    Assert.notNull(discountPrice,"discountPrice blank");
+    Assert.notNull(originalPrice,"originalPrice blank");
+    Assert.notBlank(name,"name blank");
+
+    Assert.isTrue(originalPrice.compareTo(new BigDecimal("0")) > 0,
+        "The originalPrice must be greater than zero");
+    Assert.isTrue(discountPrice.compareTo(new BigDecimal("0")) > 0,
+        "The discountPrice must be greater than zero");
+    Assert.isTrue(originalPrice.compareTo(discountPrice) >= 0,
+        "The originalPrice must be greater than or equal to discountPrice");
 
     Price price = new Price(IdUtil.randomUUID(), scheduleTypeUuid, scheduleUuid, name,
         originalPrice, discountPrice,
@@ -86,6 +96,9 @@ public class PriceServiceImpl implements PriceService {
   @Override
   public int deletePrice(QueryPriceDTO queryPriceDTO) {
     try {
+      if (queryPriceDTO.getUuid() == null) {
+        return 2;
+      }
       Price price = this.getPriceByUUID(queryPriceDTO);
       if (price == null) {
         log.debug("deletePrice not found");
@@ -109,6 +122,9 @@ public class PriceServiceImpl implements PriceService {
    */
   public Price getPriceByUUIDWithDeleted(QueryPriceDTO queryPriceDTO) {
     String uuid = queryPriceDTO.getUuid();
+    if (uuid == null) {
+      return null;
+    }
     PriceExample example = new PriceExample();
     example.createCriteria()
         .andUuidEqualTo(uuid);
@@ -126,10 +142,15 @@ public class PriceServiceImpl implements PriceService {
   @Override
   public int modifyPrice(ModifyPriceDTO modifyPriceDTO) {
     try {
+      if (modifyPriceDTO.getUuid() == null) {
+        return 2;
+      }
       Price targetPrice = this.getPriceByUUIDWithDeleted(modifyPriceDTO);
       if (targetPrice == null) {
         return 2;
       }
+
+      System.out.println(targetPrice);
 
       BigDecimal discountPrice = modifyPriceDTO.getDiscountPrice();
       BigDecimal originalPrice = modifyPriceDTO.getOriginalPrice();
@@ -154,6 +175,13 @@ public class PriceServiceImpl implements PriceService {
       }
       targetPrice.setDeleted(CommonConstant.NOT_DELETED);
 
+      Assert.isTrue(originalPrice.compareTo(new BigDecimal("0")) > 0,
+          "The originalPrice must be greater than zero");
+      Assert.isTrue(discountPrice.compareTo(new BigDecimal("0")) > 0,
+          "The discountPrice must be greater than zero");
+      Assert.isTrue(originalPrice.compareTo(discountPrice) >= 0,
+          "The originalPrice must be greater than or equal to discountPrice");
+
       PriceExample example = new PriceExample();
       example.createCriteria().andUuidEqualTo(modifyPriceDTO.getUuid());
 
@@ -161,7 +189,7 @@ public class PriceServiceImpl implements PriceService {
       return 1;
     } catch (Exception e) {
       log.debug("modifyPrice failed");
-      return 0;
+      throw e;
     }
   }
 }

@@ -2,3 +2,4 @@
 2. 只要对于scheduleUUID或scheduleTypeUUID有增删改查的话，都需要对这两个列表进行更新
 3. 每一个带有scheduleUUID和scheduleTypeUUID类成员的类，在进行增改时都需要进行scheduleUUID和scheduleTypeUUID的有效性判断
 4. 接口幂等性保持问题需要解决：比如对于tranportation的新增，就可能会导致多个相同项
+5. 所有的getByUuid/modify/delete方法都需要判断uuid是否为空，如果为空则直接返回null或者返回2，表示目标项找不到

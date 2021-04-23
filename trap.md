@@ -119,3 +119,5 @@ public class AdminApplication {
 5. MyBatis报错 Cannot determine value type from string 'xxxxxx'：有两种情况会导致这个问题
 ：（1）数据库字段和实体类的属性不匹配 （2）重写了实体类的有参构造后，没有写无参构造,补上无参构造即可 
 。这里的情况属于后者，所以只需要在类开头补上@NoArgsConstructor
+   
+6. 所有的getByUuid/modify/delete方法都需要判断uuid是否为空，如果为空则直接返回null或者返回2，表示目标项找不到

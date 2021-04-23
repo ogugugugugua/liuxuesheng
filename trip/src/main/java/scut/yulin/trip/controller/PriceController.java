@@ -60,6 +60,7 @@ public class PriceController {
   @PutMapping("price")
   public ResponseVO modifyPrice(@RequestBody ModifyPriceDTO modifyPriceDTO) {
     int status = priceService.modifyPrice(modifyPriceDTO);
+    System.out.println("status"+status);
     if (status == 1) {
       return ResponseVO.success("modifyPrice ok");
     }
