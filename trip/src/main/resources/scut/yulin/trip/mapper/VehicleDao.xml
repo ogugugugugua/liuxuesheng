@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.VehicleDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Vehicle">
+    <id column="vehicle_id" jdbcType="BIGINT" property="id" />
+    <result column="vehicle_uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="vehicle_schedule_type_uuid" jdbcType="VARCHAR" property="scheduleTypeUuid" />
+    <result column="vehicle_transportation_type_uuid" jdbcType="CHAR" property="transportationTypeUuid" />
+    <result column="vehicle_local_name" jdbcType="VARCHAR" property="localName" />
+    <result column="vehicle_cn_name" jdbcType="VARCHAR" property="cnName" />
+    <result column="vehicle_vehicle_serial" jdbcType="VARCHAR" property="vehicleSerial" />
+    <result column="vehicle_departure_time" jdbcType="TIMESTAMP" property="departureTime" />
+    <result column="vehicle_duration" jdbcType="TIME" property="duration" />
+    <result column="vehicle_arrival_time" jdbcType="TIMESTAMP" property="arrivalTime" />
+    <result column="vehicle_departure_location" jdbcType="VARCHAR" property="departureLocation" />
+    <result column="vehicle_arrival_location" jdbcType="VARCHAR" property="arrivalLocation" />
+    <result column="vehicle_grade" jdbcType="VARCHAR" property="grade" />
+    <result column="vehicle_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="vehicle_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="vehicle_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    vehicle.id as vehicle_id, vehicle.uuid as vehicle_uuid, vehicle.schedule_type_uuid as vehicle_schedule_type_uuid, 
+    vehicle.transportation_type_uuid as vehicle_transportation_type_uuid, vehicle.local_name as vehicle_local_name, 
+    vehicle.cn_name as vehicle_cn_name, vehicle.vehicle_serial as vehicle_vehicle_serial, 
+    vehicle.departure_time as vehicle_departure_time, vehicle.duration as vehicle_duration, 
+    vehicle.arrival_time as vehicle_arrival_time, vehicle.departure_location as vehicle_departure_location, 
+    vehicle.arrival_location as vehicle_arrival_location, vehicle.grade as vehicle_grade, 
+    vehicle.created_time as vehicle_created_time, vehicle.updated_time as vehicle_updated_time, 
+    vehicle.deleted as vehicle_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.VehicleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vehicle vehicle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle vehicle
+    where vehicle.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from vehicle
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.VehicleExample">
+    delete from vehicle vehicle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Vehicle" useGeneratedKeys="true">
+    insert into vehicle (uuid, schedule_type_uuid, transportation_type_uuid, 
+      local_name, cn_name, vehicle_serial, 
+      departure_time, duration, arrival_time, 
+      departure_location, arrival_location, grade, 
+      created_time, updated_time, deleted
+      )
+    values (#{uuid,jdbcType=VARCHAR}, #{scheduleTypeUuid,jdbcType=VARCHAR}, #{transportationTypeUuid,jdbcType=CHAR}, 
+      #{localName,jdbcType=VARCHAR}, #{cnName,jdbcType=VARCHAR}, #{vehicleSerial,jdbcType=VARCHAR}, 
+      #{departureTime,jdbcType=TIMESTAMP}, #{duration,jdbcType=TIME}, #{arrivalTime,jdbcType=TIMESTAMP}, 
+      #{departureLocation,jdbcType=VARCHAR}, #{arrivalLocation,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Vehicle" useGeneratedKeys="true">
+    insert into vehicle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid,
+      </if>
+      <if test="transportationTypeUuid != null">
+        transportation_type_uuid,
+      </if>
+      <if test="localName != null">
+        local_name,
+      </if>
+      <if test="cnName != null">
+        cn_name,
+      </if>
+      <if test="vehicleSerial != null">
+        vehicle_serial,
+      </if>
+      <if test="departureTime != null">
+        departure_time,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="arrivalTime != null">
+        arrival_time,
+      </if>
+      <if test="departureLocation != null">
+        departure_location,
+      </if>
+      <if test="arrivalLocation != null">
+        arrival_location,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        #{scheduleTypeUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="transportationTypeUuid != null">
+        #{transportationTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="localName != null">
+        #{localName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null">
+        #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleSerial != null">
+        #{vehicleSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="departureTime != null">
+        #{departureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=TIME},
+      </if>
+      <if test="arrivalTime != null">
+        #{arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departureLocation != null">
+        #{departureLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalLocation != null">
+        #{arrivalLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.VehicleExample" resultType="java.lang.Long">
+    select count(*) from vehicle vehicle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update vehicle vehicle
+    <set>
+      <if test="record.id != null">
+        vehicle.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        vehicle.uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scheduleTypeUuid != null">
+        vehicle.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportationTypeUuid != null">
+        vehicle.transportation_type_uuid = #{record.transportationTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.localName != null">
+        vehicle.local_name = #{record.localName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cnName != null">
+        vehicle.cn_name = #{record.cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleSerial != null">
+        vehicle.vehicle_serial = #{record.vehicleSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departureTime != null">
+        vehicle.departure_time = #{record.departureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.duration != null">
+        vehicle.duration = #{record.duration,jdbcType=TIME},
+      </if>
+      <if test="record.arrivalTime != null">
+        vehicle.arrival_time = #{record.arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.departureLocation != null">
+        vehicle.departure_location = #{record.departureLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrivalLocation != null">
+        vehicle.arrival_location = #{record.arrivalLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null">
+        vehicle.grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        vehicle.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        vehicle.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        vehicle.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update vehicle vehicle
+    set vehicle.id = #{record.id,jdbcType=BIGINT},
+      vehicle.uuid = #{record.uuid,jdbcType=VARCHAR},
+      vehicle.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=VARCHAR},
+      vehicle.transportation_type_uuid = #{record.transportationTypeUuid,jdbcType=CHAR},
+      vehicle.local_name = #{record.localName,jdbcType=VARCHAR},
+      vehicle.cn_name = #{record.cnName,jdbcType=VARCHAR},
+      vehicle.vehicle_serial = #{record.vehicleSerial,jdbcType=VARCHAR},
+      vehicle.departure_time = #{record.departureTime,jdbcType=TIMESTAMP},
+      vehicle.duration = #{record.duration,jdbcType=TIME},
+      vehicle.arrival_time = #{record.arrivalTime,jdbcType=TIMESTAMP},
+      vehicle.departure_location = #{record.departureLocation,jdbcType=VARCHAR},
+      vehicle.arrival_location = #{record.arrivalLocation,jdbcType=VARCHAR},
+      vehicle.grade = #{record.grade,jdbcType=VARCHAR},
+      vehicle.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      vehicle.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      vehicle.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Vehicle">
+    update vehicle
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="transportationTypeUuid != null">
+        transportation_type_uuid = #{transportationTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="localName != null">
+        local_name = #{localName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null">
+        cn_name = #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleSerial != null">
+        vehicle_serial = #{vehicleSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="departureTime != null">
+        departure_time = #{departureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=TIME},
+      </if>
+      <if test="arrivalTime != null">
+        arrival_time = #{arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departureLocation != null">
+        departure_location = #{departureLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalLocation != null">
+        arrival_location = #{arrivalLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Vehicle">
+    update vehicle
+    set uuid = #{uuid,jdbcType=VARCHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=VARCHAR},
+      transportation_type_uuid = #{transportationTypeUuid,jdbcType=CHAR},
+      local_name = #{localName,jdbcType=VARCHAR},
+      cn_name = #{cnName,jdbcType=VARCHAR},
+      vehicle_serial = #{vehicleSerial,jdbcType=VARCHAR},
+      departure_time = #{departureTime,jdbcType=TIMESTAMP},
+      duration = #{duration,jdbcType=TIME},
+      arrival_time = #{arrivalTime,jdbcType=TIMESTAMP},
+      departure_location = #{departureLocation,jdbcType=VARCHAR},
+      arrival_location = #{arrivalLocation,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

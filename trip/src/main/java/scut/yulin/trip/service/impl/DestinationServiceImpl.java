@@ -104,30 +104,32 @@ public class DestinationServiceImpl implements DestinationService {
     Destination targetDestination = destinations.get(0);
     String destinationUuid = targetDestination.getUuid();
 
-    List<Transportation> transportationList = transportationService
-        .getTransportationListByScheduleUUID(new QueryTransportationDTO(null, destinationUuid));
-    List<Price> priceList = priceService
-        .getPriceListByScheduleUUID(new QueryPriceDTO(null, destinationUuid, null, null));
-    List<Image> imageList = imageService
-        .getImageListByScheduleUUID(new QueryImageDTO(null, destinationUuid, null, null));
-    List<Comment> commentList = commentService
-        .getCommentListByScheduleUUID(new QueryCommentDTO(null, destinationUuid, null, null, null));
+
 
     if (getFullInformation) {
       //call corresponding service to get full information
+      List<Transportation> transportationList = transportationService
+          .getTransportationListByScheduleUUID(new QueryTransportationDTO(null, destinationUuid));
+      List<Price> priceList = priceService
+          .getPriceListByScheduleUUID(new QueryPriceDTO(null, destinationUuid, null, null));
+      List<Image> imageList = imageService
+          .getImageListByScheduleUUID(new QueryImageDTO(null, destinationUuid, null, null));
+      List<Comment> commentList = commentService
+          .getCommentListByScheduleUUID(new QueryCommentDTO(null, destinationUuid, null, null, null));
+
       for (int i = 0; i < transportationList.size(); i++) {
         String transportationUUID = transportationList.get(i).getUuid();
         Transportation transportationWithFullInformation = transportationService
             .getTransportationByUUID(new QueryTransportationDTO(transportationUUID,null));
         transportationList.set(i, transportationWithFullInformation);
       }
-    }
 
-    //set
-    targetDestination.setCommentList(commentList);
-    targetDestination.setImageList(imageList);
-    targetDestination.setPriceList(priceList);
-    targetDestination.setTransportationList(transportationList);
+      //set
+      targetDestination.setCommentList(commentList);
+      targetDestination.setImageList(imageList);
+      targetDestination.setPriceList(priceList);
+      targetDestination.setTransportationList(transportationList);
+    }
 
     return targetDestination;
   }
