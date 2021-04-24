@@ -7,3 +7,4 @@
 7. 统一Exception处理
 8. setImageNotVisible
 9. 每一个小范围类在修改/新增时都需要检查大范围类的UUID是否存在且正确
+10. 检查所有类的add方法是否会过度检查inspection，导致插入空字符串

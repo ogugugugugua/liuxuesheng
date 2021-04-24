@@ -75,10 +75,13 @@ public class TransportationServiceImpl implements TransportationService {
   /**
    * 类内方法，不向外暴露 根据UUID获取可用交通方式，包含已被逻辑删除项
    */
-  public Transportation getTransportationByUUIDWithDeleted(
+  private Transportation getTransportationByUUIDWithDeleted(
       ModifyTransportationDTO queryTransportationDTO) {
-    TransportationExample example = new TransportationExample();
     String uuid = queryTransportationDTO.getUuid();
+    if (uuid == null) {
+      return null;
+    }
+    TransportationExample example = new TransportationExample();
     example.createCriteria()
         .andUuidEqualTo(uuid);
     List<Transportation> transportationList = transportationDao.selectByExample(example);
@@ -112,7 +115,7 @@ public class TransportationServiceImpl implements TransportationService {
   @Override
   public List<Transportation> getTransportationListByScheduleUUID(
       QueryTransportationDTO queryTransportationDTO) {
-    String scheduleUUID = queryTransportationDTO.getUuid();
+    String scheduleUUID = queryTransportationDTO.getScheduleUuid();
     if (scheduleUUID == null) {
       return null;
     }

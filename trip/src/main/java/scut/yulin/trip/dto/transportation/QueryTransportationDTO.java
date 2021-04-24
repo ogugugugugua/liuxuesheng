@@ -14,4 +14,6 @@ import scut.yulin.trip.dto.PageQueryDTO;
 @NoArgsConstructor
 public class QueryTransportationDTO extends PageQueryDTO {
   String uuid;
+
+  String scheduleUuid;
 }

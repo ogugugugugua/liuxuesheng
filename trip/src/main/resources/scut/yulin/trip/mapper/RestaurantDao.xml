@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.RestaurantDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Restaurant">
+    <id column="restaurant_id" jdbcType="BIGINT" property="id" />
+    <result column="restaurant_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="restaurant_schedule_type_uuid" jdbcType="CHAR" property="scheduleTypeUuid" />
+    <result column="restaurant_stars" jdbcType="INTEGER" property="stars" />
+    <result column="restaurant_local_name" jdbcType="VARCHAR" property="localName" />
+    <result column="restaurant_cn_name" jdbcType="VARCHAR" property="cnName" />
+    <result column="restaurant_city" jdbcType="VARCHAR" property="city" />
+    <result column="restaurant_country_uuid" jdbcType="CHAR" property="countryUuid" />
+    <result column="restaurant_location" jdbcType="VARCHAR" property="location" />
+    <result column="restaurant_rating" jdbcType="DECIMAL" property="rating" />
+    <result column="restaurant_url" jdbcType="VARCHAR" property="url" />
+    <result column="restaurant_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="restaurant_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="restaurant_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    restaurant.id as restaurant_id, restaurant.uuid as restaurant_uuid, restaurant.schedule_type_uuid as restaurant_schedule_type_uuid, 
+    restaurant.stars as restaurant_stars, restaurant.local_name as restaurant_local_name, 
+    restaurant.cn_name as restaurant_cn_name, restaurant.city as restaurant_city, restaurant.country_uuid as restaurant_country_uuid, 
+    restaurant.`location` as `restaurant_location`, restaurant.rating as restaurant_rating, 
+    restaurant.url as restaurant_url, restaurant.created_time as restaurant_created_time, 
+    restaurant.updated_time as restaurant_updated_time, restaurant.deleted as restaurant_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.RestaurantExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from restaurant restaurant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from restaurant restaurant
+    where restaurant.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from restaurant
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.RestaurantExample">
+    delete from restaurant restaurant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Restaurant" useGeneratedKeys="true">
+    insert into restaurant (uuid, schedule_type_uuid, stars, 
+      local_name, cn_name, city, 
+      country_uuid, `location`, rating, 
+      url, created_time, updated_time, 
+      deleted)
+    values (#{uuid,jdbcType=CHAR}, #{scheduleTypeUuid,jdbcType=CHAR}, #{stars,jdbcType=INTEGER}, 
+      #{localName,jdbcType=VARCHAR}, #{cnName,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{countryUuid,jdbcType=CHAR}, #{location,jdbcType=VARCHAR}, #{rating,jdbcType=DECIMAL}, 
+      #{url,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Restaurant" useGeneratedKeys="true">
+    insert into restaurant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid,
+      </if>
+      <if test="stars != null">
+        stars,
+      </if>
+      <if test="localName != null">
+        local_name,
+      </if>
+      <if test="cnName != null">
+        cn_name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="countryUuid != null">
+        country_uuid,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="rating != null">
+        rating,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="stars != null">
+        #{stars,jdbcType=INTEGER},
+      </if>
+      <if test="localName != null">
+        #{localName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null">
+        #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="countryUuid != null">
+        #{countryUuid,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="rating != null">
+        #{rating,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.RestaurantExample" resultType="java.lang.Long">
+    select count(*) from restaurant restaurant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update restaurant restaurant
+    <set>
+      <if test="record.id != null">
+        restaurant.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        restaurant.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleTypeUuid != null">
+        restaurant.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.stars != null">
+        restaurant.stars = #{record.stars,jdbcType=INTEGER},
+      </if>
+      <if test="record.localName != null">
+        restaurant.local_name = #{record.localName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cnName != null">
+        restaurant.cn_name = #{record.cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        restaurant.city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryUuid != null">
+        restaurant.country_uuid = #{record.countryUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.location != null">
+        restaurant.`location` = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rating != null">
+        restaurant.rating = #{record.rating,jdbcType=DECIMAL},
+      </if>
+      <if test="record.url != null">
+        restaurant.url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        restaurant.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        restaurant.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        restaurant.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update restaurant restaurant
+    set restaurant.id = #{record.id,jdbcType=BIGINT},
+      restaurant.uuid = #{record.uuid,jdbcType=CHAR},
+      restaurant.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      restaurant.stars = #{record.stars,jdbcType=INTEGER},
+      restaurant.local_name = #{record.localName,jdbcType=VARCHAR},
+      restaurant.cn_name = #{record.cnName,jdbcType=VARCHAR},
+      restaurant.city = #{record.city,jdbcType=VARCHAR},
+      restaurant.country_uuid = #{record.countryUuid,jdbcType=CHAR},
+      restaurant.`location` = #{record.location,jdbcType=VARCHAR},
+      restaurant.rating = #{record.rating,jdbcType=DECIMAL},
+      restaurant.url = #{record.url,jdbcType=VARCHAR},
+      restaurant.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      restaurant.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      restaurant.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Restaurant">
+    update restaurant
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="stars != null">
+        stars = #{stars,jdbcType=INTEGER},
+      </if>
+      <if test="localName != null">
+        local_name = #{localName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null">
+        cn_name = #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="countryUuid != null">
+        country_uuid = #{countryUuid,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="rating != null">
+        rating = #{rating,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Restaurant">
+    update restaurant
+    set uuid = #{uuid,jdbcType=CHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      stars = #{stars,jdbcType=INTEGER},
+      local_name = #{localName,jdbcType=VARCHAR},
+      cn_name = #{cnName,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      country_uuid = #{countryUuid,jdbcType=CHAR},
+      `location` = #{location,jdbcType=VARCHAR},
+      rating = #{rating,jdbcType=DECIMAL},
+      url = #{url,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

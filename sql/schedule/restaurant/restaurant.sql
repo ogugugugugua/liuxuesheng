@@ -13,8 +13,10 @@ CREATE TABLE restaurant
     url                VARCHAR(1024)   NOT NULL DEFAULT '' COMMENT '链接网址',
     created_time       DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_time       DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted         VARCHAR(1)     NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
-    PRIMARY KEY (id)
+    deleted            VARCHAR(1)      NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
+    PRIMARY KEY (id),
+    UNIQUE KEY uniq_uuid (uuid),
+    UNIQUE KEY uniq_name_city (local_name, city)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4

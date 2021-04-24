@@ -63,7 +63,7 @@ public class DestinationServiceImpl implements DestinationService {
     return destinationDao.selectByExample(example);
   }
 
-  public Destination getDestinationByUUIDWithDeleted(QueryDestinationDTO queryDestinationDTO) {
+  private Destination getDestinationByUUIDWithDeleted(QueryDestinationDTO queryDestinationDTO) {
     String uuid = queryDestinationDTO.getUuid();
     if (uuid == null) {
       log.debug("UUID not found");
@@ -105,7 +105,7 @@ public class DestinationServiceImpl implements DestinationService {
     String destinationUuid = targetDestination.getUuid();
 
     List<Transportation> transportationList = transportationService
-        .getTransportationListByScheduleUUID(new QueryTransportationDTO(destinationUuid));
+        .getTransportationListByScheduleUUID(new QueryTransportationDTO(null, destinationUuid));
     List<Price> priceList = priceService
         .getPriceListByScheduleUUID(new QueryPriceDTO(null, destinationUuid, null, null));
     List<Image> imageList = imageService
@@ -118,7 +118,7 @@ public class DestinationServiceImpl implements DestinationService {
       for (int i = 0; i < transportationList.size(); i++) {
         String transportationUUID = transportationList.get(i).getUuid();
         Transportation transportationWithFullInformation = transportationService
-            .getTransportationByUUID(new QueryTransportationDTO(transportationUUID));
+            .getTransportationByUUID(new QueryTransportationDTO(transportationUUID,null));
         transportationList.set(i, transportationWithFullInformation);
       }
     }
