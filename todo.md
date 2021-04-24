@@ -5,3 +5,4 @@
 5. 所有的getByUuid/modify/delete方法都需要判断uuid是否为空，如果为空则直接返回null或者返回2，表示目标项找不到
 6. 把所有的delete操作中的搜索操作都改为select count(1)+new Object，以减小数据库IO
 7. 统一Exception处理
+8. setImageNotVisible

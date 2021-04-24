@@ -1,6 +1,7 @@
 package scut.yulin.trip.service.impl;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.IdUtil;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -159,7 +160,8 @@ public class DestinationServiceImpl implements DestinationService {
     Assert.notBlank(location, "location not found");
     Assert.notBlank(localName, "localName not found");
 
-    Destination destination = new Destination(localName, cnName, city, countryUuid, location,
+    Destination destination = new Destination(IdUtil.randomUUID(), localName, cnName, city,
+        countryUuid, location,
         rating, duration, url, description, specialRequirement);
     return destinationDao.insertSelective(destination);
   }

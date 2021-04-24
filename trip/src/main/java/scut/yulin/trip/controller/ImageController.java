@@ -26,12 +26,12 @@ public class ImageController {
     }
 
     @GetMapping("image")
-    public ResponseVO findImageByUuid(@RequestBody QueryImageDTO queryImageDTO) {
+    public ResponseVO getImageByUuid(@RequestBody QueryImageDTO queryImageDTO) {
         return ResponseVO.success(imageService.findImageByUuid(queryImageDTO));
     }
 
     @GetMapping("image/list/scheduleUUID")
-    public ResponseVO findImagesByScheduleUUID(@RequestBody QueryImageDTO queryImageDTO) {
+    public ResponseVO getImagesByScheduleUUID(@RequestBody QueryImageDTO queryImageDTO) {
         return ResponseVO.success(imageService.getImageListByScheduleUUID(queryImageDTO));
     }
 

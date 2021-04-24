@@ -25,7 +25,7 @@ public class CommentController {
 
 
     @PostMapping("one")
-    public ResponseVO insertComment(@RequestBody InsertCommentDTO insertCommentDTO) {
+    public ResponseVO addNewComment(@RequestBody InsertCommentDTO insertCommentDTO) {
         int result = service.addNewComment(insertCommentDTO);
         if (result == 1) {
             return ResponseVO.success("insert ok");
@@ -34,12 +34,11 @@ public class CommentController {
     }
 
     @GetMapping("all")
-    public ResponseVO getAllCommentList(@RequestBody QueryCommentDTO queryCommentDTO) {
+    public ResponseVO getCommentLists(@RequestBody QueryCommentDTO queryCommentDTO) {
         try {
-            List<Comment> allComments = service.findAllComments(queryCommentDTO);
+            List<Comment> allComments = service.getCommentLists(queryCommentDTO);
             Logger logger = LoggerFactory.getLogger(CommentController.class);
             logger.debug(allComments.toString());
-            System.out.println("----->" + allComments.toString());
             return ResponseVO.success(allComments);
         } catch (Exception e) {
             return ResponseVO.failed();
@@ -48,8 +47,8 @@ public class CommentController {
 
     @ApiOperation("根据uuid获得comment")
     @GetMapping
-    public ResponseVO<Comment> findCommentByUUID(@RequestBody QueryCommentDTO queryCommentDTO) {
-        Comment comment = service.findCommentByUUID(queryCommentDTO);
+    public ResponseVO<Comment> getCommentByUUID(@RequestBody QueryCommentDTO queryCommentDTO) {
+        Comment comment = service.getCommentByUUID(queryCommentDTO);
         if (comment != null) {
             return ResponseVO.success(comment);
         } else {
@@ -57,4 +56,34 @@ public class CommentController {
         }
     }
 
+    @DeleteMapping("delete")
+    public ResponseVO deleteComment(@RequestBody QueryCommentDTO queryCommentDTO){
+        int status = service.deleteComment(queryCommentDTO);
+        if (status == 1) {
+            return ResponseVO.success("delete comment ok");
+        }
+        if (status == 2) {
+            return ResponseVO.failed("delete comment not found");
+        }
+        return ResponseVO.failed("delete commnet failed");
+    }
+
+    @PutMapping("not/visible")
+    public ResponseVO setCommentNotVisible(@RequestBody QueryCommentDTO queryCommentDTO){
+        int status = service.setCommentNotVisible(queryCommentDTO);
+        if (status == 1) {
+            return ResponseVO.success("comment not visible ok");
+        }
+        return ResponseVO.failed("comment not found");
+    }
+
+    @PutMapping("visible")
+    public ResponseVO setCommentVisible(@RequestBody QueryCommentDTO queryCommentDTO){
+        System.out.println("controller:"+queryCommentDTO.toString());
+        int status = service.setCommentVisible(queryCommentDTO);
+        if (status == 1) {
+            return ResponseVO.success("comment visible ok");
+        }
+        return ResponseVO.failed("comment not found");
+    }
 }

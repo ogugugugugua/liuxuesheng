@@ -21,30 +21,22 @@ import scut.yulin.common.constant.CommonConstant;
 public class Destination extends Schedule implements Serializable {
 
   /**
-   * 非数据库字段
-   * 该目的地附近可用交通方式列表
-   * 通过调用TransportationService进行注入
+   * 非数据库字段 该目的地附近可用交通方式列表 通过调用TransportationService进行注入
    */
   private List<Transportation> transportationList;
 
   /**
-   * 非数据库字段
-   * 该目的地所有消费项目列表
-   * 通过调用PriceService进行注入
+   * 非数据库字段 该目的地所有消费项目列表 通过调用PriceService进行注入
    */
   private List<Price> priceList;
 
   /**
-   * 非数据库字段
-   * 该目的地所有图片描述
-   * 通过调用ImageService进行注入
+   * 非数据库字段 该目的地所有图片描述 通过调用ImageService进行注入
    */
   private List<Image> imageList;
 
   /**
-   * 非数据库字段
-   * 该目的地所有评论
-   * 通过调用CommentService进行注入
+   * 非数据库字段 该目的地所有评论 通过调用CommentService进行注入
    */
   private List<Comment> commentList;
 
@@ -146,9 +138,10 @@ public class Destination extends Schedule implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  public Destination(String localName, String cnName, String city, String countryUuid,
+  public Destination(String uuid, String localName, String cnName, String city, String countryUuid,
       String location, BigDecimal rating, String duration, String url, String description,
       String specialRequirement) {
+    this.uuid = uuid;
     this.scheduleTypeUuid = CommonConstant.SCHEDULE_TYPE_DESTINATION;
     this.localName = localName;
     this.cnName = cnName;

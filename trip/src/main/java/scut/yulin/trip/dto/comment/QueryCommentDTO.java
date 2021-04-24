@@ -12,7 +12,7 @@ import scut.yulin.trip.dto.PageQueryDTO;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QueryCommentDTO extends PageQueryDTO {
-    String uuid;
+    private String uuid;
     /**
      * 关联行程uuid
      */

@@ -13,18 +13,21 @@ public interface CommentService {
 
     public int addNewComment(InsertCommentDTO insertCommentDTO);
 
-    public Comment findCommentByUUID(QueryCommentDTO queryCommentDTO);
+    public Comment getCommentByUUID(QueryCommentDTO queryCommentDTO);
 
     //TODO
     public Comment findParentCommentByCurrentUUID(QueryCommentDTO queryCommentDTO);
 
     public List<Comment> findChildrenCommentsByCurrentUUID(QueryCommentDTO queryCommentDTO);
 
-    public void setCommentNotVisible(QueryCommentDTO queryCommentDTO);
+    public int setCommentNotVisible(QueryCommentDTO queryCommentDTO);
 
-    public void setCommentVisible(QueryCommentDTO queryCommentDTO);
+    public int setCommentVisible(QueryCommentDTO queryCommentDTO);
 
-    public List<Comment> findAllComments(QueryCommentDTO queryCommentDTO);
+    public List<Comment> getCommentLists(QueryCommentDTO queryCommentDTO);
 
     public List<Comment> getCommentListByScheduleUUID(QueryCommentDTO queryCommentDTO);
+
+    public int deleteComment(QueryCommentDTO queryCommentDTO);
+
 }
