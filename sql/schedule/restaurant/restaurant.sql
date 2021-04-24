@@ -33,7 +33,8 @@ CREATE TABLE menu
     updated_time    DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted         VARCHAR(1)     NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
-    UNIQUE KEY uniq_menu_uuid (uuid)
+    UNIQUE KEY uniq_menu_uuid (uuid),
+    UNIQUE KEY uniq_restaurant_name_price (restaurant_uuid, name, price)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4

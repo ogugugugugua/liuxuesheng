@@ -6,3 +6,4 @@
 6. 把所有的delete操作中的搜索操作都改为select count(1)+new Object，以减小数据库IO
 7. 统一Exception处理
 8. setImageNotVisible
+9. 每一个小范围类在修改/新增时都需要检查大范围类的UUID是否存在且正确

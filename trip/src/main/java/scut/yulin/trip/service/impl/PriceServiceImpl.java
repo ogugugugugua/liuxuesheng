@@ -136,7 +136,7 @@ public class PriceServiceImpl implements PriceService {
   /**
    * 根据UUID获取价格，不包含已被删除选项
    */
-  public Price getPriceByUUIDWithDeleted(QueryPriceDTO queryPriceDTO) {
+  private Price getPriceByUUIDWithDeleted(QueryPriceDTO queryPriceDTO) {
     String uuid = queryPriceDTO.getUuid();
     if (uuid == null) {
       return null;
@@ -165,8 +165,6 @@ public class PriceServiceImpl implements PriceService {
       if (targetPrice == null) {
         return 2;
       }
-
-      System.out.println(targetPrice);
 
       BigDecimal discountPrice = modifyPriceDTO.getDiscountPrice();
       BigDecimal originalPrice = modifyPriceDTO.getOriginalPrice();
