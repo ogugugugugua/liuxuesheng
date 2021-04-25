@@ -60,7 +60,7 @@ CREATE TABLE room
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin COMMENT = '酒店房间';
 
-
+# abandoned
 CREATE TABLE roomuuid_beduuid
 (
     id           BIGINT     NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -82,19 +82,22 @@ CREATE TABLE bed
 (
     id            BIGINT      NOT NULL AUTO_INCREMENT COMMENT '床型id',
     uuid          CHAR(36)    NOT NULL COMMENT 'uuid',
+    room_uuid     CHAR(36)    NOT NULL COMMENT '房间uuid',
     type          VARCHAR(32) NOT NULL DEFAULT '' COMMENT '类型 双人床,单人床,沙发床,榻榻米',
-    number_person INT         NOT NULL DEFAULT 1 COMMENT '可容纳人数',
+    number_person INT         NOT NULL DEFAULT 1 COMMENT '该床型可容纳人数',
+    quantity      INT         NOT NULL DEFAULT 1 COMMENT '房间里该床型数量',
     created_time  DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_time  DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted       VARCHAR(1)  NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
-    UNIQUE KEY uniq_uuid (uuid)
+    UNIQUE KEY uniq_uuid (uuid),
+    UNIQUE KEY uniq_room_type_num_quan (room_uuid, type, number_person, quantity)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin COMMENT = '酒店房间床规格';
 
-
+# abandoned
 CREATE TABLE roomuuid_equipmentuuid
 (
     id             BIGINT     NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -114,15 +117,18 @@ CREATE TABLE roomuuid_equipmentuuid
 
 CREATE TABLE equipment
 (
-    id             BIGINT      NOT NULL COMMENT '设施id',
+    id             BIGINT      NOT NULL AUTO_INCREMENT COMMENT '设施id',
     uuid           CHAR(36)    NOT NULL COMMENT 'uuid',
+    room_uuid      CHAR(36)    NOT NULL COMMENT '房间uuid',
     equipment_name VARCHAR(32) NOT NULL COMMENT '设施名字',
     parameter      VARCHAR(32) NOT NULL DEFAULT '' COMMENT '参数',
+    quantity       INT         NOT NULL DEFAULT 1 COMMENT '房间里该床型数量',
     created_time   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_time   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted        VARCHAR(1)  NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
-    UNIQUE KEY uniq_uuid (uuid)
+    UNIQUE KEY uniq_uuid (uuid),
+    UNIQUE KEY uniq_room_name_param_quantity (room_uuid, equipment_name, parameter, quantity)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.EquipmentDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Equipment">
+    <id column="equipment_id" jdbcType="BIGINT" property="id" />
+    <result column="equipment_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="equipment_room_uuid" jdbcType="CHAR" property="roomUuid" />
+    <result column="equipment_equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="equipment_parameter" jdbcType="VARCHAR" property="parameter" />
+    <result column="equipment_quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="equipment_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="equipment_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="equipment_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    equipment.id as equipment_id, equipment.uuid as equipment_uuid, equipment.room_uuid as equipment_room_uuid, 
+    equipment.equipment_name as equipment_equipment_name, equipment.`parameter` as `equipment_parameter`, 
+    equipment.quantity as equipment_quantity, equipment.created_time as equipment_created_time, 
+    equipment.updated_time as equipment_updated_time, equipment.deleted as equipment_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.EquipmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from equipment equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from equipment equipment
+    where equipment.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from equipment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.EquipmentExample">
+    delete from equipment equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Equipment" useGeneratedKeys="true">
+    insert into equipment (uuid, room_uuid, equipment_name, 
+      `parameter`, quantity, created_time, 
+      updated_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{roomUuid,jdbcType=CHAR}, #{equipmentName,jdbcType=VARCHAR}, 
+      #{parameter,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Equipment" useGeneratedKeys="true">
+    insert into equipment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="roomUuid != null">
+        room_uuid,
+      </if>
+      <if test="equipmentName != null">
+        equipment_name,
+      </if>
+      <if test="parameter != null">
+        `parameter`,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="roomUuid != null">
+        #{roomUuid,jdbcType=CHAR},
+      </if>
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null">
+        #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.EquipmentExample" resultType="java.lang.Long">
+    select count(*) from equipment equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update equipment equipment
+    <set>
+      <if test="record.id != null">
+        equipment.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        equipment.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.roomUuid != null">
+        equipment.room_uuid = #{record.roomUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.equipmentName != null">
+        equipment.equipment_name = #{record.equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parameter != null">
+        equipment.`parameter` = #{record.parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        equipment.quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null">
+        equipment.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        equipment.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        equipment.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update equipment equipment
+    set equipment.id = #{record.id,jdbcType=BIGINT},
+      equipment.uuid = #{record.uuid,jdbcType=CHAR},
+      equipment.room_uuid = #{record.roomUuid,jdbcType=CHAR},
+      equipment.equipment_name = #{record.equipmentName,jdbcType=VARCHAR},
+      equipment.`parameter` = #{record.parameter,jdbcType=VARCHAR},
+      equipment.quantity = #{record.quantity,jdbcType=INTEGER},
+      equipment.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      equipment.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      equipment.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Equipment">
+    update equipment
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="roomUuid != null">
+        room_uuid = #{roomUuid,jdbcType=CHAR},
+      </if>
+      <if test="equipmentName != null">
+        equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null">
+        `parameter` = #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Equipment">
+    update equipment
+    set uuid = #{uuid,jdbcType=CHAR},
+      room_uuid = #{roomUuid,jdbcType=CHAR},
+      equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      `parameter` = #{parameter,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

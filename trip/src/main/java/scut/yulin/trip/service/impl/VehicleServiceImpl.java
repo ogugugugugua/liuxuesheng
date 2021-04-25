@@ -123,6 +123,8 @@ public class VehicleServiceImpl implements VehicleService {
 
   private Date getDuration(Date arrivalTime, Date departureTime) {
     try {
+      Assert.isTrue(arrivalTime.getTime() > departureTime.getTime(),
+          "Wrong relation of departure and arrival");
       SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");//如2016-08-10 20:40
       int minutes = (int) ((arrivalTime.getTime() - departureTime.getTime()) / (1000 * 60));
       if (minutes < 0) {
@@ -137,7 +139,7 @@ public class VehicleServiceImpl implements VehicleService {
   }
 
   @Override
-  public int addNewVehicle(InsertVehicleDTO insertVehicleDTO){
+  public int addNewVehicle(InsertVehicleDTO insertVehicleDTO) {
 
     //尝试查询该交通方式类型是否存在
     String transportationTypeUuid = insertVehicleDTO.getTransportationTypeUuid();
