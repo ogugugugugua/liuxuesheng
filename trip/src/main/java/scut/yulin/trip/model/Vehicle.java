@@ -3,11 +3,8 @@ package scut.yulin.trip.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import scut.yulin.common.constant.CommonConstant;
 
@@ -17,7 +14,8 @@ import scut.yulin.common.constant.CommonConstant;
  * @author
  */
 @ApiModel(value = "scut.yulin.trip.model.Vehicle交通 ")
-@Data
+//@Data
+//@Getter
 @NoArgsConstructor
 public class Vehicle extends Schedule implements Serializable {
 
@@ -150,6 +148,169 @@ public class Vehicle extends Schedule implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  public TransportationType getTransportationType() {
+    return transportationType;
+  }
+
+  public List<Price> getPriceList() {
+    return priceList;
+  }
+
+  public List<Image> getImageList() {
+    return imageList;
+  }
+
+  public List<Comment> getCommentList() {
+    return commentList;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getUuid() {
+    return uuid;
+  }
+
+  public String getScheduleTypeUuid() {
+    return scheduleTypeUuid;
+  }
+
+  public String getTransportationTypeUuid() {
+    return transportationTypeUuid;
+  }
+
+  public String getLocalName() {
+    return localName;
+  }
+
+  public String getCnName() {
+    return cnName;
+  }
+
+  public String getVehicleSerial() {
+    return vehicleSerial;
+  }
+
+  public Date getDepartureTime() {
+    return departureTime;
+  }
+
+  public Date getDuration() {
+    return duration;
+  }
+
+  public Date getArrivalTime() {
+    return arrivalTime;
+  }
+
+  public String getDepartureLocation() {
+    return departureLocation;
+  }
+
+  public String getArrivalLocation() {
+    return arrivalLocation;
+  }
+
+  public String getGrade() {
+    return grade;
+  }
+
+  public Date getCreatedTime() {
+    return createdTime;
+  }
+
+  public Date getUpdatedTime() {
+    return updatedTime;
+  }
+
+  public String getDeleted() {
+    return deleted;
+  }
+
+  public static long getSerialVersionUID() {
+    return serialVersionUID;
+  }
+
+  public void setTransportationType(TransportationType transportationType) {
+    this.transportationType = transportationType;
+  }
+
+  public void setPriceList(List<Price> priceList) {
+    this.priceList = priceList;
+  }
+
+  public void setImageList(List<Image> imageList) {
+    this.imageList = imageList;
+  }
+
+  public void setCommentList(List<Comment> commentList) {
+    this.commentList = commentList;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setUuid(String uuid) {
+    this.uuid = uuid;
+  }
+
+  public void setScheduleTypeUuid(String scheduleTypeUuid) {
+    this.scheduleTypeUuid = scheduleTypeUuid;
+  }
+
+  public void setTransportationTypeUuid(String transportationTypeUuid) {
+    this.transportationTypeUuid = transportationTypeUuid;
+  }
+
+  public void setLocalName(String localName) {
+    this.localName = localName;
+  }
+
+  public void setCnName(String cnName) {
+    this.cnName = cnName;
+  }
+
+  public void setVehicleSerial(String vehicleSerial) {
+    this.vehicleSerial = vehicleSerial;
+  }
+
+  public void setDepartureTime(Date departureTime) {
+    this.departureTime = departureTime;
+  }
+
+  public void setDuration(Date duration) {
+    this.duration = duration;
+  }
+
+  public void setArrivalTime(Date arrivalTime) {
+    this.arrivalTime = arrivalTime;
+  }
+
+  public void setDepartureLocation(String departureLocation) {
+    this.departureLocation = departureLocation;
+  }
+
+  public void setArrivalLocation(String arrivalLocation) {
+    this.arrivalLocation = arrivalLocation;
+  }
+
+  public void setGrade(String grade) {
+    this.grade = grade;
+  }
+
+  public void setCreatedTime(Date createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(Date updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setDeleted(String deleted) {
+    this.deleted = deleted;
+  }
 
   public Vehicle(String uuid, String transportationTypeUuid,
       String localName, String cnName, String vehicleSerial,
@@ -170,18 +331,13 @@ public class Vehicle extends Schedule implements Serializable {
   }
 
   public String getDurationInString() {
-    SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");//如2016-08-10 20:40
-    Date earliestDate;
-    String earliest = "1970-01-01 00:00";
     try {
-      earliestDate = simpleFormat.parse(earliest);
-
-      long diff = this.getDuration().getTime() - earliestDate.getTime();
+      long diff = this.getArrivalTime().getTime() - this.getDepartureTime().getTime();
       long day = diff / (1000 * 60 * 60 * 24);
       long hour = (diff - day * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
       long min = (diff - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60)) / (1000 * 60);
       return day + " days, " + hour + " hours, " + min + " mins";
-    } catch (ParseException e) {
+    } catch (Exception e) {
       return e.getCause() + e.getMessage();
     }
   }

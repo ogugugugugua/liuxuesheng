@@ -96,7 +96,7 @@ public class AdminApplication {
 
 # 预期优化点
 1. 使用观察者模式，多线程优化schedule子类的加载：主要因为其中有多个于外表的关联需要加载
-
+2. 返回最少必须的数据，优化传输效率，比如vehicle中的transportationType就可以只回传一个字符串，而不是一个DTO类
 
 # service功能分类
 需要提供审核的接口：

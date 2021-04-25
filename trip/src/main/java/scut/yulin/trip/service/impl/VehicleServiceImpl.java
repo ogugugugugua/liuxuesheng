@@ -128,7 +128,7 @@ public class VehicleServiceImpl implements VehicleService {
       if (minutes < 0) {
         return null;
       }
-      String baseDate = "1970-01-01 00:";
+      String baseDate = "1970-01-01 08:";
       String durationString = baseDate + minutes;
       return simpleFormat.parse(durationString);
     } catch (ParseException e) {
@@ -138,7 +138,6 @@ public class VehicleServiceImpl implements VehicleService {
 
   @Override
   public int addNewVehicle(InsertVehicleDTO insertVehicleDTO){
-    System.out.println(insertVehicleDTO.toString());
 
     //尝试查询该交通方式类型是否存在
     String transportationTypeUuid = insertVehicleDTO.getTransportationTypeUuid();
@@ -199,7 +198,6 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleSerial, departureTime, duration, arrivalTime, departureLocation, arrivalLocation,
         grade);
 
-    System.out.println("vehicle===>"+vehicle);
     return vehicleDao.insertSelective(vehicle);
   }
 

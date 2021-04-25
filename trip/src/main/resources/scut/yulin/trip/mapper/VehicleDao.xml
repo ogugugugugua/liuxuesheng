@@ -3,8 +3,8 @@
 <mapper namespace="scut.yulin.trip.mbg.mapper.VehicleDao">
   <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Vehicle">
     <id column="vehicle_id" jdbcType="BIGINT" property="id" />
-    <result column="vehicle_uuid" jdbcType="VARCHAR" property="uuid" />
-    <result column="vehicle_schedule_type_uuid" jdbcType="VARCHAR" property="scheduleTypeUuid" />
+    <result column="vehicle_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="vehicle_schedule_type_uuid" jdbcType="CHAR" property="scheduleTypeUuid" />
     <result column="vehicle_transportation_type_uuid" jdbcType="CHAR" property="transportationTypeUuid" />
     <result column="vehicle_local_name" jdbcType="VARCHAR" property="localName" />
     <result column="vehicle_cn_name" jdbcType="VARCHAR" property="cnName" />
@@ -135,7 +135,7 @@
       departure_location, arrival_location, grade, 
       created_time, updated_time, deleted
       )
-    values (#{uuid,jdbcType=VARCHAR}, #{scheduleTypeUuid,jdbcType=VARCHAR}, #{transportationTypeUuid,jdbcType=CHAR}, 
+    values (#{uuid,jdbcType=CHAR}, #{scheduleTypeUuid,jdbcType=CHAR}, #{transportationTypeUuid,jdbcType=CHAR}, 
       #{localName,jdbcType=VARCHAR}, #{cnName,jdbcType=VARCHAR}, #{vehicleSerial,jdbcType=VARCHAR}, 
       #{departureTime,jdbcType=TIMESTAMP}, #{duration,jdbcType=TIME}, #{arrivalTime,jdbcType=TIMESTAMP}, 
       #{departureLocation,jdbcType=VARCHAR}, #{arrivalLocation,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
@@ -193,10 +193,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
-        #{uuid,jdbcType=VARCHAR},
+        #{uuid,jdbcType=CHAR},
       </if>
       <if test="scheduleTypeUuid != null">
-        #{scheduleTypeUuid,jdbcType=VARCHAR},
+        #{scheduleTypeUuid,jdbcType=CHAR},
       </if>
       <if test="transportationTypeUuid != null">
         #{transportationTypeUuid,jdbcType=CHAR},
@@ -252,10 +252,10 @@
         vehicle.id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.uuid != null">
-        vehicle.uuid = #{record.uuid,jdbcType=VARCHAR},
+        vehicle.uuid = #{record.uuid,jdbcType=CHAR},
       </if>
       <if test="record.scheduleTypeUuid != null">
-        vehicle.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=VARCHAR},
+        vehicle.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
       </if>
       <if test="record.transportationTypeUuid != null">
         vehicle.transportation_type_uuid = #{record.transportationTypeUuid,jdbcType=CHAR},
@@ -304,8 +304,8 @@
   <update id="updateByExample" parameterType="map">
     update vehicle vehicle
     set vehicle.id = #{record.id,jdbcType=BIGINT},
-      vehicle.uuid = #{record.uuid,jdbcType=VARCHAR},
-      vehicle.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=VARCHAR},
+      vehicle.uuid = #{record.uuid,jdbcType=CHAR},
+      vehicle.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
       vehicle.transportation_type_uuid = #{record.transportationTypeUuid,jdbcType=CHAR},
       vehicle.local_name = #{record.localName,jdbcType=VARCHAR},
       vehicle.cn_name = #{record.cnName,jdbcType=VARCHAR},
@@ -327,10 +327,10 @@
     update vehicle
     <set>
       <if test="uuid != null">
-        uuid = #{uuid,jdbcType=VARCHAR},
+        uuid = #{uuid,jdbcType=CHAR},
       </if>
       <if test="scheduleTypeUuid != null">
-        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=VARCHAR},
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
       </if>
       <if test="transportationTypeUuid != null">
         transportation_type_uuid = #{transportationTypeUuid,jdbcType=CHAR},
@@ -376,8 +376,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Vehicle">
     update vehicle
-    set uuid = #{uuid,jdbcType=VARCHAR},
-      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=VARCHAR},
+    set uuid = #{uuid,jdbcType=CHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
       transportation_type_uuid = #{transportationTypeUuid,jdbcType=CHAR},
       local_name = #{localName,jdbcType=VARCHAR},
       cn_name = #{cnName,jdbcType=VARCHAR},
