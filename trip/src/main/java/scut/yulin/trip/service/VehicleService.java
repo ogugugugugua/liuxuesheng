@@ -16,7 +16,7 @@ public interface VehicleService {
 
   public Vehicle getVehicleByUUID(QueryVehicleDTO queryVehicleDTO, Boolean getFullInformation);
 
-  public int addVehicle(InsertVehicleDTO insertVehicleDTO);
+  public int addNewVehicle(InsertVehicleDTO insertVehicleDTO);
 
   public int deleteVehicle(QueryVehicleDTO queryVehicleDTO);
 

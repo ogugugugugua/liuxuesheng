@@ -3,10 +3,13 @@ package scut.yulin.trip.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import scut.yulin.common.constant.CommonConstant;
 
 /**
  * vehicle
@@ -16,7 +19,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "scut.yulin.trip.model.Vehicle交通 ")
 @Data
 @NoArgsConstructor
-public class Vehicle implements Serializable {
+public class Vehicle extends Schedule implements Serializable {
 
   /**
    * 非数据库字段 交通工具类型
@@ -42,6 +45,12 @@ public class Vehicle implements Serializable {
    */
   @ApiModelProperty(value = "非数据库字段，评论列表")
   private List<Comment> commentList;
+
+  /**
+   * 非数据库字段 耗时，字符串表达
+   */
+  @ApiModelProperty(value = "非数据库字段，耗时")
+  private String durationInString;
 
   /**
    * id
@@ -141,6 +150,42 @@ public class Vehicle implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+
+  public Vehicle(String uuid, String transportationTypeUuid,
+      String localName, String cnName, String vehicleSerial,
+      Date departureTime, Date duration, Date arrivalTime,
+      String departureLocation, String arrivalLocation, String grade) {
+    this.uuid = uuid;
+    this.transportationTypeUuid = transportationTypeUuid;
+    this.localName = localName;
+    this.cnName = cnName;
+    this.vehicleSerial = vehicleSerial;
+    this.departureTime = departureTime;
+    this.duration = duration;
+    this.arrivalTime = arrivalTime;
+    this.departureLocation = departureLocation;
+    this.arrivalLocation = arrivalLocation;
+    this.grade = grade;
+    this.scheduleTypeUuid = CommonConstant.SCHEDULE_TYPE_VEHICLE;
+  }
+
+  public String getDurationInString() {
+    SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");//如2016-08-10 20:40
+    Date earliestDate;
+    String earliest = "1970-01-01 00:00";
+    try {
+      earliestDate = simpleFormat.parse(earliest);
+
+      long diff = this.getDuration().getTime() - earliestDate.getTime();
+      long day = diff / (1000 * 60 * 60 * 24);
+      long hour = (diff - day * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+      long min = (diff - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60)) / (1000 * 60);
+      return day + " days, " + hour + " hours, " + min + " mins";
+    } catch (ParseException e) {
+      return e.getCause() + e.getMessage();
+    }
+  }
+
   @Override
   public boolean equals(Object that) {
     if (this == that) {
@@ -238,5 +283,15 @@ public class Vehicle implements Serializable {
     sb.append(", serialVersionUID=").append(serialVersionUID);
     sb.append("]");
     return sb.toString();
+  }
+
+  @Override
+  public String getScheduleType() {
+    return this.getScheduleTypeUuid();
+  }
+
+  @Override
+  public String getSchedule() {
+    return this.getUuid();
   }
 }

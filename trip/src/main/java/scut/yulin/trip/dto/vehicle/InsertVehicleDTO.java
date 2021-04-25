@@ -1,6 +1,5 @@
 package scut.yulin.trip.dto.vehicle;
 
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,17 +37,12 @@ public class InsertVehicleDTO {
   /**
    * 出发时间
    */
-  private Date departureTime;
-
-  /**
-   * 交通耗时
-   */
-  private Date duration;
+  private String departureTime;
 
   /**
    * 到达时间
    */
-  private Date arrivalTime;
+  private String arrivalTime;
 
   /**
    * 出发地点【可选】

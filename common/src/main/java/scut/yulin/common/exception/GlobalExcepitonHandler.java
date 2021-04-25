@@ -2,6 +2,7 @@ package scut.yulin.common.exception;
 
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.text.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -70,5 +71,13 @@ public class GlobalExcepitonHandler {
   public ResponseVO handler(NullPointerException e){
     log.error("发生空指针异常！原因是======>"+e.getMessage()+"\t"+e.getCause());
     return ResponseVO.failed(e.getMessage());
+  }
+
+  //ParseException
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(value = ParseException.class)
+  public ResponseVO handler(ParseException e) throws IOException {
+    log.error("数据解析出错:-------------->", e);
+    return ResponseVO.failed("数据解析出错===>" + e.getMessage());
   }
 }

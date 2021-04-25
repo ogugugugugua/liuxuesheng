@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import scut.yulin.common.constant.CommonConstant;
 
 /**
  * restaurant
@@ -136,6 +137,7 @@ public class Restaurant extends Schedule implements Serializable {
     this.location = location;
     this.rating = rating;
     this.url = url;
+    this.scheduleTypeUuid = CommonConstant.SCHEDULE_TYPE_RESTAURANT;
   }
 
   @Override

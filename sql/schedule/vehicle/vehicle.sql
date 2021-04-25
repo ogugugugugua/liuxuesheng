@@ -1,8 +1,8 @@
 CREATE TABLE vehicle
 (
     id                       BIGINT      NOT NULL AUTO_INCREMENT COMMENT 'id',
-    uuid                     VARCHAR(32) NOT NULL COMMENT '行程/交通uuid',
-    schedule_type_uuid       VARCHAR(32) NOT NULL DEFAULT '4' COMMENT '行程类型uuid',
+    uuid                     CHAR(36) NOT NULL COMMENT '行程/交通uuid',
+    schedule_type_uuid       CHAR(36) NOT NULL DEFAULT '4' COMMENT '行程类型uuid',
     transportation_type_uuid CHAR(36)    NOT NULL COMMENT '交通工具类型uuid',
     local_name               VARCHAR(32) NOT NULL COMMENT '外文名称',
     cn_name                  VARCHAR(32) NOT NULL DEFAULT '' COMMENT '中文名称',
