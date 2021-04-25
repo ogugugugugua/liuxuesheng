@@ -122,7 +122,7 @@ CREATE TABLE equipment
     room_uuid      CHAR(36)    NOT NULL COMMENT '房间uuid',
     equipment_name VARCHAR(32) NOT NULL COMMENT '设施名字',
     parameter      VARCHAR(32) NOT NULL DEFAULT '' COMMENT '参数',
-    quantity       INT         NOT NULL DEFAULT 1 COMMENT '房间里该床型数量',
+    quantity       INT         NOT NULL DEFAULT 1 COMMENT '房间里该设施数量',
     created_time   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_time   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted        VARCHAR(1)  NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',

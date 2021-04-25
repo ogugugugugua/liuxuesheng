@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.BedDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Bed">
+    <id column="bed_id" jdbcType="BIGINT" property="id" />
+    <result column="bed_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="bed_room_uuid" jdbcType="CHAR" property="roomUuid" />
+    <result column="bed_type" jdbcType="VARCHAR" property="type" />
+    <result column="bed_number_person" jdbcType="INTEGER" property="numberPerson" />
+    <result column="bed_quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="bed_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="bed_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="bed_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    bed.id as bed_id, bed.uuid as bed_uuid, bed.room_uuid as bed_room_uuid, bed.`type` as `bed_type`, 
+    bed.number_person as bed_number_person, bed.quantity as bed_quantity, bed.created_time as bed_created_time, 
+    bed.updated_time as bed_updated_time, bed.deleted as bed_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.BedExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bed bed
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bed bed
+    where bed.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bed
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.BedExample">
+    delete from bed bed
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Bed" useGeneratedKeys="true">
+    insert into bed (uuid, room_uuid, `type`, 
+      number_person, quantity, created_time, 
+      updated_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{roomUuid,jdbcType=CHAR}, #{type,jdbcType=VARCHAR}, 
+      #{numberPerson,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Bed" useGeneratedKeys="true">
+    insert into bed
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="roomUuid != null">
+        room_uuid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="numberPerson != null">
+        number_person,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="roomUuid != null">
+        #{roomUuid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPerson != null">
+        #{numberPerson,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.BedExample" resultType="java.lang.Long">
+    select count(*) from bed bed
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bed bed
+    <set>
+      <if test="record.id != null">
+        bed.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        bed.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.roomUuid != null">
+        bed.room_uuid = #{record.roomUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.type != null">
+        bed.`type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numberPerson != null">
+        bed.number_person = #{record.numberPerson,jdbcType=INTEGER},
+      </if>
+      <if test="record.quantity != null">
+        bed.quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null">
+        bed.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        bed.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        bed.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bed bed
+    set bed.id = #{record.id,jdbcType=BIGINT},
+      bed.uuid = #{record.uuid,jdbcType=CHAR},
+      bed.room_uuid = #{record.roomUuid,jdbcType=CHAR},
+      bed.`type` = #{record.type,jdbcType=VARCHAR},
+      bed.number_person = #{record.numberPerson,jdbcType=INTEGER},
+      bed.quantity = #{record.quantity,jdbcType=INTEGER},
+      bed.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      bed.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      bed.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Bed">
+    update bed
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="roomUuid != null">
+        room_uuid = #{roomUuid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPerson != null">
+        number_person = #{numberPerson,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Bed">
+    update bed
+    set uuid = #{uuid,jdbcType=CHAR},
+      room_uuid = #{roomUuid,jdbcType=CHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      number_person = #{numberPerson,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

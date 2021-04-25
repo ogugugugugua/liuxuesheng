@@ -52,11 +52,11 @@ public class EquipmentController {
     int status = equipmentService.deleteEquipment(queryEquipmentDTO);
     switch (status) {
       case 1:
-        return ResponseVO.success("add new equipment ok");
+        return ResponseVO.success("delete equipment ok");
       case 2:
-        return ResponseVO.failed("add new equipment not found");
+        return ResponseVO.failed("delete equipment not found");
       default:
-        return ResponseVO.failed("add new equipment failed");
+        return ResponseVO.failed("delete equipment failed");
     }
   }
 
@@ -65,11 +65,11 @@ public class EquipmentController {
     int status = equipmentService.modifyEquipment(modifyEquipmentDTO);
     switch (status) {
       case 1:
-        return ResponseVO.success("modify new equipment ok");
+        return ResponseVO.success("modify equipment ok");
       case 2:
-        return ResponseVO.failed("modify new equipment not found");
+        return ResponseVO.failed("modify equipment not found");
       default:
-        return ResponseVO.failed("modify new equipment failed");
+        return ResponseVO.failed("modify equipment failed");
     }
   }
 }
