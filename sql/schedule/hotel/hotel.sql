@@ -33,8 +33,7 @@ CREATE TABLE hoteluuid_roomuuid
     updated_time DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted      VARCHAR(1) NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
-    UNIQUE KEY uniq_uuid (uuid),
-    UNIQUE KEY uniq_hotel_room (hotel_uuid, room_uuid)
+    UNIQUE KEY uniq_uuid (uuid)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
