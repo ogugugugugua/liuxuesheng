@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.RoomDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Room">
+    <id column="room_id" jdbcType="BIGINT" property="id" />
+    <result column="room_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="room_type" jdbcType="VARCHAR" property="type" />
+    <result column="room_number_person" jdbcType="INTEGER" property="numberPerson" />
+    <result column="room_default_price" jdbcType="DECIMAL" property="defaultPrice" />
+    <result column="room_discount_price" jdbcType="DECIMAL" property="discountPrice" />
+    <result column="room_vip_grade" jdbcType="VARCHAR" property="vipGrade" />
+    <result column="room_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="room_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="room_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    room.id as room_id, room.uuid as room_uuid, room.`type` as `room_type`, room.number_person as room_number_person, 
+    room.default_price as room_default_price, room.discount_price as room_discount_price, 
+    room.vip_grade as room_vip_grade, room.created_time as room_created_time, room.updated_time as room_updated_time, 
+    room.deleted as room_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.RoomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from room room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room room
+    where room.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from room
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.RoomExample">
+    delete from room room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Room" useGeneratedKeys="true">
+    insert into room (uuid, `type`, number_person, 
+      default_price, discount_price, vip_grade, 
+      created_time, updated_time, deleted
+      )
+    values (#{uuid,jdbcType=CHAR}, #{type,jdbcType=VARCHAR}, #{numberPerson,jdbcType=INTEGER}, 
+      #{defaultPrice,jdbcType=DECIMAL}, #{discountPrice,jdbcType=DECIMAL}, #{vipGrade,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Room" useGeneratedKeys="true">
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="numberPerson != null">
+        number_person,
+      </if>
+      <if test="defaultPrice != null">
+        default_price,
+      </if>
+      <if test="discountPrice != null">
+        discount_price,
+      </if>
+      <if test="vipGrade != null">
+        vip_grade,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPerson != null">
+        #{numberPerson,jdbcType=INTEGER},
+      </if>
+      <if test="defaultPrice != null">
+        #{defaultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null">
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="vipGrade != null">
+        #{vipGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.RoomExample" resultType="java.lang.Long">
+    select count(*) from room room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update room room
+    <set>
+      <if test="record.id != null">
+        room.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        room.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.type != null">
+        room.`type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numberPerson != null">
+        room.number_person = #{record.numberPerson,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultPrice != null">
+        room.default_price = #{record.defaultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountPrice != null">
+        room.discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vipGrade != null">
+        room.vip_grade = #{record.vipGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        room.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        room.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        room.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update room room
+    set room.id = #{record.id,jdbcType=BIGINT},
+      room.uuid = #{record.uuid,jdbcType=CHAR},
+      room.`type` = #{record.type,jdbcType=VARCHAR},
+      room.number_person = #{record.numberPerson,jdbcType=INTEGER},
+      room.default_price = #{record.defaultPrice,jdbcType=DECIMAL},
+      room.discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+      room.vip_grade = #{record.vipGrade,jdbcType=VARCHAR},
+      room.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      room.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      room.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Room">
+    update room
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPerson != null">
+        number_person = #{numberPerson,jdbcType=INTEGER},
+      </if>
+      <if test="defaultPrice != null">
+        default_price = #{defaultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null">
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="vipGrade != null">
+        vip_grade = #{vipGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Room">
+    update room
+    set uuid = #{uuid,jdbcType=CHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      number_person = #{numberPerson,jdbcType=INTEGER},
+      default_price = #{defaultPrice,jdbcType=DECIMAL},
+      discount_price = #{discountPrice,jdbcType=DECIMAL},
+      vip_grade = #{vipGrade,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
