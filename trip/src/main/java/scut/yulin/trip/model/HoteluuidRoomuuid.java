@@ -65,7 +65,6 @@ public class HoteluuidRoomuuid implements Serializable {
         this.hotelUuid = hotelUuid;
     }
 
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {

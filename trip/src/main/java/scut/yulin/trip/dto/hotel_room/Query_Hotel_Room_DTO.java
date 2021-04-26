@@ -16,4 +16,5 @@ import scut.yulin.trip.dto.PageQueryDTO;
 public class Query_Hotel_Room_DTO extends PageQueryDTO {
   String uuid;
   String hotelUuid;
+  String roomUuid;
 }
