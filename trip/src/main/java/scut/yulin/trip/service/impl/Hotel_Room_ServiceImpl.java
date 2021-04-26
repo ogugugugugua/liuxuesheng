@@ -42,7 +42,7 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
 
   /**
    * 通过某个hotelUUID查找它的所有房间列表
-   * @param query_hotel_room_dto
+   * @param query_hotel_room_dto 必须有hotelUUID
    * @return
    */
   @Override
@@ -80,7 +80,7 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
 
   /**
    * 获得所有的hotel-room关系，通过hotel进行聚合显示
-   * @param query_hotel_room_dto
+   * @param query_hotel_room_dto 不需要有参数
    * @return
    */
   @Override
@@ -109,7 +109,7 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
 
   /**
    * 获取某一行记录，可以用过uuid进行索引，也可以通过hotelUuid+roomUuid进行索引
-   *
+   * @param query_hotel_room_dto 二选一：hotelUuid+roomUuid    |    行UUID
    * @return 返回结果包含 酒店UUID 和 房间UUID 以及 该行记录的UUID
    */
   @Override
@@ -150,7 +150,7 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
 
   /**
    * 增加hotel-room关系
-   * @param insert_hotel_room_dto
+   * @param insert_hotel_room_dto 必须有hotelUuid+roomUuid
    * @return
    */
   @Override
@@ -169,7 +169,7 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
 
   /**
    * 用于删除hotel-room关系，可以用过uuid进行索引，也可以通过hotelUuid+roomUuid进行索引
-   * @param query_hotel_room_dto
+   * @param query_hotel_room_dto 二选一：hotelUuid+roomUuid    |    行UUID
    * @return
    */
   @Override
@@ -199,8 +199,8 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
   }
 
   /**
-   * 用于修改操作，可以找出已被逻辑删除的行
-   * @param query_hotel_room_dto
+   * 可以找出已被逻辑删除的行，用于上层的修改操作
+   * @param query_hotel_room_dto 二选一：hotelUuid+roomUuid（提供了这个功能但没有用到）    |    行UUID
    * @return
    */
   private HoteluuidRoomuuid getSingleHotelRoomRelationByUUIDWithDeleted(
@@ -238,7 +238,7 @@ public class Hotel_Room_ServiceImpl implements Hotel_Room_Service {
 
   /**
    * 由UUID来确认修改的行
-   * @param modify_hotel_room_dto
+   * @param modify_hotel_room_dto 必须有行UUID用于索引，可以有hotelUuid或roomUuid，如果要修改的话
    * @return
    */
   @Override
