@@ -257,6 +257,11 @@ public class Destination extends Schedule implements Serializable {
   }
 
   @Override
+  public String getScheduleTypeName() {
+    return "Destination";
+  }
+
+  @Override
   public String getSchedule() {
     return this.getUuid();
   }

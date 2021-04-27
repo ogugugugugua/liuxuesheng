@@ -10,6 +10,8 @@ public abstract class Schedule {
   //TODO: change string to ScheduleType class
   public abstract String getScheduleType();
 
+  public abstract String getScheduleTypeName();
+
   //TODO: change string to ScheduleType class
   public abstract String getSchedule();
 }

@@ -233,6 +233,11 @@ public class Restaurant extends Schedule implements Serializable {
   }
 
   @Override
+  public String getScheduleTypeName() {
+    return "Restaurant";
+  }
+
+  @Override
   public String getSchedule() {
     return this.getUuid();
   }

@@ -227,7 +227,12 @@ public class Hotel extends Schedule implements Serializable {
         return this.getScheduleTypeUuid();
     }
 
-    @Override
+  @Override
+  public String getScheduleTypeName() {
+    return "Hotel";
+  }
+
+  @Override
     public String getSchedule() {
         return this.uuid;
     }

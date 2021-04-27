@@ -447,6 +447,11 @@ public class Vehicle extends Schedule implements Serializable {
   }
 
   @Override
+  public String getScheduleTypeName() {
+    return "Vehicle";
+  }
+
+  @Override
   public String getSchedule() {
     return this.getUuid();
   }

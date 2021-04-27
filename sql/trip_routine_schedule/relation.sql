@@ -32,7 +32,7 @@ CREATE TABLE routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
     PRIMARY KEY (id),
     UNIQUE KEY uniq_uuid (uuid),
 #     用于防止某一天的某个行程被反复排序
-    UNIQUE KEY uniq_routine_schedule (routine_uuid, schedule_uuid)
+    UNIQUE KEY uniq_routine_serial (routine_uuid, schedule_serial)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4

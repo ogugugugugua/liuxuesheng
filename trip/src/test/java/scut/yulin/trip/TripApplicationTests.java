@@ -3,6 +3,8 @@ package scut.yulin.trip;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +13,61 @@ import scut.yulin.trip.mbg.mapper.CommentDao;
 @SpringBootTest
 class TripApplicationTests {
 
+  class obj{
+    Integer serial;
+    String str;
+
+    public obj(Integer serial, String str) {
+      this.serial = serial;
+      this.str = str;
+    }
+
+    public Integer getSerial() {
+      return serial;
+    }
+
+    public void setSerial(Integer serial) {
+      this.serial = serial;
+    }
+
+    public String getStr() {
+      return str;
+    }
+
+    public void setStr(String str) {
+      this.str = str;
+    }
+
+    @Override
+    public String toString() {
+      return "obj{" +
+          "serial=" + serial +
+          ", str='" + str + '\'' +
+          '}';
+    }
+  }
+
   @Autowired
   CommentDao commentDao;
 
   @Test
   void contextLoads() {
+  }
+
+  @Test
+  void testLinkedList(){
+    obj o1 = new obj(1,"test1");
+    obj o2 = new obj(2,"test2");
+    obj o3 = new obj(3,"test3");
+    obj o4 = new obj(4,"test4");
+
+    List<obj> list = new LinkedList<>();
+    list.add(o3);
+    list.add(o1);
+    list.add(o4);
+    list.add(o2);
+
+    System.out.println(list.toString());
   }
 
   @Test
