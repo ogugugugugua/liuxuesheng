@@ -11,7 +11,7 @@ import scut.yulin.trip.model.Restaurant;
  * @Author xieyulin
  * @Description TODO
  **/
-public interface RestaurantService {
+public interface RestaurantService extends ScheduleService{
   public List<Restaurant> getRestaurantList(QueryRestaurantDTO queryRestaurantDTO);
 
   public Restaurant getRestaurantByUUID(QueryRestaurantDTO queryRestaurantDTO, Boolean getFullInformation);

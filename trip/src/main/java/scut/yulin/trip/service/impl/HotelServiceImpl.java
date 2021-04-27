@@ -20,6 +20,7 @@ import scut.yulin.trip.mbg.mapper.HotelDao;
 import scut.yulin.trip.model.Hotel;
 import scut.yulin.trip.model.HotelExample;
 import scut.yulin.trip.model.Room;
+import scut.yulin.trip.model.Schedule;
 import scut.yulin.trip.service.HotelService;
 import scut.yulin.trip.service.Hotel_Room_Service;
 import scut.yulin.trip.service.RoomService;
@@ -55,7 +56,7 @@ public class HotelServiceImpl implements HotelService {
 
   @Override
   public Hotel getHotelByUUID(QueryHotelDTO queryHotelDTO, Boolean getFullInformation) {
-    System.out.println("service: "+queryHotelDTO.toString());
+    System.out.println("service: " + queryHotelDTO.toString());
     String uuid = queryHotelDTO.getUuid();
     if (uuid == null) {
       log.debug("UUID not found");
@@ -227,4 +228,13 @@ public class HotelServiceImpl implements HotelService {
     hotelDao.updateByExampleSelective(targetHotel, example);
     return 1;
   }
+
+  @Override
+  public Schedule getScheduleByUUID(String uuid, Boolean getFullInformation) {
+    if (uuid == null) {
+      return null;
+    }
+    return this.getHotelByUUID(new QueryHotelDTO(uuid), getFullInformation);
+  }
+
 }

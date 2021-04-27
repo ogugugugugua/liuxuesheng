@@ -22,6 +22,7 @@ import scut.yulin.trip.model.Destination;
 import scut.yulin.trip.model.DestinationExample;
 import scut.yulin.trip.model.Image;
 import scut.yulin.trip.model.Price;
+import scut.yulin.trip.model.Schedule;
 import scut.yulin.trip.model.Transportation;
 import scut.yulin.trip.service.CommentService;
 import scut.yulin.trip.service.DestinationService;
@@ -104,8 +105,6 @@ public class DestinationServiceImpl implements DestinationService {
     Destination targetDestination = destinations.get(0);
     String destinationUuid = targetDestination.getUuid();
 
-
-
     if (getFullInformation) {
       //call corresponding service to get full information
       List<Transportation> transportationList = transportationService
@@ -115,12 +114,13 @@ public class DestinationServiceImpl implements DestinationService {
       List<Image> imageList = imageService
           .getImageListByScheduleUUID(new QueryImageDTO(null, destinationUuid, null, null));
       List<Comment> commentList = commentService
-          .getCommentListByScheduleUUID(new QueryCommentDTO(null, destinationUuid, null, null, null));
+          .getCommentListByScheduleUUID(
+              new QueryCommentDTO(null, destinationUuid, null, null, null));
 
       for (int i = 0; i < transportationList.size(); i++) {
         String transportationUUID = transportationList.get(i).getUuid();
         Transportation transportationWithFullInformation = transportationService
-            .getTransportationByUUID(new QueryTransportationDTO(transportationUUID,null));
+            .getTransportationByUUID(new QueryTransportationDTO(transportationUUID, null));
         transportationList.set(i, transportationWithFullInformation);
       }
 
@@ -260,5 +260,13 @@ public class DestinationServiceImpl implements DestinationService {
       log.debug("modify destination failed" + e.getMessage());
       throw e;
     }
+  }
+
+  @Override
+  public Schedule getScheduleByUUID(String uuid, Boolean getFullInformation) {
+    if (uuid == null) {
+      return null;
+    }
+    return this.getDestinationByUUID(new QueryDestinationDTO(uuid), getFullInformation);
   }
 }

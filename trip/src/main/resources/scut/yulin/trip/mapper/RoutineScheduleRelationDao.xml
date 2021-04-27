@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.RoutineScheduleRelationDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.RoutineScheduleRelation">
+    <id column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_id" jdbcType="BIGINT" property="id" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_routine_uuid" jdbcType="CHAR" property="routineUuid" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_schedule_uuid" jdbcType="CHAR" property="scheduleUuid" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_schedule_type_uuid" jdbcType="CHAR" property="scheduleTypeUuid" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_schedule_serial" jdbcType="INTEGER" property="scheduleSerial" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.id as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_id, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.uuid as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_uuid, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.routine_uuid as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_routine_uuid, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_uuid as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_schedule_uuid, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_type_uuid as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_schedule_type_uuid, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_serial as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_schedule_serial, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.created_time as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_created_time, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.updated_time as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_updated_time, 
+    routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.deleted as routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.RoutineScheduleRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    where routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.RoutineScheduleRelationExample">
+    delete from routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.RoutineScheduleRelation" useGeneratedKeys="true">
+    insert into routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial (uuid, routine_uuid, schedule_uuid, 
+      schedule_type_uuid, schedule_serial, created_time, 
+      updated_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{routineUuid,jdbcType=CHAR}, #{scheduleUuid,jdbcType=CHAR}, 
+      #{scheduleTypeUuid,jdbcType=CHAR}, #{scheduleSerial,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.RoutineScheduleRelation" useGeneratedKeys="true">
+    insert into routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="routineUuid != null">
+        routine_uuid,
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid,
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid,
+      </if>
+      <if test="scheduleSerial != null">
+        schedule_serial,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="routineUuid != null">
+        #{routineUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleSerial != null">
+        #{scheduleSerial,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.RoutineScheduleRelationExample" resultType="java.lang.Long">
+    select count(*) from routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    <set>
+      <if test="record.id != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.routineUuid != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.routine_uuid = #{record.routineUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleUuid != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleTypeUuid != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.scheduleSerial != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_serial = #{record.scheduleSerial,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    set routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.id = #{record.id,jdbcType=BIGINT},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.uuid = #{record.uuid,jdbcType=CHAR},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.routine_uuid = #{record.routineUuid,jdbcType=CHAR},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_uuid = #{record.scheduleUuid,jdbcType=CHAR},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_type_uuid = #{record.scheduleTypeUuid,jdbcType=CHAR},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.schedule_serial = #{record.scheduleSerial,jdbcType=INTEGER},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.RoutineScheduleRelation">
+    update routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="routineUuid != null">
+        routine_uuid = #{routineUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleUuid != null">
+        schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleTypeUuid != null">
+        schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      </if>
+      <if test="scheduleSerial != null">
+        schedule_serial = #{scheduleSerial,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.RoutineScheduleRelation">
+    update routineuuid_scheduleuuid_scheduletypeuuid_scheduleserial
+    set uuid = #{uuid,jdbcType=CHAR},
+      routine_uuid = #{routineUuid,jdbcType=CHAR},
+      schedule_uuid = #{scheduleUuid,jdbcType=CHAR},
+      schedule_type_uuid = #{scheduleTypeUuid,jdbcType=CHAR},
+      schedule_serial = #{scheduleSerial,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

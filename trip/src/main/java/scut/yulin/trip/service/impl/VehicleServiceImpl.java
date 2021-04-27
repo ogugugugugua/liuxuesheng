@@ -22,6 +22,7 @@ import scut.yulin.trip.mbg.mapper.VehicleDao;
 import scut.yulin.trip.model.Comment;
 import scut.yulin.trip.model.Image;
 import scut.yulin.trip.model.Price;
+import scut.yulin.trip.model.Schedule;
 import scut.yulin.trip.model.TransportationType;
 import scut.yulin.trip.model.Vehicle;
 import scut.yulin.trip.model.VehicleExample;
@@ -227,6 +228,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
   }
 
+  /**
+   *
+   * @param modifyVehicleDTO
+   * @return
+   */
   @Override
   public int modifyVehicle(ModifyVehicleDTO modifyVehicleDTO) {
     try {
@@ -314,4 +320,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
   }
 
+  @Override
+  public Schedule getScheduleByUUID(String uuid, Boolean getFullInformation) {
+    if (uuid == null) {
+      return null;
+    }
+    return this.getVehicleByUUID(new QueryVehicleDTO(uuid), getFullInformation);
+  }
 }

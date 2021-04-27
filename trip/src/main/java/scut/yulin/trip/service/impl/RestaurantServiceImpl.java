@@ -22,6 +22,7 @@ import scut.yulin.trip.model.Image;
 import scut.yulin.trip.model.Menu;
 import scut.yulin.trip.model.Restaurant;
 import scut.yulin.trip.model.RestaurantExample;
+import scut.yulin.trip.model.Schedule;
 import scut.yulin.trip.model.Transportation;
 import scut.yulin.trip.service.CommentService;
 import scut.yulin.trip.service.ImageService;
@@ -85,27 +86,28 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     Restaurant targetRestaurant = restaurantList.get(0);
 
-    List<Transportation> transportationList = transportationService
-        .getTransportationListByScheduleUUID(new QueryTransportationDTO(null, scheduleUUID));
-    List<Menu> menuList = menuService
-        .getMenuListByScheduleUUID((new QueryMenuDTO(null, scheduleUUID)));
-    List<Image> imageList = imageService
-        .getImageListByScheduleUUID(new QueryImageDTO(null, scheduleUUID, null, null));
-    List<Comment> commentList = commentService
-        .getCommentListByScheduleUUID(new QueryCommentDTO(null, scheduleUUID, null, null, null));
-
     if (getFullInformation) {
+      List<Transportation> transportationList = transportationService
+          .getTransportationListByScheduleUUID(new QueryTransportationDTO(null, scheduleUUID));
+      List<Menu> menuList = menuService
+          .getMenuListByScheduleUUID((new QueryMenuDTO(null, scheduleUUID)));
+      List<Image> imageList = imageService
+          .getImageListByScheduleUUID(new QueryImageDTO(null, scheduleUUID, null, null));
+      List<Comment> commentList = commentService
+          .getCommentListByScheduleUUID(new QueryCommentDTO(null, scheduleUUID, null, null, null));
+
       for (int i = 0; i < transportationList.size(); i++) {
         String uuid = transportationList.get(i).getUuid();
         Transportation transportationWithFullInformation = transportationService
             .getTransportationByUUID(new QueryTransportationDTO(uuid, null));
         transportationList.set(i, transportationWithFullInformation);
       }
+
+      targetRestaurant.setTransportationList(transportationList);
+      targetRestaurant.setMenuList(menuList);
+      targetRestaurant.setImageList(imageList);
+      targetRestaurant.setCommentList(commentList);
     }
-    targetRestaurant.setTransportationList(transportationList);
-    targetRestaurant.setMenuList(menuList);
-    targetRestaurant.setImageList(imageList);
-    targetRestaurant.setCommentList(commentList);
 
     return targetRestaurant;
   }
@@ -235,4 +237,13 @@ public class RestaurantServiceImpl implements RestaurantService {
       throw e;
     }
   }
+
+  @Override
+  public Schedule getScheduleByUUID(String uuid, Boolean getFullInformation) {
+    if (uuid == null) {
+      return null;
+    }
+    return this.getRestaurantByUUID(new QueryRestaurantDTO(uuid), getFullInformation);
+  }
+
 }

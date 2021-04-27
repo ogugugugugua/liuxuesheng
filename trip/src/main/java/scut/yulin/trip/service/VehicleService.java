@@ -11,7 +11,7 @@ import scut.yulin.trip.model.Vehicle;
  * @Author xieyulin
  * @Description TODO
  **/
-public interface VehicleService {
+public interface VehicleService extends ScheduleService{
   public List<Vehicle> getVehicleList(QueryVehicleDTO queryVehicleDTO);
 
   public Vehicle getVehicleByUUID(QueryVehicleDTO queryVehicleDTO, Boolean getFullInformation);

@@ -10,4 +10,6 @@ public class CommonConstant {
     public static final String SCHEDULE_TYPE_HOTEL = "2";
     public static final String SCHEDULE_TYPE_RESTAURANT = "3";
     public static final String SCHEDULE_TYPE_VEHICLE = "4";
+
+    public static final String SCHEDULE_SERIAL = "schedule_serial";
 }

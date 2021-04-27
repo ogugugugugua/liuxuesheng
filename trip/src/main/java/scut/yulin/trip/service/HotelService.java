@@ -11,7 +11,7 @@ import scut.yulin.trip.model.Hotel;
  * @Author xieyulin
  * @Description TODO
  **/
-public interface HotelService {
+public interface HotelService extends ScheduleService{
   public List<Hotel> getHotelList(QueryHotelDTO queryHotelDTO);
 
   public Hotel getHotelByUUID(QueryHotelDTO queryHotelDTO, Boolean getFullInformation);

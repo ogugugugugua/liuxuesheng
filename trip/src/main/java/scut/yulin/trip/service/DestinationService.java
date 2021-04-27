@@ -11,7 +11,7 @@ import scut.yulin.trip.model.Destination;
  * @Author xieyulin
  * @Description TODO
  **/
-public interface DestinationService {
+public interface DestinationService extends ScheduleService{
 
   public List<Destination> getDestinationList(QueryDestinationDTO queryDestinationDTO);
 
