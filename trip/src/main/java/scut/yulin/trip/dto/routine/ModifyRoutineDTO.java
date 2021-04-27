@@ -1,4 +1,4 @@
-package scut.yulin.trip.dto.routine_schedule;
+package scut.yulin.trip.dto.routine;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Exchange_Routine_Schedule_DTO {
+public class ModifyRoutineDTO extends QueryRoutineDTO{
 
-  String uuid1;
-  String uuid2;
 }

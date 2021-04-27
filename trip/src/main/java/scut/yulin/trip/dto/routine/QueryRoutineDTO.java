@@ -1,8 +1,9 @@
-package scut.yulin.trip.dto.routine_schedule;
+package scut.yulin.trip.dto.routine;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import scut.yulin.trip.dto.PageQueryDTO;
 
 /**
  * @Date 2021/4/27
@@ -12,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Exchange_Routine_Schedule_DTO {
-
-  String uuid1;
-  String uuid2;
+public class QueryRoutineDTO extends PageQueryDTO {
+  String uuid;
 }
