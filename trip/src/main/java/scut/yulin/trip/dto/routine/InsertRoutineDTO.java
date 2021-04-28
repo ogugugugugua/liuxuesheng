@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsertRoutineDTO {
-
+  String curDate;
+  String supplement;
 }

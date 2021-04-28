@@ -4,8 +4,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import scut.yulin.trip.dto.routine_schedule.Result_Routine_Schedule_DTO;
 
 /**
  * routine
@@ -15,6 +17,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Routine implements Serializable {
+
+    /**
+     * 非数据库字段 当天所有行程列表
+     */
+    @ApiModelProperty(value = "当天所有行程列表")
+    List<Result_Routine_Schedule_DTO> scheduleList;
+
     /**
      * id
      */
@@ -58,6 +67,12 @@ public class Routine implements Serializable {
     private String deleted;
 
     private static final long serialVersionUID = 1L;
+
+    public Routine(String uuid, String supplement, Date curDate) {
+        this.uuid = uuid;
+        this.supplement = supplement;
+        this.curDate = curDate;
+    }
 
     @Override
     public boolean equals(Object that) {
