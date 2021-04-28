@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.TripDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.Trip">
+    <id column="trip_id" jdbcType="BIGINT" property="id" />
+    <result column="trip_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="trip_creator_uuid" jdbcType="CHAR" property="creatorUuid" />
+    <result column="trip_title" jdbcType="VARCHAR" property="title" />
+    <result column="trip_description" jdbcType="VARCHAR" property="description" />
+    <result column="trip_classification" jdbcType="VARCHAR" property="classification" />
+    <result column="trip_depart_time" jdbcType="DATE" property="departTime" />
+    <result column="trip_duration" jdbcType="INTEGER" property="duration" />
+    <result column="trip_rank_top" jdbcType="VARCHAR" property="rankTop" />
+    <result column="trip_status" jdbcType="VARCHAR" property="status" />
+    <result column="trip_private_trip" jdbcType="VARCHAR" property="privateTrip" />
+    <result column="trip_original" jdbcType="VARCHAR" property="original" />
+    <result column="trip_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="trip_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="trip_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    trip.id as trip_id, trip.uuid as trip_uuid, trip.creator_uuid as trip_creator_uuid, 
+    trip.title as trip_title, trip.description as trip_description, trip.classification as trip_classification, 
+    trip.depart_time as trip_depart_time, trip.duration as trip_duration, trip.rank_top as trip_rank_top, 
+    trip.`status` as `trip_status`, trip.private_trip as trip_private_trip, trip.original as trip_original, 
+    trip.created_time as trip_created_time, trip.updated_time as trip_updated_time, trip.deleted as trip_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.TripExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trip trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trip trip
+    where trip.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trip
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.TripExample">
+    delete from trip trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Trip" useGeneratedKeys="true">
+    insert into trip (uuid, creator_uuid, title, 
+      description, classification, depart_time, 
+      duration, rank_top, `status`, 
+      private_trip, original, created_time, 
+      updated_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{creatorUuid,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{classification,jdbcType=VARCHAR}, #{departTime,jdbcType=DATE}, 
+      #{duration,jdbcType=INTEGER}, #{rankTop,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{privateTrip,jdbcType=VARCHAR}, #{original,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.Trip" useGeneratedKeys="true">
+    insert into trip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="classification != null">
+        classification,
+      </if>
+      <if test="departTime != null">
+        depart_time,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="rankTop != null">
+        rank_top,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="privateTrip != null">
+        private_trip,
+      </if>
+      <if test="original != null">
+        original,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="creatorUuid != null">
+        #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="classification != null">
+        #{classification,jdbcType=VARCHAR},
+      </if>
+      <if test="departTime != null">
+        #{departTime,jdbcType=DATE},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="rankTop != null">
+        #{rankTop,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="privateTrip != null">
+        #{privateTrip,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null">
+        #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.TripExample" resultType="java.lang.Long">
+    select count(*) from trip trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update trip trip
+    <set>
+      <if test="record.id != null">
+        trip.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        trip.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorUuid != null">
+        trip.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.title != null">
+        trip.title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        trip.description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classification != null">
+        trip.classification = #{record.classification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departTime != null">
+        trip.depart_time = #{record.departTime,jdbcType=DATE},
+      </if>
+      <if test="record.duration != null">
+        trip.duration = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankTop != null">
+        trip.rank_top = #{record.rankTop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        trip.`status` = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privateTrip != null">
+        trip.private_trip = #{record.privateTrip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.original != null">
+        trip.original = #{record.original,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        trip.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        trip.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        trip.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update trip trip
+    set trip.id = #{record.id,jdbcType=BIGINT},
+      trip.uuid = #{record.uuid,jdbcType=CHAR},
+      trip.creator_uuid = #{record.creatorUuid,jdbcType=CHAR},
+      trip.title = #{record.title,jdbcType=VARCHAR},
+      trip.description = #{record.description,jdbcType=VARCHAR},
+      trip.classification = #{record.classification,jdbcType=VARCHAR},
+      trip.depart_time = #{record.departTime,jdbcType=DATE},
+      trip.duration = #{record.duration,jdbcType=INTEGER},
+      trip.rank_top = #{record.rankTop,jdbcType=VARCHAR},
+      trip.`status` = #{record.status,jdbcType=VARCHAR},
+      trip.private_trip = #{record.privateTrip,jdbcType=VARCHAR},
+      trip.original = #{record.original,jdbcType=VARCHAR},
+      trip.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      trip.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      trip.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.Trip">
+    update trip
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="creatorUuid != null">
+        creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="classification != null">
+        classification = #{classification,jdbcType=VARCHAR},
+      </if>
+      <if test="departTime != null">
+        depart_time = #{departTime,jdbcType=DATE},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="rankTop != null">
+        rank_top = #{rankTop,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="privateTrip != null">
+        private_trip = #{privateTrip,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null">
+        original = #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.Trip">
+    update trip
+    set uuid = #{uuid,jdbcType=CHAR},
+      creator_uuid = #{creatorUuid,jdbcType=CHAR},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      classification = #{classification,jdbcType=VARCHAR},
+      depart_time = #{departTime,jdbcType=DATE},
+      duration = #{duration,jdbcType=INTEGER},
+      rank_top = #{rankTop,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      private_trip = #{privateTrip,jdbcType=VARCHAR},
+      original = #{original,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
