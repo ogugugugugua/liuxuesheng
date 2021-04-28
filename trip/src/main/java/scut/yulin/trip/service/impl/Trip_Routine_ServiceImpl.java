@@ -79,6 +79,7 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
   }
 
 
+  @Transactional
   @Override
   public int deleteTripRoutineRelation(Query_Trip_Routine_DTO query_trip_routine_dto) {
     String uuid = query_trip_routine_dto.getUuid();
@@ -94,9 +95,30 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
     }
 
     TripRoutineRelation relation = relationList.get(0);
-    relation.setDeleted(CommonConstant.DELETED);
-    example.createCriteria().andUuidEqualTo(uuid);
-    return dao.updateByExampleSelective(relation, example);
+    Integer curSerial = relation.getRoutineSerial();
+    String tripUuid = relation.getTripUuid();
+
+    example = new TripRoutineRelationExample();
+    example.createCriteria()
+        .andTripUuidEqualTo(tripUuid)
+        .andRoutineSerialGreaterThan(curSerial)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    List<TripRoutineRelation> victimList = dao.selectByExample(example);
+
+    // 物理删除该记录
+    dao.deleteByPrimaryKey(relation.getId());
+
+    if (victimList.size() > 0) {
+      for (int i = 0; i < victimList.size(); i++) {
+        Modify_Trip_Routine_DTO temp = new Modify_Trip_Routine_DTO();
+        temp.setUuid(victimList.get(i).getUuid());
+        temp.setRoutineSerial(victimList.get(i).getRoutineSerial());
+
+        //往前挪一位
+        this.routineSerialMoveN(temp, -1);
+      }
+    }
+    return 1;
   }
 
   /**
@@ -105,7 +127,6 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
   @Override
   @Transactional
   public int addNewTripRoutineRelationAsSerialN(Insert_Trip_Routine_DTO insert_trip_routine_dto) {
-    System.out.println("addNewTripRoutineRelationAsSerialN ====> "+insert_trip_routine_dto.toString());
     return this.addRoutineAfterSerialN(insert_trip_routine_dto,
         insert_trip_routine_dto.getRoutineSerial() - 1);
   }
@@ -146,8 +167,6 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
 
   /**
    * 仅使用UUID进行索引
-   * @param modify_trip_routine_dto
-   * @return
    */
   @Transactional
   @Override
@@ -203,7 +222,7 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
     example = new TripRoutineRelationExample();
     example.createCriteria().andUuidEqualTo(relationToBeMoved.getUuid());
     relationToBeMoved.setRoutineSerial(curSerial);
-    dao.updateByExampleSelective(relationToBeMoved,example);
+    dao.updateByExampleSelective(relationToBeMoved, example);
 
     // 把目标relation的serial置为受害者relation的serial，即serialOfRelationToBeMoved
     example = new TripRoutineRelationExample();
@@ -215,8 +234,6 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
 
   /**
    * 仅使用UUID进行索引
-   * @param modify_trip_routine_dto
-   * @return
    */
   @Transactional
   @Override
@@ -237,7 +254,6 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
 
     TripRoutineRelation relation = relationList.get(0);
     int curSerial = relation.getRoutineSerial();
-
 
     // 寻找需要移动的上一位受害者
     String tripUuid = relation.getTripUuid();
@@ -269,7 +285,7 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
     example = new TripRoutineRelationExample();
     example.createCriteria().andUuidEqualTo(relationToBeMoved.getUuid());
     relationToBeMoved.setRoutineSerial(curSerial);
-    dao.updateByExampleSelective(relationToBeMoved,example);
+    dao.updateByExampleSelective(relationToBeMoved, example);
 
     // 把目标relation的serial置为受害者relation的serial，即serialOfRelationToBeMoved
     example = new TripRoutineRelationExample();
@@ -307,7 +323,7 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
         serial = 1;
       } else {
         //已有其他日安排，当前日安排为最后一个有效日安排
-        serial = list.get(list.size()-1).getRoutineSerial()+1;
+        serial = list.get(list.size() - 1).getRoutineSerial() + 1;
       }
 
       //新dto直接插在最后一位
