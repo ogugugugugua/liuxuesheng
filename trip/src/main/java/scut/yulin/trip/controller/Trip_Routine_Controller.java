@@ -67,4 +67,30 @@ public class Trip_Routine_Controller {
         return ResponseVO.failed("modifyTripRoutineRelation failed");
     }
   }
+
+  @PutMapping("trip/up/routine")
+  public ResponseVO moveUpOneStep(@RequestBody Modify_Trip_Routine_DTO modify_trip_routine_dto){
+    int status = service.moveUpOneStep(modify_trip_routine_dto);
+    switch (status) {
+      case 1:
+        return ResponseVO.success("moveUpOneStep ok");
+      case 2:
+        return ResponseVO.success("moveUpOneStep uuid not found");
+      default:
+        return ResponseVO.failed("moveUpOneStep failed");
+    }
+  }
+
+  @PutMapping("trip/down/routine")
+  public ResponseVO moveDownOneStep(@RequestBody Modify_Trip_Routine_DTO modify_trip_routine_dto){
+    int status = service.moveDownOneStep(modify_trip_routine_dto);
+    switch (status) {
+      case 1:
+        return ResponseVO.success("moveDownOneStep ok");
+      case 2:
+        return ResponseVO.success("moveDownOneStep uuid not found");
+      default:
+        return ResponseVO.failed("moveDownOneStep failed");
+    }
+  }
 }

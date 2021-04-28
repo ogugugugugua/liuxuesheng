@@ -144,6 +144,141 @@ public class Trip_Routine_ServiceImpl implements Trip_Routine_Service {
     return 1;
   }
 
+  /**
+   * 仅使用UUID进行索引
+   * @param modify_trip_routine_dto
+   * @return
+   */
+  @Transactional
+  @Override
+  public int moveUpOneStep(Modify_Trip_Routine_DTO modify_trip_routine_dto) {
+    String uuid = modify_trip_routine_dto.getUuid();
+    if (uuid == null) {
+      return 2;
+    }
+    TripRoutineRelationExample example = new TripRoutineRelationExample();
+    example.setLimit(1);
+    example.createCriteria()
+        .andUuidEqualTo(uuid)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    List<TripRoutineRelation> relationList = dao.selectByExample(example);
+    if (relationList.size() == 0) {
+      return 2;
+    }
+
+    TripRoutineRelation relation = relationList.get(0);
+    // 已经在第一位，不能再往上移动，直接返回移动成功
+    int curSerial = relation.getRoutineSerial();
+    if (curSerial == 1) {
+      return 1;
+    }
+
+    // 寻找需要移动的上一位受害者
+    String tripUuid = relation.getTripUuid();
+    example = new TripRoutineRelationExample();
+    example.setOrderByClause(CommonConstant.ROUTINE_SERIAL);
+    example.createCriteria()
+        .andTripUuidEqualTo(tripUuid)
+        .andRoutineSerialLessThan(curSerial)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    List<TripRoutineRelation> victimList = dao.selectByExample(example);
+
+    // 已经在第一位，不能再往上移动，直接返回移动成功
+    if (victimList.size() == 0) {
+      return 1;
+    }
+
+    // 找到上一个序号的受害者朋友
+    TripRoutineRelation relationToBeMoved = victimList.get(victimList.size() - 1);
+    int serialOfRelationToBeMoved = relationToBeMoved.getRoutineSerial();
+    int bufferSerial = -1;
+
+    // 把目标relation的serial置为-1
+    example = new TripRoutineRelationExample();
+    example.createCriteria().andUuidEqualTo(relation.getUuid());
+    relation.setRoutineSerial(bufferSerial);
+    dao.updateByExampleSelective(relation, example);
+
+    // 把受害者relation的serial置为目标relation的serial，即curSerial
+    example = new TripRoutineRelationExample();
+    example.createCriteria().andUuidEqualTo(relationToBeMoved.getUuid());
+    relationToBeMoved.setRoutineSerial(curSerial);
+    dao.updateByExampleSelective(relationToBeMoved,example);
+
+    // 把目标relation的serial置为受害者relation的serial，即serialOfRelationToBeMoved
+    example = new TripRoutineRelationExample();
+    example.createCriteria().andUuidEqualTo(relation.getUuid());
+    relation.setRoutineSerial(serialOfRelationToBeMoved);
+    dao.updateByExampleSelective(relation, example);
+    return 1;
+  }
+
+  /**
+   * 仅使用UUID进行索引
+   * @param modify_trip_routine_dto
+   * @return
+   */
+  @Transactional
+  @Override
+  public int moveDownOneStep(Modify_Trip_Routine_DTO modify_trip_routine_dto) {
+    String uuid = modify_trip_routine_dto.getUuid();
+    if (uuid == null) {
+      return 2;
+    }
+    TripRoutineRelationExample example = new TripRoutineRelationExample();
+    example.setLimit(1);
+    example.createCriteria()
+        .andUuidEqualTo(uuid)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    List<TripRoutineRelation> relationList = dao.selectByExample(example);
+    if (relationList.size() == 0) {
+      return 2;
+    }
+
+    TripRoutineRelation relation = relationList.get(0);
+    int curSerial = relation.getRoutineSerial();
+
+
+    // 寻找需要移动的上一位受害者
+    String tripUuid = relation.getTripUuid();
+    example = new TripRoutineRelationExample();
+    example.setOrderByClause(CommonConstant.ROUTINE_SERIAL);
+    example.createCriteria()
+        .andTripUuidEqualTo(tripUuid)
+        .andRoutineSerialGreaterThan(curSerial)
+        .andDeletedEqualTo(CommonConstant.NOT_DELETED);
+    List<TripRoutineRelation> victimList = dao.selectByExample(example);
+
+    // 找不到比它序号更大的项，证明已经在最后一位，不能再往下移动，直接返回移动成功
+    if (victimList.size() == 0) {
+      return 1;
+    }
+
+    // 找到下一个序号的受害者朋友
+    TripRoutineRelation relationToBeMoved = victimList.get(0);
+    int serialOfRelationToBeMoved = relationToBeMoved.getRoutineSerial();
+    int bufferSerial = -1;
+
+    // 把目标relation的serial置为-1
+    example = new TripRoutineRelationExample();
+    example.createCriteria().andUuidEqualTo(relation.getUuid());
+    relation.setRoutineSerial(bufferSerial);
+    dao.updateByExampleSelective(relation, example);
+
+    // 把受害者relation的serial置为目标relation的serial，即curSerial
+    example = new TripRoutineRelationExample();
+    example.createCriteria().andUuidEqualTo(relationToBeMoved.getUuid());
+    relationToBeMoved.setRoutineSerial(curSerial);
+    dao.updateByExampleSelective(relationToBeMoved,example);
+
+    // 把目标relation的serial置为受害者relation的serial，即serialOfRelationToBeMoved
+    example = new TripRoutineRelationExample();
+    example.createCriteria().andUuidEqualTo(relation.getUuid());
+    relation.setRoutineSerial(serialOfRelationToBeMoved);
+    dao.updateByExampleSelective(relation, example);
+    return 1;
+  }
+
   private int addRoutineAfterSerialN(Insert_Trip_Routine_DTO dto, Integer N) {
     String tripUuid = dto.getTripUuid();
     if (tripUuid == null) {

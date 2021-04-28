@@ -21,5 +21,7 @@ public interface Trip_Routine_Service {
 
   public int modifyTripRoutineRelation(Modify_Trip_Routine_DTO modify_trip_routine_dto);
 
+  public int moveUpOneStep(Modify_Trip_Routine_DTO modify_trip_routine_dto);
 
+  public int moveDownOneStep(Modify_Trip_Routine_DTO modify_trip_routine_dto);
 }
