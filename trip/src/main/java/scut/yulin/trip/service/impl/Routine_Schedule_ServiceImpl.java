@@ -129,12 +129,12 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
     List<RoutineScheduleRelation> relationList = dao.selectByExample(example);
 
     if (relationList.size() == 0) {
-      //直接插在最后一位
+      //新dto直接插在最后一位
       dto.setScheduleSerial(N + 1);
       this.addNewRoutineScheduleRelation(dto);
       return 1;
     } else {
-      //从最后一位开始往后挪
+      //从最后一位开始逐步将N+1以后的数据往后挪
       for (int i = relationList.size() - 1; i >= 0; i--) {
         Modify_Routine_Schedule_DTO temp = new Modify_Routine_Schedule_DTO();
         temp.setUuid(relationList.get(i).getUuid());
@@ -143,7 +143,7 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
         //往后挪一位
         this.scheduleSerialMoveN(temp, 1);
       }
-      //插在N+1的位置
+      //新dto插在N+1的位置
       dto.setScheduleSerial(N + 1);
       this.addNewRoutineScheduleRelation(dto);
       return 1;
@@ -151,12 +151,12 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
   }
 
   /**
-   * 将当前行程往前或往后移动N位
+   * 将当前行程往前或往后移动N位，不考虑序号碰撞
    *
    * @param N 往前移动 N < 0；     往后移动 N > 0
    * @return 2:exception;   1:ok;
    */
-  public int scheduleSerialMoveN(Modify_Routine_Schedule_DTO modify_routine_schedule_dto,
+  private int scheduleSerialMoveN(Modify_Routine_Schedule_DTO modify_routine_schedule_dto,
       Integer N) {
     String uuid = modify_routine_schedule_dto.getUuid();
     Integer serial = modify_routine_schedule_dto.getScheduleSerial();
@@ -204,6 +204,7 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
       return 2;
     }
 
+    example = new RoutineScheduleRelationExample();
     RoutineScheduleRelation relation = relationList.get(0);
     relation.setDeleted(CommonConstant.DELETED);
     example.createCriteria().andUuidEqualTo(uuid);
@@ -211,9 +212,10 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
   }
 
   /**
+   * 强行把某一行记录的routine的序号改变，而不考虑是否会与原本存在的另一个routine序号发生冲突
    * 当前只提供UUID索引，后续根据需求增加由routineUuid+scheduleUuid索引
    */
-  public int modifyScheduleSerial(Modify_Routine_Schedule_DTO modify_routine_schedule_dto,
+  private int modifyScheduleSerial(Modify_Routine_Schedule_DTO modify_routine_schedule_dto,
       Integer newScheduleSerial) {
     String uuid = modify_routine_schedule_dto.getUuid();
     if (uuid == null || newScheduleSerial == null) {
@@ -232,6 +234,7 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
       relation.setScheduleSerial(newScheduleSerial);
     }
 
+    example = new RoutineScheduleRelationExample();
     example.createCriteria().andUuidEqualTo(uuid);
     dao.updateByExampleSelective(relation, example);
     return 1;
@@ -295,6 +298,7 @@ public class Routine_Schedule_ServiceImpl implements Routine_Schedule_Service {
       return 2;
     }
     RoutineScheduleRelationExample example = new RoutineScheduleRelationExample();
+    example.setLimit(1);
     example.createCriteria().andUuidEqualTo(uuid);
     List<RoutineScheduleRelation> relationList = dao.selectByExample(example);
     if (relationList.size() == 0) {

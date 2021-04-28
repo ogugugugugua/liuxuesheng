@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.TripRoutineRelationDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.TripRoutineRelation">
+    <id column="tripuuid_routineuuid_routineserial_id" jdbcType="BIGINT" property="id" />
+    <result column="tripuuid_routineuuid_routineserial_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="tripuuid_routineuuid_routineserial_trip_uuid" jdbcType="CHAR" property="tripUuid" />
+    <result column="tripuuid_routineuuid_routineserial_routine_uuid" jdbcType="CHAR" property="routineUuid" />
+    <result column="tripuuid_routineuuid_routineserial_routine_serial" jdbcType="INTEGER" property="routineSerial" />
+    <result column="tripuuid_routineuuid_routineserial_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="tripuuid_routineuuid_routineserial_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="tripuuid_routineuuid_routineserial_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    tripuuid_routineuuid_routineserial.id as tripuuid_routineuuid_routineserial_id, tripuuid_routineuuid_routineserial.uuid as tripuuid_routineuuid_routineserial_uuid, 
+    tripuuid_routineuuid_routineserial.trip_uuid as tripuuid_routineuuid_routineserial_trip_uuid, 
+    tripuuid_routineuuid_routineserial.routine_uuid as tripuuid_routineuuid_routineserial_routine_uuid, 
+    tripuuid_routineuuid_routineserial.routine_serial as tripuuid_routineuuid_routineserial_routine_serial, 
+    tripuuid_routineuuid_routineserial.created_time as tripuuid_routineuuid_routineserial_created_time, 
+    tripuuid_routineuuid_routineserial.updated_time as tripuuid_routineuuid_routineserial_updated_time, 
+    tripuuid_routineuuid_routineserial.deleted as tripuuid_routineuuid_routineserial_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.TripRoutineRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tripuuid_routineuuid_routineserial tripuuid_routineuuid_routineserial
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tripuuid_routineuuid_routineserial tripuuid_routineuuid_routineserial
+    where tripuuid_routineuuid_routineserial.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tripuuid_routineuuid_routineserial
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.TripRoutineRelationExample">
+    delete from tripuuid_routineuuid_routineserial tripuuid_routineuuid_routineserial
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.TripRoutineRelation" useGeneratedKeys="true">
+    insert into tripuuid_routineuuid_routineserial (uuid, trip_uuid, routine_uuid, 
+      routine_serial, created_time, updated_time, 
+      deleted)
+    values (#{uuid,jdbcType=CHAR}, #{tripUuid,jdbcType=CHAR}, #{routineUuid,jdbcType=CHAR}, 
+      #{routineSerial,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.TripRoutineRelation" useGeneratedKeys="true">
+    insert into tripuuid_routineuuid_routineserial
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="tripUuid != null">
+        trip_uuid,
+      </if>
+      <if test="routineUuid != null">
+        routine_uuid,
+      </if>
+      <if test="routineSerial != null">
+        routine_serial,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="tripUuid != null">
+        #{tripUuid,jdbcType=CHAR},
+      </if>
+      <if test="routineUuid != null">
+        #{routineUuid,jdbcType=CHAR},
+      </if>
+      <if test="routineSerial != null">
+        #{routineSerial,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.TripRoutineRelationExample" resultType="java.lang.Long">
+    select count(*) from tripuuid_routineuuid_routineserial tripuuid_routineuuid_routineserial
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tripuuid_routineuuid_routineserial tripuuid_routineuuid_routineserial
+    <set>
+      <if test="record.id != null">
+        tripuuid_routineuuid_routineserial.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        tripuuid_routineuuid_routineserial.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.tripUuid != null">
+        tripuuid_routineuuid_routineserial.trip_uuid = #{record.tripUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.routineUuid != null">
+        tripuuid_routineuuid_routineserial.routine_uuid = #{record.routineUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.routineSerial != null">
+        tripuuid_routineuuid_routineserial.routine_serial = #{record.routineSerial,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null">
+        tripuuid_routineuuid_routineserial.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        tripuuid_routineuuid_routineserial.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        tripuuid_routineuuid_routineserial.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tripuuid_routineuuid_routineserial tripuuid_routineuuid_routineserial
+    set tripuuid_routineuuid_routineserial.id = #{record.id,jdbcType=BIGINT},
+      tripuuid_routineuuid_routineserial.uuid = #{record.uuid,jdbcType=CHAR},
+      tripuuid_routineuuid_routineserial.trip_uuid = #{record.tripUuid,jdbcType=CHAR},
+      tripuuid_routineuuid_routineserial.routine_uuid = #{record.routineUuid,jdbcType=CHAR},
+      tripuuid_routineuuid_routineserial.routine_serial = #{record.routineSerial,jdbcType=INTEGER},
+      tripuuid_routineuuid_routineserial.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      tripuuid_routineuuid_routineserial.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      tripuuid_routineuuid_routineserial.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.TripRoutineRelation">
+    update tripuuid_routineuuid_routineserial
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="tripUuid != null">
+        trip_uuid = #{tripUuid,jdbcType=CHAR},
+      </if>
+      <if test="routineUuid != null">
+        routine_uuid = #{routineUuid,jdbcType=CHAR},
+      </if>
+      <if test="routineSerial != null">
+        routine_serial = #{routineSerial,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.TripRoutineRelation">
+    update tripuuid_routineuuid_routineserial
+    set uuid = #{uuid,jdbcType=CHAR},
+      trip_uuid = #{tripUuid,jdbcType=CHAR},
+      routine_uuid = #{routineUuid,jdbcType=CHAR},
+      routine_serial = #{routineSerial,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -12,4 +12,6 @@ public class CommonConstant {
     public static final String SCHEDULE_TYPE_VEHICLE = "4";
 
     public static final String SCHEDULE_SERIAL = "schedule_serial";
+    public static final String ROUTINE_SERIAL = "routine_serial";
+
 }

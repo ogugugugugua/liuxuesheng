@@ -11,7 +11,7 @@ CREATE TABLE tripuuid_routineuuid_routineserial
     PRIMARY KEY (id),
     UNIQUE KEY uniq_uuid (uuid),
 #     用于防止某个旅途的某一天被重复排序
-    UNIQUE KEY uniq_trip_routine (trip_uuid, routine_uuid)
+    UNIQUE KEY uniq_trip_routineSerial (trip_uuid, routine_serial)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4

@@ -21,11 +21,11 @@ public class Result_Routine_Schedule_DTO {
   @ApiModelProperty(value = "日安排uuid")
   String routineUuid;
 
-  @ApiModelProperty(value = "当日行程数量")
-  Integer scheduleListSize;
-
   @ApiModelProperty(value = "当前行程所在排序序号")
   Integer scheduleSerial;
+
+  @ApiModelProperty(value = "当日行程数量")
+  Integer scheduleListSize;
 
   @ApiModelProperty(value = "当前行程详情")
   Schedule schedule;
