@@ -12,7 +12,7 @@ import scut.yulin.trip.model.Trip;
  * @Description TODO
  **/
 public interface TripService {
-  public Trip getRoutineByUUID(QueryTripDTO queryTripDTO);
+  public Trip getTripByUUID(QueryTripDTO queryTripDTO, Boolean getFullInformation);
 
   public List<Trip> getTripList(QueryTripDTO queryTripDTO);
 

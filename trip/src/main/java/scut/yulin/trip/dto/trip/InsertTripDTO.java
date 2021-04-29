@@ -1,6 +1,5 @@
 package scut.yulin.trip.dto.trip;
 
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +36,7 @@ public class InsertTripDTO {
   /**
    * 出发时间
    */
-  private Date departTime;
+  private String departTime;
 
   /**
    * 出行天数

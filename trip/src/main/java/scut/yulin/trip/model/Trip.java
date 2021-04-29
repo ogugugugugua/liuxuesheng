@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import scut.yulin.trip.dto.trip_routine.Result_Trip_Routine_DTO;
 
 /**
  * trip
@@ -21,7 +22,7 @@ public class Trip implements Serializable {
      * 非数据库字段 当前旅途所有的日安排
      */
     @ApiModelProperty(value = "日安排列表")
-    private List<Routine> routineList;
+    private List<Result_Trip_Routine_DTO> routineList;
 
     /**
      * id
