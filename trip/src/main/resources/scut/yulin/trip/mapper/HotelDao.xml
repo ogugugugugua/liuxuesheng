@@ -15,6 +15,12 @@
     <result column="hotel_url" jdbcType="VARCHAR" property="url" />
     <result column="hotel_check_in_time" jdbcType="VARCHAR" property="checkInTime" />
     <result column="hotel_check_out_time" jdbcType="VARCHAR" property="checkOutTime" />
+    <result column="hotel_description" jdbcType="VARCHAR" property="description" />
+    <result column="hotel_type" jdbcType="VARCHAR" property="type" />
+    <result column="hotel_built_year" jdbcType="CHAR" property="builtYear" />
+    <result column="hotel_scale" jdbcType="INTEGER" property="scale" />
+    <result column="hotel_cancel_policy" jdbcType="VARCHAR" property="cancelPolicy" />
+    <result column="hotel_remark" jdbcType="VARCHAR" property="remark" />
     <result column="hotel_created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="hotel_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
     <result column="hotel_deleted" jdbcType="VARCHAR" property="deleted" />
@@ -82,7 +88,9 @@
     hotel.stars as hotel_stars, hotel.local_name as hotel_local_name, hotel.cn_name as hotel_cn_name, 
     hotel.city as hotel_city, hotel.country_uuid as hotel_country_uuid, hotel.`location` as `hotel_location`, 
     hotel.rating as hotel_rating, hotel.url as hotel_url, hotel.check_in_time as hotel_check_in_time, 
-    hotel.check_out_time as hotel_check_out_time, hotel.created_time as hotel_created_time, 
+    hotel.check_out_time as hotel_check_out_time, hotel.description as hotel_description, 
+    hotel.`type` as `hotel_type`, hotel.built_year as hotel_built_year, hotel.`scale` as `hotel_scale`, 
+    hotel.cancel_policy as hotel_cancel_policy, hotel.remark as hotel_remark, hotel.created_time as hotel_created_time, 
     hotel.updated_time as hotel_updated_time, hotel.deleted as hotel_deleted
   </sql>
   <select id="selectByExample" parameterType="scut.yulin.trip.model.HotelExample" resultMap="BaseResultMap">
@@ -131,12 +139,16 @@
       local_name, cn_name, city, 
       country_uuid, `location`, rating, 
       url, check_in_time, check_out_time, 
+      description, `type`, built_year, 
+      `scale`, cancel_policy, remark, 
       created_time, updated_time, deleted
       )
     values (#{uuid,jdbcType=CHAR}, #{scheduleTypeUuid,jdbcType=CHAR}, #{stars,jdbcType=INTEGER}, 
       #{localName,jdbcType=VARCHAR}, #{cnName,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{countryUuid,jdbcType=CHAR}, #{location,jdbcType=VARCHAR}, #{rating,jdbcType=DECIMAL}, 
       #{url,jdbcType=VARCHAR}, #{checkInTime,jdbcType=VARCHAR}, #{checkOutTime,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{builtYear,jdbcType=CHAR}, 
+      #{scale,jdbcType=INTEGER}, #{cancelPolicy,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR}
       )
   </insert>
@@ -178,6 +190,24 @@
       </if>
       <if test="checkOutTime != null">
         check_out_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="builtYear != null">
+        built_year,
+      </if>
+      <if test="scale != null">
+        `scale`,
+      </if>
+      <if test="cancelPolicy != null">
+        cancel_policy,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
       <if test="createdTime != null">
         created_time,
@@ -225,6 +255,24 @@
       </if>
       <if test="checkOutTime != null">
         #{checkOutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="builtYear != null">
+        #{builtYear,jdbcType=CHAR},
+      </if>
+      <if test="scale != null">
+        #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="cancelPolicy != null">
+        #{cancelPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null">
         #{createdTime,jdbcType=TIMESTAMP},
@@ -285,6 +333,24 @@
       <if test="record.checkOutTime != null">
         hotel.check_out_time = #{record.checkOutTime,jdbcType=VARCHAR},
       </if>
+      <if test="record.description != null">
+        hotel.description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        hotel.`type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.builtYear != null">
+        hotel.built_year = #{record.builtYear,jdbcType=CHAR},
+      </if>
+      <if test="record.scale != null">
+        hotel.`scale` = #{record.scale,jdbcType=INTEGER},
+      </if>
+      <if test="record.cancelPolicy != null">
+        hotel.cancel_policy = #{record.cancelPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        hotel.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.createdTime != null">
         hotel.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       </if>
@@ -314,6 +380,12 @@
       hotel.url = #{record.url,jdbcType=VARCHAR},
       hotel.check_in_time = #{record.checkInTime,jdbcType=VARCHAR},
       hotel.check_out_time = #{record.checkOutTime,jdbcType=VARCHAR},
+      hotel.description = #{record.description,jdbcType=VARCHAR},
+      hotel.`type` = #{record.type,jdbcType=VARCHAR},
+      hotel.built_year = #{record.builtYear,jdbcType=CHAR},
+      hotel.`scale` = #{record.scale,jdbcType=INTEGER},
+      hotel.cancel_policy = #{record.cancelPolicy,jdbcType=VARCHAR},
+      hotel.remark = #{record.remark,jdbcType=VARCHAR},
       hotel.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       hotel.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
       hotel.deleted = #{record.deleted,jdbcType=VARCHAR}
@@ -360,6 +432,24 @@
       <if test="checkOutTime != null">
         check_out_time = #{checkOutTime,jdbcType=VARCHAR},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="builtYear != null">
+        built_year = #{builtYear,jdbcType=CHAR},
+      </if>
+      <if test="scale != null">
+        `scale` = #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="cancelPolicy != null">
+        cancel_policy = #{cancelPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
       </if>
@@ -386,6 +476,12 @@
       url = #{url,jdbcType=VARCHAR},
       check_in_time = #{checkInTime,jdbcType=VARCHAR},
       check_out_time = #{checkOutTime,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      built_year = #{builtYear,jdbcType=CHAR},
+      `scale` = #{scale,jdbcType=INTEGER},
+      cancel_policy = #{cancelPolicy,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=VARCHAR}

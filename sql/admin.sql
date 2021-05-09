@@ -58,8 +58,18 @@ CREATE TABLE traveler
 
 
 
-
-
+CREATE TABLE country_code
+(
+    id         BIGINT      NOT NULL AUTO_INCREMENT COMMENT 'id',
+    uuid       CHAR(36)    NOT NULL COMMENT 'uuid',
+    cn         VARCHAR(64) NOT NULL COMMENT '中文名',
+    en         VARCHAR(64) NOT NULL COMMENT '英文名',
+    phone_code VARCHAR(32) NOT NULL COMMENT '电话前缀',
+    PRIMARY KEY (id),
+    UNIQUE KEY uniq_uuid (uuid),
+    UNIQUE KEY uniq_cn (cn),
+    UNIQUE KEY uniq_en (en)
+) COMMENT = '国家 ';
 
 
 

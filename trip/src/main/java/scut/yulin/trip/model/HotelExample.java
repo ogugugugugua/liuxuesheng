@@ -1016,6 +1016,416 @@ public class HotelExample {
             return (Criteria) this;
         }
 
+        public Criteria andDescriptionIsNull() {
+            addCriterion("hotel.description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("hotel.description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("hotel.description =", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("hotel.description <>", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("hotel.description >", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel.description >=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("hotel.description <", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("hotel.description <=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("hotel.description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("hotel.description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("hotel.description in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("hotel.description not in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("hotel.description between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("hotel.description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNull() {
+            addCriterion("hotel.`type` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNotNull() {
+            addCriterion("hotel.`type` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeEqualTo(String value) {
+            addCriterion("hotel.`type` =", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotEqualTo(String value) {
+            addCriterion("hotel.`type` <>", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThan(String value) {
+            addCriterion("hotel.`type` >", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel.`type` >=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThan(String value) {
+            addCriterion("hotel.`type` <", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThanOrEqualTo(String value) {
+            addCriterion("hotel.`type` <=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLike(String value) {
+            addCriterion("hotel.`type` like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotLike(String value) {
+            addCriterion("hotel.`type` not like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIn(List<String> values) {
+            addCriterion("hotel.`type` in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotIn(List<String> values) {
+            addCriterion("hotel.`type` not in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeBetween(String value1, String value2) {
+            addCriterion("hotel.`type` between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotBetween(String value1, String value2) {
+            addCriterion("hotel.`type` not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearIsNull() {
+            addCriterion("hotel.built_year is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearIsNotNull() {
+            addCriterion("hotel.built_year is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearEqualTo(String value) {
+            addCriterion("hotel.built_year =", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearNotEqualTo(String value) {
+            addCriterion("hotel.built_year <>", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearGreaterThan(String value) {
+            addCriterion("hotel.built_year >", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel.built_year >=", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearLessThan(String value) {
+            addCriterion("hotel.built_year <", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearLessThanOrEqualTo(String value) {
+            addCriterion("hotel.built_year <=", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearLike(String value) {
+            addCriterion("hotel.built_year like", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearNotLike(String value) {
+            addCriterion("hotel.built_year not like", value, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearIn(List<String> values) {
+            addCriterion("hotel.built_year in", values, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearNotIn(List<String> values) {
+            addCriterion("hotel.built_year not in", values, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearBetween(String value1, String value2) {
+            addCriterion("hotel.built_year between", value1, value2, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuiltYearNotBetween(String value1, String value2) {
+            addCriterion("hotel.built_year not between", value1, value2, "builtYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleIsNull() {
+            addCriterion("hotel.`scale` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleIsNotNull() {
+            addCriterion("hotel.`scale` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleEqualTo(Integer value) {
+            addCriterion("hotel.`scale` =", value, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleNotEqualTo(Integer value) {
+            addCriterion("hotel.`scale` <>", value, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleGreaterThan(Integer value) {
+            addCriterion("hotel.`scale` >", value, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("hotel.`scale` >=", value, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleLessThan(Integer value) {
+            addCriterion("hotel.`scale` <", value, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleLessThanOrEqualTo(Integer value) {
+            addCriterion("hotel.`scale` <=", value, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleIn(List<Integer> values) {
+            addCriterion("hotel.`scale` in", values, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleNotIn(List<Integer> values) {
+            addCriterion("hotel.`scale` not in", values, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleBetween(Integer value1, Integer value2) {
+            addCriterion("hotel.`scale` between", value1, value2, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleNotBetween(Integer value1, Integer value2) {
+            addCriterion("hotel.`scale` not between", value1, value2, "scale");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyIsNull() {
+            addCriterion("hotel.cancel_policy is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyIsNotNull() {
+            addCriterion("hotel.cancel_policy is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyEqualTo(String value) {
+            addCriterion("hotel.cancel_policy =", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyNotEqualTo(String value) {
+            addCriterion("hotel.cancel_policy <>", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyGreaterThan(String value) {
+            addCriterion("hotel.cancel_policy >", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel.cancel_policy >=", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyLessThan(String value) {
+            addCriterion("hotel.cancel_policy <", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyLessThanOrEqualTo(String value) {
+            addCriterion("hotel.cancel_policy <=", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyLike(String value) {
+            addCriterion("hotel.cancel_policy like", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyNotLike(String value) {
+            addCriterion("hotel.cancel_policy not like", value, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyIn(List<String> values) {
+            addCriterion("hotel.cancel_policy in", values, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyNotIn(List<String> values) {
+            addCriterion("hotel.cancel_policy not in", values, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyBetween(String value1, String value2) {
+            addCriterion("hotel.cancel_policy between", value1, value2, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelPolicyNotBetween(String value1, String value2) {
+            addCriterion("hotel.cancel_policy not between", value1, value2, "cancelPolicy");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("hotel.remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("hotel.remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("hotel.remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("hotel.remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("hotel.remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel.remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("hotel.remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("hotel.remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("hotel.remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("hotel.remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("hotel.remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("hotel.remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("hotel.remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("hotel.remark not between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedTimeIsNull() {
             addCriterion("hotel.created_time is null");
             return (Criteria) this;

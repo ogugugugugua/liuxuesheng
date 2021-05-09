@@ -26,6 +26,12 @@ public class Hotel extends Schedule implements Serializable {
     private List<Room> roomList;
 
     /**
+     * 非数据库字段 酒店设施列表
+     */
+    @ApiModelProperty(value="酒店设施列表")
+    private List<Equipment> equipmentList;
+
+    /**
      * id
      */
     @ApiModelProperty(value="id")
@@ -104,6 +110,42 @@ public class Hotel extends Schedule implements Serializable {
     private String checkOutTime;
 
     /**
+     * 酒店描述
+     */
+    @ApiModelProperty(value="酒店描述")
+    private String description;
+
+    /**
+     * 酒店类型
+     */
+    @ApiModelProperty(value="酒店类型")
+    private String type;
+
+    /**
+     * 建成年份
+     */
+    @ApiModelProperty(value="建成年份")
+    private String builtYear;
+
+    /**
+     * 酒店规模
+     */
+    @ApiModelProperty(value="酒店规模")
+    private Integer scale;
+
+    /**
+     * 预订取消政策
+     */
+    @ApiModelProperty(value="预订取消政策")
+    private String cancelPolicy;
+
+    /**
+     * 保留字段
+     */
+    @ApiModelProperty(value="保留字段")
+    private String remark;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty(value="创建时间")
@@ -125,7 +167,9 @@ public class Hotel extends Schedule implements Serializable {
 
     public Hotel(String uuid, Integer stars, String localName, String cnName, String city,
         String countryUuid, String location, BigDecimal rating, String url, String checkInTime,
-        String checkOutTime) {
+        String checkOutTime, String description, String type, String builtYear, Integer scale,
+        String cancelPolicy, String remark) {
+
         this.uuid = uuid;
         this.stars = stars;
         this.localName = localName;
@@ -138,6 +182,12 @@ public class Hotel extends Schedule implements Serializable {
         this.scheduleTypeUuid = CommonConstant.SCHEDULE_TYPE_HOTEL;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
+        this.description = description;
+        this.type = type;
+        this.builtYear = builtYear;
+        this.scale = scale;
+        this.cancelPolicy = cancelPolicy;
+        this.remark = remark;
     }
 
 
@@ -167,6 +217,12 @@ public class Hotel extends Schedule implements Serializable {
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getCheckInTime() == null ? other.getCheckInTime() == null : this.getCheckInTime().equals(other.getCheckInTime()))
             && (this.getCheckOutTime() == null ? other.getCheckOutTime() == null : this.getCheckOutTime().equals(other.getCheckOutTime()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getBuiltYear() == null ? other.getBuiltYear() == null : this.getBuiltYear().equals(other.getBuiltYear()))
+            && (this.getScale() == null ? other.getScale() == null : this.getScale().equals(other.getScale()))
+            && (this.getCancelPolicy() == null ? other.getCancelPolicy() == null : this.getCancelPolicy().equals(other.getCancelPolicy()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreatedTime() == null ? other.getCreatedTime() == null : this.getCreatedTime().equals(other.getCreatedTime()))
             && (this.getUpdatedTime() == null ? other.getUpdatedTime() == null : this.getUpdatedTime().equals(other.getUpdatedTime()))
             && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()));
@@ -189,6 +245,12 @@ public class Hotel extends Schedule implements Serializable {
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getCheckInTime() == null) ? 0 : getCheckInTime().hashCode());
         result = prime * result + ((getCheckOutTime() == null) ? 0 : getCheckOutTime().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getBuiltYear() == null) ? 0 : getBuiltYear().hashCode());
+        result = prime * result + ((getScale() == null) ? 0 : getScale().hashCode());
+        result = prime * result + ((getCancelPolicy() == null) ? 0 : getCancelPolicy().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
         result = prime * result + ((getUpdatedTime() == null) ? 0 : getUpdatedTime().hashCode());
         result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
@@ -214,6 +276,12 @@ public class Hotel extends Schedule implements Serializable {
         sb.append(", url=").append(url);
         sb.append(", checkInTime=").append(checkInTime);
         sb.append(", checkOutTime=").append(checkOutTime);
+        sb.append(", description=").append(description);
+        sb.append(", type=").append(type);
+        sb.append(", builtYear=").append(builtYear);
+        sb.append(", scale=").append(scale);
+        sb.append(", cancelPolicy=").append(cancelPolicy);
+        sb.append(", remark=").append(remark);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);
         sb.append(", deleted=").append(deleted);

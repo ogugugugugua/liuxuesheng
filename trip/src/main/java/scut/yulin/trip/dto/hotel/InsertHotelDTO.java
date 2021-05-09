@@ -63,4 +63,35 @@ public class InsertHotelDTO {
    * 最晚离开时间 必选
    */
   private String checkOutTime;
+
+  /**
+   * 酒店描述
+   */
+  private String description;
+
+  /**
+   * 酒店类型
+   */
+  private String type;
+
+  /**
+   * 建成年份
+   */
+  private String builtYear;
+
+  /**
+   * 酒店规模
+   */
+  private Integer scale;
+
+  /**
+   * 预订取消政策
+   */
+  private String cancelPolicy;
+
+  /**
+   * 保留字段
+   */
+  private String remark;
+  //
 }

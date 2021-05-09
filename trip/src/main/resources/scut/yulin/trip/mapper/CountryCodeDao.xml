@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.trip.mbg.mapper.CountryCodeDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.trip.model.CountryCode">
+    <id column="country_code_id" jdbcType="BIGINT" property="id" />
+    <result column="country_code_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="country_code_cn" jdbcType="VARCHAR" property="cn" />
+    <result column="country_code_en" jdbcType="VARCHAR" property="en" />
+    <result column="country_code_phone_code" jdbcType="VARCHAR" property="phoneCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    country_code.id as country_code_id, country_code.uuid as country_code_uuid, country_code.cn as country_code_cn, 
+    country_code.en as country_code_en, country_code.phone_code as country_code_phone_code
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.trip.model.CountryCodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from country_code country_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from country_code country_code
+    where country_code.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from country_code
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.trip.model.CountryCodeExample">
+    delete from country_code country_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.CountryCode" useGeneratedKeys="true">
+    insert into country_code (uuid, cn, en, phone_code
+      )
+    values (#{uuid,jdbcType=CHAR}, #{cn,jdbcType=VARCHAR}, #{en,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.trip.model.CountryCode" useGeneratedKeys="true">
+    insert into country_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="cn != null">
+        cn,
+      </if>
+      <if test="en != null">
+        en,
+      </if>
+      <if test="phoneCode != null">
+        phone_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="cn != null">
+        #{cn,jdbcType=VARCHAR},
+      </if>
+      <if test="en != null">
+        #{en,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCode != null">
+        #{phoneCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.trip.model.CountryCodeExample" resultType="java.lang.Long">
+    select count(*) from country_code country_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update country_code country_code
+    <set>
+      <if test="record.id != null">
+        country_code.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        country_code.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.cn != null">
+        country_code.cn = #{record.cn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.en != null">
+        country_code.en = #{record.en,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneCode != null">
+        country_code.phone_code = #{record.phoneCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update country_code country_code
+    set country_code.id = #{record.id,jdbcType=BIGINT},
+      country_code.uuid = #{record.uuid,jdbcType=CHAR},
+      country_code.cn = #{record.cn,jdbcType=VARCHAR},
+      country_code.en = #{record.en,jdbcType=VARCHAR},
+      country_code.phone_code = #{record.phoneCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.trip.model.CountryCode">
+    update country_code
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="cn != null">
+        cn = #{cn,jdbcType=VARCHAR},
+      </if>
+      <if test="en != null">
+        en = #{en,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCode != null">
+        phone_code = #{phoneCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.trip.model.CountryCode">
+    update country_code
+    set uuid = #{uuid,jdbcType=CHAR},
+      cn = #{cn,jdbcType=VARCHAR},
+      en = #{en,jdbcType=VARCHAR},
+      phone_code = #{phoneCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

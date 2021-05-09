@@ -3,7 +3,9 @@ package scut.yulin.trip.service.impl;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -128,8 +130,31 @@ public class HotelServiceImpl implements HotelService {
             : new BigDecimal("5");
     String url = Inspections.isNotBlank(insertHotelDTO.getUrl()) ? insertHotelDTO.getUrl() : "";
 
+    Integer builtYear = 1000;
+
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    if (insertHotelDTO.getBuiltYear().length() >= 4) {
+      try {
+        //builtYear = format.parse(insertHotelDTO.getBuiltYear()).getYear();
+        builtYear = Integer.parseInt((String) insertHotelDTO.getBuiltYear().subSequence(0, 4)) + 1;
+        System.out.println(builtYear);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    int year = Calendar.getInstance().get(Calendar.YEAR);
+    Assert.isTrue(year >= builtYear && builtYear >= 1000);
+
+    String description = insertHotelDTO.getDescription();
+    String type = insertHotelDTO.getType();
+    Integer scale = insertHotelDTO.getScale();
+    String cancelPolicy = insertHotelDTO.getCancelPolicy();
+    String remark = insertHotelDTO.getRemark();
+
     Hotel hotel = new Hotel(IdUtil.randomUUID(), stars, localName, cnName, city, countryUuid,
-        location, rating, url, checkInTime, checkOutTime);
+        location, rating, url, checkInTime, checkOutTime, description, type,
+        Integer.toString(builtYear), scale,
+        cancelPolicy, remark);
     return hotelDao.insertSelective(hotel);
   }
 

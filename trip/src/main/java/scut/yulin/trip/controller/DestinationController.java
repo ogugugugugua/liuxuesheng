@@ -2,7 +2,6 @@ package scut.yulin.trip.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,18 +25,19 @@ public class DestinationController {
   @Autowired
   DestinationService destinationService;
 
-  @GetMapping("destination")
+  @PostMapping("destination/uuid")
   public ResponseVO getDestinationByUUID(@RequestBody QueryDestinationDTO queryDestinationDTO) {
     return ResponseVO.success(destinationService.getDestinationByUUID(queryDestinationDTO, true));
   }
 
-  @GetMapping("destination/list")
+  @PostMapping("l/destination/list")
   public ResponseVO getDestinationList(@RequestBody QueryDestinationDTO queryDestinationDTO) {
     return ResponseVO.success(destinationService.getDestinationList(queryDestinationDTO));
   }
 
   @PostMapping("destination")
   public ResponseVO addDestination(@RequestBody InsertDestinationDTO insertDestinationDTO) {
+    System.out.println(insertDestinationDTO.toString());
     int status = destinationService.addDestination(insertDestinationDTO);
     if (status == 1) {
       return ResponseVO.success("add new destination ok");

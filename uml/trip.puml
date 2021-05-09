@@ -1,0 +1,264 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:留学生登录
+__login__;
+
+:使用留学生UUID获取Ta的所有trip
+__getTripListByStudentUUID__;
+
+split
+
+partition 新建Trip {
+->始终有<新建旅程>按钮;
+:点击<新建旅程>弹出新建Trip的Tab页面
+在form表单中输入Trip信息;
+floating note left:独立页面
+
+:调用接口传输相关信息
+__addNewTrip__;
+
+if (有确定的顾客) then (yes)
+:前端弹出顾客绑定弹窗;
+repeat :输入旅客信息 点击<搜索>按钮;
+:调用接口查找目标旅客列表
+__getTravelerListByNameOrPhone__;
+:在列表中选择旅客;
+backward:继续添加旅客;
+repeat while (已添加所有旅客？) is (no) not (yes)
+:调用接口向服务器传输当前TripUUID和游客列表
+绑定Trip和游客列表
+__bindTripAndTravelerList__;
+else (no)
+endif
+
+:前端跳转到Trip详情页面等待被编辑;
+end;
+
+'repeat
+'fork
+'->新建;
+':点击<新增日程安排>，
+'下方路由区域出现日期选择器和补充信息输入框
+'输入日期和用于日程安排检索的补充信息
+'点击<完成创建>;
+'
+':将新建日程安排绑定到当前Trip上
+'调用接口向服务器传输当前TripUUID和输入的日期
+'__addNewRoutineAndBindToTrip__;
+'
+':前端调用__addNewRoutineAndBindToTrip__之后
+'若返回成功
+'则调用接口__getRoutineListByTripUUID__获取日程安排列表
+'在表格中展示日程安排列表;
+'fork again
+'->复用;
+':点击<使用已有日程安排>，
+'下方路由区域出现搜索框
+'输入日程安排检索信息;
+'
+':调用接口__getRoutineListBySupplement__获取可用日程;
+'
+':选择需要复用的日程安排
+'下方路由区域出现日期选择器
+'输入日期
+'点击<完成创建>;
+'
+':将复用日程安排绑定到当前Trip上
+'调用接口向服务器传输当前TripUUID和输入的日期
+'__copyRoutineAndBindToTrip__;
+'
+':前端调用__copyRoutineAndBindToTrip__之后
+' 若返回成功
+' 则调用接口__getRoutineListByTripUUID__获取日程安排列表
+' 在表格中展示日程安排列表;
+'
+'end fork
+'repeat while(继续添加日程安排？) is (yes) not (no)
+'
+':日程安排列表中的每一行都会显示<编辑><查看><删除>这三个按钮
+'分别用于编辑该Routine,查看Routine详情,删除该Routine;
+'
+'split
+':点击上述<编辑><查看>按钮
+'前端跳转到Routine相关页面;
+'floating note left:在Routine相关页面操作
+'
+'split again
+':点击<删除>按钮;
+'if (删除该日程安排？) then (yes)
+'#pink:提示会删除当前日程安排;
+'if(确认删除该日程安排) then (yes)
+':向服务器传输当前日程安排的RoutineUUID
+'调用接口__deleteTripRoutineRelation__;
+'else (no)
+'end;
+'endif
+'else (no)
+'endif
+'end split;
+'end;
+
+
+':在上述操作的回调函数中，若结果成功则在前端出现四个按钮
+'<新建目的地> <新建交通> <新建餐饮> <新建住宿>，
+'点击任意一个按钮，新的tab页面显示对应的新增行程子页面;
+}
+
+split again
+'if (__getTripListByStudentUUID__结果不为空) then (yes)
+'->YES：在表格中显示该留学生的旅程列表;
+:用表格展示从服务器取得的__TripList__旅程列表;
+split
+'partition 修改Trip整体信息 {
+'floating note left: 弹窗
+':调用接口__getTripInfoByUUID__获取当前Trip的详情
+'并绑定在待修改的form表单中
+'留学生根据情况调整旅程整体信息;
+':调用接口传输相关信息进行修改
+'__modifyTripByUUID__;
+':显示修改返回信息;
+'}
+'
+'
+'split again
+partition 删除Trip {
+floating note left: 弹窗
+-> 按下<删除>会有弹出框;
+if (删除该旅程？) then (yes)
+#pink :提示会删除该旅程下的所有日程安排;
+if (确认删除？) then (yes)
+:__deleteTripByUUID__;
+endif
+else (no)
+endif
+end;
+}
+
+
+split again
+partition 查看Trip详情 {
+floating note left: 独立页面
+:按下<查看详情>前端跳转到新的详情页面
+页面元素可以尽量复用[新建Trip];
+:调用接口获取旅程信息
+__getTripByUUID(xxx,true)__
+包括其中的日安排列表routineList
+旅客列表travelerList
+旅程整体信息tripInfo;
+split
+partition 修改旅客列表{
+:前端弹出顾客绑定弹窗;
+repeat :输入旅客信息 点击<搜索>按钮;
+:调用接口查找目标旅客列表
+__getTravelerListByNameOrPhone__;
+:在列表中选择旅客;
+backward:继续添加旅客;
+repeat while (已添加所有旅客？) is (no) not (yes)
+:调用接口向服务器传输当前TripUUID和游客列表
+绑定Trip和游客列表
+__bindTripAndTravelerList__;
+end;
+}
+split again
+partition 修改日安排Routine列表 {
+:提供如下操作选项
+<添加日程安排> <调整日程安排顺序> <删除日程安排> ;
+split
+partition 添加日程安排{
+repeat
+fork
+->新建;
+:点击<新增日程安排>，
+下方路由区域出现日期选择器和补充信息输入框
+输入日期和用于日程安排检索的补充信息
+点击<完成创建>;
+
+:将新建日程安排绑定到当前Trip上
+调用接口向服务器传输当前TripUUID和输入的日期
+__addNewRoutineAndBindToTrip__;
+
+:前端调用__addNewRoutineAndBindToTrip__之后
+若返回成功
+则调用接口__getRoutineListByTripUUID__获取日程安排列表
+在表格中展示日程安排列表;
+fork again
+->复用;
+:点击<使用已有日程安排>，
+下方路由区域出现搜索框
+输入日程安排检索信息;
+
+:调用接口__getRoutineListBySupplement__获取可用日程;
+
+:选择需要复用的日程安排
+下方路由区域出现日期选择器
+输入日期
+点击<完成创建>;
+
+:将复用日程安排绑定到当前Trip上
+调用接口向服务器传输当前TripUUID和输入的日期
+__copyRoutineAndBindToTrip__;
+
+:前端调用__copyRoutineAndBindToTrip__之后
+ 若返回成功
+ 则调用接口__getRoutineListByTripUUID__获取日程安排列表
+ 在表格中展示日程安排列表;
+
+end fork
+repeat while(继续添加日程安排？) is (yes) not (no)
+end;
+}
+
+split again
+partition 调整日程安排顺序{
+split
+:调整当前日安排往前一天
+调用接口__moveUpOneStep__;
+split again
+:调整当前日安排往后一天
+调用接口__moveDownOneStep__;
+end split;
+end;
+}
+
+split again
+partition 删除日程安排{
+:点击<删除>按钮;
+if (删除该日程安排？) then (yes)
+#pink:提示会删除当前日程安排;
+if(确认删除该日程安排) then (yes)
+:向服务器传输当前日程安排的RoutineUUID
+调用接口__deleteTripRoutineRelation__;
+else (no)
+end;
+endif
+else (no)
+endif
+end;
+}
+end split;
+}
+split again
+partition 修改Trip整体信息 {
+floating note left: 弹窗
+:调用接口__getTripInfoByUUID__获取当前Trip的详情
+并绑定在待修改的form表单中
+留学生根据情况调整旅程整体信息;
+:调用接口传输相关信息进行修改
+__modifyTripByUUID__;
+:显示修改返回信息;
+end;
+}
+end split;
+}
+end split;
+'else (no)
+':前端显示
+'"当前没有旅程信息哦";
+'endif
+end split
+
+'stop
+
+@enduml
