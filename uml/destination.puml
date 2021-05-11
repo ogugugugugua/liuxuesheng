@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+'目的地页面：整个页面就是 1个大的详情表单 + 4个子项表格 + 3个新增子项按钮
+'进入这个页面只能是两种可能：1.新增目的地；2.修改目的地
+'目的地页面中的评论列表操作：可读+控评
+'图片列表、价格列表、可用交通方式列表均可编辑
+start
+split
+partition 详情表单 {
+if (scheduleUUID==null？) then (yes)
+note left
+新建目的地
+表单内容为空
+end note
+:;
+else (no)
+note right
+修改目的地详情
+表单内容不为空
+end note
+endif
+}
+split again
+
+partition 子项表格 {
+split
+partition 评论列表表格 {
+}
+split again
+partition 价格列表表格 {
+}
+split again
+partition 价格列表表格 {
+}
+split again
+partition 可用交通方式列表表格 {
+}
+end split
+}
+end split
+
+
+stop
+
+@enduml

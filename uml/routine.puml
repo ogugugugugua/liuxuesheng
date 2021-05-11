@@ -1,0 +1,80 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+'Routine日程安排UML
+'添加日程的这个步骤已经在Trip中完成
+start
+:从Trip层点击进来
+使用RoutineUUID查询日程安排详情
+调用接口 __getRoutineByUUID__ 获得当天日期+<b>行程列表</b>;
+#yellow:(日期线展示行程列表 <b>scheduleList</b>);
+
+split
+
+partition 新建schedule行程 {
+
+split
+:点击<新建目的地行程>按钮;
+:路由跳转到新建目的地行程页面;
+
+split again
+:点击<新建交通行程>按钮;
+:路由跳转到新建交通行程页面;
+
+split again
+:点击<新建餐饮行程>按钮;
+:路由跳转到新建餐饮行程页面;
+
+split again
+:点击<新建住宿>按钮;
+:路由跳转到新建住宿页面;
+
+end split
+
+#green:行程新建完成后
+调用接口 __addScheduleAfterSerialN__
+将新建的行程绑定到当前日程安排上;
+
+end
+}
+split again
+partition scheduleList行程列表操作 {
+
+split
+partition 调整行程安排顺序 {
+:将当前行程往前挪动
+调用接口__moveUpOneStep__
+
+将当前行程往后挪动
+调用接口__moveDownOneStep__
+
+<b>待实现，可参考Trip_Routine_Service</b>;
+end
+}
+split again
+partition 删除行程 {
+if (确认删除该行程？) then (yes)
+:调用接口 __deleteRoutineScheduleRelation__ ;
+else (no)
+endif
+end
+}
+split again
+partition 查看行程详情 {
+:根据scheduleType判断行程类型
+根据行程类型向服务器传递scheduleUUID
+调用对应的行程查询详情接口;
+
+:将获取的数据传入不同的组件，显示行程详情;
+
+end
+}
+
+end split
+
+}
+end split;
+
+
+'stop
+
+@enduml
