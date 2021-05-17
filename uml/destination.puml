@@ -5,6 +5,7 @@
 '目的地页面中的评论列表操作：可读+控评
 '图片列表、价格列表、可用交通方式列表均可编辑
 start
+#pink:目的地页面;
 split
 partition 详情表单 {
 if (scheduleUUID==null？) then (yes)
@@ -12,29 +13,137 @@ note left
 新建目的地
 表单内容为空
 end note
-:;
+:不调用查询接口
+等待用户输入即可;
 else (no)
 note right
 修改目的地详情
 表单内容不为空
 end note
+:调用接口
+__getDestinationByUUID(xxx,true)__
+获取全量信息;
+:将获取到的<b>目的地</b>信息绑定到<b>表单</b>
+将获取到的<b>子项目</b>信息绑定到<b>表格</b>;
 endif
+:用户输入/修改目的地数据;
+if (scheduleUUID==null？) then (yes)
+:调用接口上传表单数据
+__addDestination__;
+else (no)
+:调用接口上传表单数据
+__modifyDestination__;
+endif
+end
 }
 split again
 
 partition 子项表格 {
 split
 partition 评论列表表格 {
+:控评
+调用接口
+__setCommentNotVisible__
+__setCommentVisible__;
+end
 }
 split again
 partition 价格列表表格 {
+:异步获取价格列表信息
+调用接口 __getPriceListByScheduleUUID__;
+split
+:点击编辑
+调用接口 __getPriceByUUID__
+<b>跳出弹窗</b>;
+:编辑价格详情;
+:点击确定
+调用接口 __modifyPrice__;
+split again
+:点击<查看>按钮
+调用接口 __getPriceByUUID__
+<b>弹窗</b>显示价格详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deletePrice__;
+else (no)
+endif
+end split
+end
 }
 split again
-partition 价格列表表格 {
+partition 图片列表表格 {
+:异步获取图片列表信息
+调用接口 __getImageListByScheduleUUID__;
+split
+:点击编辑
+调用接口 __findImageByUuid__
+<b>跳出弹窗</b>;
+:编辑图片详情;
+:点击确定
+调用接口 __modifyImage__
+(待实现);
+split again
+:点击<查看>按钮
+调用接口 __getImageByUUID__
+<b>弹窗</b>显示价格详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deleteImage__;
+else (no)
+endif
+end split
+end
 }
 split again
 partition 可用交通方式列表表格 {
+:异步获取可用交通方式列表信息
+调用接口 __getTransportationListByScheduleUUID__;
+split
+:点击编辑
+调用接口 __getTransportationByUUID__
+<b>跳出弹窗</b>;
+:编辑可用交通方式详情
+使用下拉框选择可用交通方式类型;
+:点击确定
+调用接口 __modifyTransportation__
+(待实现);
+split again
+:点击<查看>按钮
+调用接口 __getTransportationByUUID__
+<b>弹窗</b>显示价格详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deleteTransportation__;
+else (no)
+endif
+end split
+end
 }
+end split
+}
+split again
+partition 新增子项 {
+split
+:新增价格选项;
+split again
+:新增图片选项;
+split again
+:新增可用交通方式选项;
+end split
+:<b>弹窗</b>
+输入新增内容;
+split
+:调用接口
+__addNewPrice__;
+split again
+:调用接口
+__addNewImage__;
+split again
+:调用接口
+__addNewTransportation__;
 end split
 }
 end split
