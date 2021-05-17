@@ -1,16 +1,16 @@
 @startuml
 'https://plantuml.com/activity-diagram-beta
-'目的地页面：整个页面就是 1个大的详情表单 + 4个子项表格 + 3个新增子项按钮
-'进入这个页面只能是两种可能：1.新增目的地；2.修改目的地
-'目的地页面中的评论列表操作：可读+控评
+'餐厅页面：整个页面就是 1个大的详情表单 + 4个子项表格 + 3个新增子项按钮
+'进入这个页面只能是两种可能：1.新增餐厅；2.修改餐厅
+'餐厅页面中的评论列表操作：可读+控评
 '图片列表、价格列表、可用交通方式列表均可编辑
 start
-#pink:目的地页面;
+#pink:餐厅页面;
 split
 partition 详情表单 {
 if (scheduleUUID==null？) then (yes)
 note left
-新建目的地
+新建餐厅
 表单内容为空
 end note
 :不调用查询接口
@@ -22,22 +22,22 @@ split again
 end split
 else (no)
 note right
-修改目的地详情
+修改餐厅详情
 表单内容不为空
 end note
 :调用接口
-__getDestinationByUUID(xxx,true)__
+__getRestaurantByUUID(xxx,true)__
 获取全量信息;
-:将获取到的<b>目的地</b>信息绑定到<b>表单</b>
+:将获取到的<b>餐厅</b>信息绑定到<b>表单</b>
 将获取到的<b>子项目</b>信息绑定到<b>表格</b>;
 endif
-:用户输入/修改目的地数据;
+:用户输入/修改餐厅数据;
 if (scheduleUUID==null？) then (yes)
 :调用接口上传表单数据
-__addDestination__;
+__addRestaurant__;
 else (no)
 :调用接口上传表单数据
-__modifyDestination__;
+__modifyRestaurant__;
 endif
 end
 }
@@ -66,7 +66,7 @@ split
 split again
 :点击<查看>按钮
 调用接口 __getPriceByUUID__
-<b>弹窗</b>显示价格详情;
+<b>弹窗</b>显示可用交通方式详情;
 split again
 :点击<删除>按钮;
 if (确定删除？) then (yes)
@@ -91,7 +91,7 @@ split
 split again
 :点击<查看>按钮
 调用接口 __getImageByUUID__
-<b>弹窗</b>显示价格详情;
+<b>弹窗</b>显示图片详情;
 split again
 :点击<删除>按钮;
 if (确定删除？) then (yes)
@@ -127,6 +127,30 @@ endif
 end split
 end
 }
+split again
+partition 菜单表格 {
+:异步获取菜单列表信息
+调用接口 __getMenuListByScheduleUUID__;
+split
+:点击编辑
+调用接口 __getMenuByUUID__
+<b>跳出弹窗</b>;
+:编辑菜单详情;
+:点击确定
+调用接口 __modifyMenu__;
+split again
+:点击<查看>按钮
+调用接口 __getMenuByUUID__
+<b>弹窗</b>显示菜单详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deleteMenu__;
+else (no)
+endif
+end split
+end
+}
 end split
 }
 split again
@@ -137,6 +161,8 @@ split again
 :新增图片选项;
 split again
 :新增可用交通方式选项;
+split again
+:新增菜单选项;
 end split
 :<b>弹窗</b>
 输入新增内容;
@@ -149,11 +175,11 @@ __addNewImage__;
 split again
 :调用接口
 __addNewTransportation__;
+split again
+:调用接口
+__addNewMenu__;
 end split
+end
 }
 end split
-
-
-stop
-
 @enduml

@@ -1,16 +1,16 @@
 @startuml
 'https://plantuml.com/activity-diagram-beta
-'目的地页面：整个页面就是 1个大的详情表单 + 4个子项表格 + 3个新增子项按钮
-'进入这个页面只能是两种可能：1.新增目的地；2.修改目的地
-'目的地页面中的评论列表操作：可读+控评
+'酒店页面：整个页面就是 1个大的详情表单 + 4个子项表格 + 3个新增子项按钮
+'进入这个页面只能是两种可能：1.新增酒店；2.修改酒店
+'酒店页面中的评论列表操作：可读+控评
 '图片列表、价格列表、可用交通方式列表均可编辑
 start
-#pink:目的地页面;
+#pink:酒店页面;
 split
 partition 详情表单 {
 if (scheduleUUID==null？) then (yes)
 note left
-新建目的地
+新建酒店
 表单内容为空
 end note
 :不调用查询接口
@@ -22,22 +22,22 @@ split again
 end split
 else (no)
 note right
-修改目的地详情
+修改酒店详情
 表单内容不为空
 end note
 :调用接口
-__getDestinationByUUID(xxx,true)__
+__getHotelByUUID(xxx,false)__
 获取全量信息;
-:将获取到的<b>目的地</b>信息绑定到<b>表单</b>
+:将获取到的<b>酒店</b>信息绑定到<b>表单</b>
 将获取到的<b>子项目</b>信息绑定到<b>表格</b>;
 endif
-:用户输入/修改目的地数据;
+:用户输入/修改酒店数据;
 if (scheduleUUID==null？) then (yes)
 :调用接口上传表单数据
-__addDestination__;
+__addHotel__;
 else (no)
 :调用接口上传表单数据
-__modifyDestination__;
+__modifyHotel__;
 endif
 end
 }
@@ -45,6 +45,27 @@ split again
 
 partition 子项表格 {
 split
+partition 房间表格 {
+:异步获取房间列表信息
+调用接口 __getRoomListByHotelUUID__;
+split
+#green:点击编辑
+带上当前房间UUID
+<b>跳转到房间Room页面</b>;
+split again
+:点击<查看>按钮
+调用接口 __getRoomByUUID__
+<b>弹窗</b>显示价格详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deletePrice__;
+else (no)
+endif
+end split
+end
+}
+split again
 partition 评论列表表格 {
 :控评
 调用接口
@@ -137,6 +158,10 @@ split again
 :新增图片选项;
 split again
 :新增可用交通方式选项;
+split again
+:新增房间;
+#green:跳转到房间Room页面;
+end
 end split
 :<b>弹窗</b>
 输入新增内容;
@@ -150,10 +175,8 @@ split again
 :调用接口
 __addNewTransportation__;
 end split
+end
 }
+
 end split
-
-
-stop
-
 @enduml
