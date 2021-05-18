@@ -1,4 +1,7 @@
 # 坑
+## 复制函数
+### 对于所有的复制操作，都需要在返回结果前【删除UUID】，以防止模板项目被恶意篡改！！！！
+
 ## Mybatis-generator
 1. 需要加上 `<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />`才能让生成的xml文件覆盖原始文件，否则会叠加上去导致运行时错误
 2. 需要在子module的`pom.xml`中引入如下配置才能让`xxxMapper.xml`索引有效：

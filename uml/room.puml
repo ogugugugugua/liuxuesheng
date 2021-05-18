@@ -1,0 +1,113 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+'房间页面 整个页面就是 1个大的详情表单 + 2个子项表格 + 2个新增子项按钮
+'进入这个页面只能是两种可能：1.新增房间；2.修改房间
+start
+#pink:房间页面;
+split
+partition 详情表单 {
+if (房间uuid==null？) then (yes)
+note left
+新建房间
+表单内容为空
+end note
+:不调用查询接口
+等待用户输入即可;
+split
+:用户输入;
+split again
+:调用接口复制已有项目;
+end split
+else (no)
+note right
+修改房间详情
+表单内容不为空
+end note
+:调用接口
+__getRoomByUUID(xxx,true)__
+获取全量信息;
+:将获取到的<b>房间</b>信息绑定到<b>表单</b>
+将获取到的<b>子项目</b>信息绑定到<b>表格</b>;
+endif
+:用户输入/修改房间数据;
+if (房间uuid==null？) then (yes)
+:调用接口上传表单数据
+__addNewRoom__;
+else (no)
+:调用接口上传表单数据
+__modifyRoom__;
+endif
+end
+}
+
+split again
+partition 房间设施 {
+:异步获取房间设施列表信息
+调用接口 __getEquipmentListByRoomUUID__;
+split
+:点击编辑
+调用接口 __getEquipmentByUUID__
+<b>跳出弹窗</b>;
+:编辑房间设施详情;
+:点击确定
+调用接口 __modifyEquipment__;
+split again
+:点击<查看>按钮
+调用接口 __getEquipmentByUUID__
+<b>弹窗</b>显示房间设施详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deleteEquipment__;
+else (no)
+endif
+end split
+end
+}
+
+split again
+partition 床 {
+:异步获取床列表信息
+调用接口 __getBedListByRoomUUID__;
+split
+:点击编辑
+调用接口 __getBedByUUID__
+<b>跳出弹窗</b>;
+:编辑床详情;
+:点击确定
+调用接口 __modifyBed__;
+split again
+:点击<查看>按钮
+调用接口 __getBedByUUID__
+<b>弹窗</b>显示床详情;
+split again
+:点击<删除>按钮;
+if (确定删除？) then (yes)
+:调用接口 __deleteBed__;
+else (no)
+endif
+end split
+end
+}
+split again
+partition 新增子项 {
+split
+:新增设施选项;
+split again
+:新增床选项;
+end split
+:<b>弹窗</b>
+<b>输入新增内容</b>
+或者
+<b>调用复制接口</b>;
+split
+:调用接口
+__addNewEquipment__;
+split again
+:调用接口
+__addNewBed__;
+end split
+end
+}
+end split
+@enduml

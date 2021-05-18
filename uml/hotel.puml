@@ -59,7 +59,7 @@ split again
 split again
 :点击<删除>按钮;
 if (确定删除？) then (yes)
-:调用接口 __deletePrice__;
+:调用接口 __deleteRoom__;
 else (no)
 endif
 end split
@@ -164,7 +164,9 @@ split again
 end
 end split
 :<b>弹窗</b>
-输入新增内容;
+<b>输入新增内容</b>
+或者
+<b>调用复制接口</b>;
 split
 :调用接口
 __addNewPrice__;
