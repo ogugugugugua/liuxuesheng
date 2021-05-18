@@ -1,4 +1,4 @@
-package scut.yulin.trip.dto;
+package scut.yulin.common.dto;
 
 import lombok.*;
 

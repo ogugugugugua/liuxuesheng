@@ -3,7 +3,7 @@ package scut.yulin.trip.dto.trip_routine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import scut.yulin.trip.dto.PageQueryDTO;
+import scut.yulin.common.dto.PageQueryDTO;
 
 /**
  * @Date 2021/4/28

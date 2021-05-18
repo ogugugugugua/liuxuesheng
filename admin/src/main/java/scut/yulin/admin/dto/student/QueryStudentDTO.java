@@ -1,4 +1,4 @@
-package scut.yulin.trip.dto.transportation;
+package scut.yulin.admin.dto.student;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 import scut.yulin.common.dto.PageQueryDTO;
 
 /**
- * 查询单条或所有可用交通方式DTO
- * 2021/04/21
- */
+ * @Date 2021/5/18
+ * @Author xieyulin
+ * @Description TODO
+ **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QueryTransportationDTO extends PageQueryDTO {
+public class QueryStudentDTO extends PageQueryDTO {
   String uuid;
-
-  String scheduleUuid;
 }

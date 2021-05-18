@@ -4,13 +4,19 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import scut.yulin.admin.dto.student.InsertStudentDTO;
+import scut.yulin.admin.dto.student.ModifyStudentDTO;
+import scut.yulin.admin.dto.student.QueryStudentDTO;
 import scut.yulin.admin.model.Student;
 import scut.yulin.admin.service.StudentAdminService;
-import scut.yulin.common.constant.ResultCode;
 import scut.yulin.common.vo.ResponseVO;
-
-import java.util.List;
 
 /**
  * @author xieyulin
@@ -25,14 +31,14 @@ public class StudentAdminController {
 
     @ApiOperation("获得所有留学生列表")
     @RequestMapping("all")
-    public ResponseVO<List<Student>> listAllStudent(){
-        return ResponseVO.success(studentAdminService.listAll());
+    public ResponseVO getStudentList(){
+        return ResponseVO.success(studentAdminService.getStudentList(new QueryStudentDTO()));
     }
 
     @ApiOperation("根据id获得留学生信息")
-    @GetMapping("/student/{id}")
-    public ResponseVO<Student> listById(@PathVariable("id") Long id){
-        Student student = studentAdminService.listById(id);
+    @GetMapping("/student/id/{id}")
+    public ResponseVO getStudentByUUID(@PathVariable("id") String uuid){
+        Student student = studentAdminService.getStudentByUUID(new QueryStudentDTO(uuid));
         if (student!=null) {
             return ResponseVO.success(student);
         }else {
@@ -41,9 +47,9 @@ public class StudentAdminController {
     }
 
     @ApiOperation("根据id获得留学生信息")
-    @GetMapping("/student/{name}")
-    public ResponseVO<Student> listByAccountName(@PathVariable("name") String name){
-        Student student = studentAdminService.listByAccountName(name);
+    @GetMapping("/student/name/{name}")
+    public ResponseVO<Student> getStudentByAccountName(@PathVariable("name") String name){
+        Student student = studentAdminService.getStudentByAccountName(name);
         if (student!=null) {
             return ResponseVO.success(student);
         }else {
@@ -53,27 +59,50 @@ public class StudentAdminController {
 
     @ApiOperation("新增留学生")
     @PostMapping("/student")
-    public ResponseVO addStudent(@RequestBody Student student){
-        if (studentAdminService.listByAccountName(student.getAccountName())!=null){
-            return ResponseVO.failed("已存在该用户名，请重新选择用户名");
+    public ResponseVO addNewStudent(@RequestBody InsertStudentDTO student){
+        int status = studentAdminService.addNewStudent(student);
+        if (status == 1) {
+            return ResponseVO.success("addNewStudent ok");
         }
-        Integer result = studentAdminService.add(student);
-        if (result.equals(0)){
-            return ResponseVO.failed(ResultCode.INSERT_FAILED, student);
-        }
-        return ResponseVO.success("数据插入成功");
+        return ResponseVO.failed("addNewStudent failed");
     }
 
     @ApiOperation("更新留学生")
     @PutMapping("/student")
-    public ResponseVO update(@Validated @RequestBody Student student){
-        if (studentAdminService.listByAccountName(student.getAccountName())!=null){
-            return ResponseVO.failed("已存在该用户名，请重新选择用户名");
+    public ResponseVO modifyStudent(@Validated @RequestBody ModifyStudentDTO student){
+        int status = studentAdminService.modifyStudent(student);
+        if (status == 1) {
+            return ResponseVO.success("modifyStudent ok");
         }
-        Integer result = studentAdminService.update(student);
-        if (result.equals(0)){
-            return ResponseVO.failed(ResultCode.UPDATE_FAILED, student);
+        if (status == 2) {
+            return ResponseVO.failed("modifyStudent not found");
         }
-        return ResponseVO.success("数据更新成功");
+        return ResponseVO.failed("modifyStudent failed");
+    }
+
+    @ApiOperation("更新留学生")
+    @PutMapping("/block/student")
+    public ResponseVO blockStudentByUUID(QueryStudentDTO queryStudentDTO) {
+        int status = studentAdminService.blockStudentByUUID(queryStudentDTO);
+        if (status == 1) {
+            return ResponseVO.success("blockStudentByUUID ok");
+        }
+        if (status == 2) {
+            return ResponseVO.failed("blockStudentByUUID not found");
+        }
+        return ResponseVO.failed("blockStudentByUUID failed");
+    }
+
+    @ApiOperation("更新留学生")
+    @PutMapping("/unblock/student")
+    public ResponseVO unblockStudentByUUID(QueryStudentDTO queryStudentDTO) {
+        int status = studentAdminService.unblockStudentByUUID(queryStudentDTO);
+        if (status == 1) {
+            return ResponseVO.success("unblockStudentByUUID ok");
+        }
+        if (status == 2) {
+            return ResponseVO.failed("unblockStudentByUUID not found");
+        }
+        return ResponseVO.failed("unblockStudentByUUID failed");
     }
 }

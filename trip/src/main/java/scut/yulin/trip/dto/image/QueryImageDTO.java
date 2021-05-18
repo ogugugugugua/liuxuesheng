@@ -1,7 +1,7 @@
 package scut.yulin.trip.dto.image;
 
 import lombok.*;
-import scut.yulin.trip.dto.PageQueryDTO;
+import scut.yulin.common.dto.PageQueryDTO;
 
 @Data
 @Setter

@@ -6,6 +6,9 @@ public class CommonConstant {
     public static final String COMMENT_STATE_VISIBLE = "1";
     public static final String COMMENT_STATE_NOT_VISIBLE = "0";
 
+    public static final String ACCOUNT_BLOCKED = "0";
+    public static final String ACCOUNT_NORMAL = "1";
+
     public static final String SCHEDULE_TYPE_DESTINATION = "1";
     public static final String SCHEDULE_TYPE_HOTEL = "2";
     public static final String SCHEDULE_TYPE_RESTAURANT = "3";

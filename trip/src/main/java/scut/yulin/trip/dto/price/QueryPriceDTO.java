@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import scut.yulin.trip.dto.PageQueryDTO;
+import scut.yulin.common.dto.PageQueryDTO;
 
 /**
  * @Date 2021/4/22
