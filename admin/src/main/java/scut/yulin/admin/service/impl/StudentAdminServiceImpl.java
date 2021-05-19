@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
