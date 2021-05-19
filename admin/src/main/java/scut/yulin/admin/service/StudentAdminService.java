@@ -1,6 +1,8 @@
 package scut.yulin.admin.service;
 
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
+import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
@@ -15,4 +17,10 @@ public interface StudentAdminService {
 
     int blockStudentByUUID(QueryStudentDTO queryStudentDTO);
     int unblockStudentByUUID(QueryStudentDTO queryStudentDTO);
+
+    String login(LoginDTO loginDTO);
+    /**
+     * 获取用户信息
+     */
+    UserDetails loadUserByUsername(String username);
 }

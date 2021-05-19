@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
@@ -80,7 +81,7 @@ public class StudentAdminController {
         return ResponseVO.failed("modifyStudent failed");
     }
 
-    @ApiOperation("更新留学生")
+    @ApiOperation("禁用留学生")
     @PutMapping("/block/student")
     public ResponseVO blockStudentByUUID(QueryStudentDTO queryStudentDTO) {
         int status = studentAdminService.blockStudentByUUID(queryStudentDTO);
@@ -93,7 +94,7 @@ public class StudentAdminController {
         return ResponseVO.failed("blockStudentByUUID failed");
     }
 
-    @ApiOperation("更新留学生")
+    @ApiOperation("解禁留学生")
     @PutMapping("/unblock/student")
     public ResponseVO unblockStudentByUUID(QueryStudentDTO queryStudentDTO) {
         int status = studentAdminService.unblockStudentByUUID(queryStudentDTO);
@@ -104,5 +105,12 @@ public class StudentAdminController {
             return ResponseVO.failed("unblockStudentByUUID not found");
         }
         return ResponseVO.failed("unblockStudentByUUID failed");
+    }
+
+    @ApiOperation("留学生登录")
+    @PostMapping("student/login")
+    public ResponseVO studentLogin(LoginDTO loginDTO) {
+        String login = studentAdminService.login(loginDTO);
+        return null;
     }
 }

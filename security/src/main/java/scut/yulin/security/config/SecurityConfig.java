@@ -13,15 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import scut.yulin.admin.model.Student;
-import scut.yulin.admin.service.StudentAdminService;
-import scut.yulin.admin.service.impl.AdminUserDetails;
 import scut.yulin.security.component.DynamicAccessDecisionManager;
 import scut.yulin.security.component.DynamicSecurityFilter;
 import scut.yulin.security.component.DynamicSecurityMetadataSource;
@@ -44,8 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired(required = false)
     private DynamicSecurityService dynamicSecurityService;
 
-    @Autowired
-    private StudentAdminService studentAdminService;
+//    @Autowired
+//    private StudentAdminService studentAdminService;
 
     /**
      * 用于配置需要拦截的url路径、jwt过滤器及出异常后的处理器
@@ -110,21 +105,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * 定义的核心接口，用于根据用户名获取用户信息，需要自行实现
-     * @return
-     */
-    @Bean
-    public UserDetailsService userDetailsService() {
-        //获取登录用户信息
-        return username -> {
-            Student admin = studentAdminService.getStudentByAccountName(username);
-            if (admin != null) {
-                return new AdminUserDetails(admin);
-            }
-            throw new UsernameNotFoundException("用户名或密码错误");
-        };
-    }
+//    /**
+//     * 定义的核心接口，用于根据用户名获取用户信息，需要自行实现
+//     * @return
+//     */
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        //获取登录用户信息
+//        return username -> {
+//            Student admin = studentAdminService.getStudentByAccountName(username);
+//            if (admin != null) {
+//                return new AdminUserDetails(admin);
+//            }
+//            throw new UsernameNotFoundException("用户名或密码错误");
+//        };
+//    }
 
 
     /**
