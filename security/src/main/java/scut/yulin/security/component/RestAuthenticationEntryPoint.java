@@ -1,6 +1,5 @@
 package scut.yulin.security.component;
 
-import cn.hutool.json.JSONUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 //        response.getWriter().println(JSONUtil.parse(CommonResult.unauthorized(authException.getMessage())));
-        response.getWriter().println(JSONUtil.parse("error"));
+        response.getWriter().println("error");
         response.getWriter().flush();
     }
 }

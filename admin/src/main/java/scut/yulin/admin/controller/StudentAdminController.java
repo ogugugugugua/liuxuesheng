@@ -83,7 +83,7 @@ public class StudentAdminController {
 
     @ApiOperation("禁用留学生")
     @PutMapping("/block/student")
-    public ResponseVO blockStudentByUUID(QueryStudentDTO queryStudentDTO) {
+    public ResponseVO blockStudentByUUID(@RequestBody QueryStudentDTO queryStudentDTO) {
         int status = studentAdminService.blockStudentByUUID(queryStudentDTO);
         if (status == 1) {
             return ResponseVO.success("blockStudentByUUID ok");
@@ -96,7 +96,7 @@ public class StudentAdminController {
 
     @ApiOperation("解禁留学生")
     @PutMapping("/unblock/student")
-    public ResponseVO unblockStudentByUUID(QueryStudentDTO queryStudentDTO) {
+    public ResponseVO unblockStudentByUUID(@RequestBody QueryStudentDTO queryStudentDTO) {
         int status = studentAdminService.unblockStudentByUUID(queryStudentDTO);
         if (status == 1) {
             return ResponseVO.success("unblockStudentByUUID ok");
@@ -109,8 +109,8 @@ public class StudentAdminController {
 
     @ApiOperation("留学生登录")
     @PostMapping("student/login")
-    public ResponseVO studentLogin(LoginDTO loginDTO) {
-        String login = studentAdminService.login(loginDTO);
-        return null;
+    public ResponseVO studentLogin(@RequestBody LoginDTO loginDTO) {
+        String token = studentAdminService.login(loginDTO);
+        return ResponseVO.success(token);
     }
 }

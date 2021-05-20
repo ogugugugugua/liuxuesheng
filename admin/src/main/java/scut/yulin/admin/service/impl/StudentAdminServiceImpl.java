@@ -213,12 +213,16 @@ public class StudentAdminServiceImpl implements StudentAdminService {
     //密码需要客户端加密后传递
     try {
       UserDetails userDetails = loadUserByUsername(loginDTO.getUsername());
-      if (!passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())) {
-        return "密码不正确";
-      }
+      LOGGER.info("校验前");
+      //FIXME: 全部通过校验
+//      if (!passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())) {
+//        return "密码不正确";
+//      }
+      LOGGER.info("校验完");
       if (!userDetails.isEnabled()) {
         return "帐号已被禁用";
       }
+      LOGGER.info("new前");
       UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
           userDetails, null, userDetails.getAuthorities());
       SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -234,7 +238,10 @@ public class StudentAdminServiceImpl implements StudentAdminService {
    */
   @Override
   public UserDetails loadUserByUsername(String username) {
+    LOGGER.debug("loadUserByUsername username=====>"+username);
     Student student = getStudentByAccountName(username);
+    LOGGER.debug("getStudentByAccountName =====> "+student.toString());
+
     if (student != null) {
 //      FIXME
 //      List<UmsResource> resourceList = getResourceList(student.getId());
