@@ -19,6 +19,7 @@ public interface StudentAdminService {
     int unblockStudentByUUID(QueryStudentDTO queryStudentDTO);
 
     String login(LoginDTO loginDTO);
+    String register(InsertStudentDTO insertStudentDTO);
     /**
      * 获取用户信息
      */

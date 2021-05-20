@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS student
 (
     id              BIGINT      NOT NULL AUTO_INCREMENT COMMENT '留学生id',
     uuid            CHAR(36)    NOT NULL COMMENT 'uuid',
-    account_name    VARCHAR(32) NOT NULL COMMENT '账户名',
-    pwd             VARCHAR(32) NOT NULL COMMENT '密码',
+    account_name    VARCHAR(128) NOT NULL COMMENT '账户名',
+    pwd             VARCHAR(256) NOT NULL COMMENT '密码',
     gender          VARCHAR(1)  NOT NULL DEFAULT '' COMMENT '性别 男为1,女为0',
     real_name       VARCHAR(32) NOT NULL DEFAULT '' COMMENT '真实姓名',
     country         VARCHAR(32) NOT NULL DEFAULT '' COMMENT '所在国家',
@@ -33,8 +33,8 @@ CREATE TABLE traveler
 (
     id            BIGINT      NOT NULL AUTO_INCREMENT COMMENT '旅客id',
     uuid          CHAR(36)    NOT NULL COMMENT 'uuid',
-    account_name  VARCHAR(32) NOT NULL DEFAULT '' COMMENT '账户名',
-    pwd           VARCHAR(32) NOT NULL COMMENT '密码',
+    account_name  VARCHAR(128) NOT NULL DEFAULT '' COMMENT '账户名',
+    pwd           VARCHAR(256) NOT NULL COMMENT '密码',
     gender        VARCHAR(1)  NOT NULL DEFAULT '' COMMENT '性别 男为1,女为0',
     real_name     VARCHAR(32) NOT NULL DEFAULT '' COMMENT '真实姓名',
     country       VARCHAR(32) NOT NULL DEFAULT '' COMMENT '所在国家',

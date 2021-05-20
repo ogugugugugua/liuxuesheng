@@ -113,4 +113,11 @@ public class StudentAdminController {
         String token = studentAdminService.login(loginDTO);
         return ResponseVO.success(token);
     }
+
+    @ApiOperation("留学生注册")
+    @PostMapping("student/register")
+    public ResponseVO studentRegister(@RequestBody InsertStudentDTO insertStudentDTO) {
+        String result = studentAdminService.register(insertStudentDTO);
+        return ResponseVO.success(result);
+    }
 }

@@ -214,10 +214,9 @@ public class StudentAdminServiceImpl implements StudentAdminService {
     try {
       UserDetails userDetails = loadUserByUsername(loginDTO.getUsername());
       LOGGER.info("校验前");
-      //FIXME: 全部通过校验
-//      if (!passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())) {
-//        return "密码不正确";
-//      }
+      if (!passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())) {
+        return "密码不正确";
+      }
       LOGGER.info("校验完");
       if (!userDetails.isEnabled()) {
         return "帐号已被禁用";
@@ -231,6 +230,39 @@ public class StudentAdminServiceImpl implements StudentAdminService {
       LOGGER.warn("登录异常:{}", e.getMessage());
     }
     return token;
+  }
+
+  /**
+   * 注册留学生账号
+   *
+   * @param insertStudentDTO
+   * @return
+   */
+  @Override
+  public String register(InsertStudentDTO insertStudentDTO) {
+    String accountName = insertStudentDTO.getAccountName();
+    Assert.notBlank(accountName, "accountName blank");
+    String avatarUrl = insertStudentDTO.getAvatarUrl();
+    String city = insertStudentDTO.getCity();
+    String country = insertStudentDTO.getCountry();
+    String cnPhone = insertStudentDTO.getCnPhone();
+    String gender = insertStudentDTO.getGender();
+    String grade = insertStudentDTO.getGrade();
+    String idCardNumber = insertStudentDTO.getIdCardNumber();
+    String localPhone = insertStudentDTO.getLocalPhone();
+    String mail = insertStudentDTO.getMail();
+    String passportNumber = insertStudentDTO.getPassportNumber();
+    Assert.notBlank(insertStudentDTO.getPwd(), "password blank");
+    String pwd = passwordEncoder.encode(insertStudentDTO.getPwd());
+    String realName = insertStudentDTO.getRealName();
+    String phoneCode = insertStudentDTO.getPhoneCode();
+
+    Student student = new Student(IdUtil.randomUUID(), accountName, pwd, gender, realName, country,
+        city, phoneCode, localPhone, cnPhone, mail, idCardNumber, passportNumber, avatarUrl,
+        CommonConstant.ACCOUNT_NORMAL,
+        grade);
+    studentDao.insertSelective(student);
+    return "ok";
   }
 
   /**
