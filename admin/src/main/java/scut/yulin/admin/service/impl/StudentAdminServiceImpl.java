@@ -213,15 +213,12 @@ public class StudentAdminServiceImpl implements StudentAdminService {
     //密码需要客户端加密后传递
     try {
       UserDetails userDetails = loadUserByUsername(loginDTO.getUsername());
-      LOGGER.info("校验前");
       if (!passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())) {
         return "密码不正确";
       }
-      LOGGER.info("校验完");
       if (!userDetails.isEnabled()) {
         return "帐号已被禁用";
       }
-      LOGGER.info("new前");
       UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
           userDetails, null, userDetails.getAuthorities());
       SecurityContextHolder.getContext().setAuthentication(authentication);

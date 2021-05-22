@@ -2,7 +2,10 @@ package scut.yulin.admin.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +32,10 @@ import scut.yulin.common.vo.ResponseVO;
 public class StudentAdminController {
     @Autowired
     StudentAdminService studentAdminService;
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
 
     @ApiOperation("获得所有留学生列表")
     @RequestMapping("all")
@@ -111,7 +118,13 @@ public class StudentAdminController {
     @PostMapping("student/login")
     public ResponseVO studentLogin(@RequestBody LoginDTO loginDTO) {
         String token = studentAdminService.login(loginDTO);
-        return ResponseVO.success(token);
+        if (token == null) {
+            return ResponseVO.failed("用户名或密码错误");
+        }
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", tokenHead);
+        return ResponseVO.success(tokenMap);
     }
 
     @ApiOperation("留学生注册")
