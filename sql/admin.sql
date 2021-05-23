@@ -134,9 +134,12 @@ CREATE TABLE role
 (
     id           BIGINT      NOT NULL AUTO_INCREMENT COMMENT 'id',
     uuid         CHAR(36)    NOT NULL COMMENT 'uuid',
-    name         VARCHAR(32) NOT NULL DEFAULT '' COMMENT '角色类型 ROLE_super,admin,traveler,student,test',
+    name         VARCHAR(32) NOT NULL COMMENT '角色类型 ROLE_super,admin,traveler,student,test',
     nameZh       VARCHAR(32) NOT NULL COMMENT '角色类型中文名 超级管理员,管理员,运营,留学生,游客',
     description  VARCHAR(64) NOT NULL COMMENT '角色描述',
+    count        INT         NOT NULL DEFAULT 0 COMMENT '用户数量',
+    sort         INT         NOT NULL DEFAULT 0 COMMENT '排序',
+    status       VARCHAR(1)  NOT NULL DEFAULT 1 COMMENT '启用状态，0->禁用；1->启用',
     created_time DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_time DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted      VARCHAR(1)  NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
@@ -165,22 +168,77 @@ CREATE TABLE resource_role
 
 CREATE TABLE resource
 (
-    id           BIGINT      NOT NULL AUTO_INCREMENT COMMENT 'id',
-    uuid         CHAR(36)    NOT NULL COMMENT 'uuid',
-    url          VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'URL',
-    path         VARCHAR(64) NOT NULL DEFAULT '' COMMENT '路径',
-    component    VARCHAR(64) NOT NULL DEFAULT '' COMMENT '组件',
-    name         VARCHAR(64) NOT NULL DEFAULT '' COMMENT '名字',
-    iconCls      VARCHAR(64) NOT NULL DEFAULT '' COMMENT '图标',
-    keepAlive    VARCHAR(1)  NOT NULL DEFAULT 1 COMMENT '保活',
-    requireAuth  VARCHAR(1)  NOT NULL DEFAULT 1 COMMENT '需要认证',
-    parentId     CHAR(36)    NOT NULL DEFAULT '' COMMENT '父id',
-    created_time DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_time DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted      VARCHAR(1)  NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
+    id            BIGINT       NOT NULL AUTO_INCREMENT COMMENT 'id',
+    uuid          CHAR(36)     NOT NULL COMMENT 'uuid',
+    category_uuid CHAR(36)     NOT NULL COMMENT '资源分类ID',
+    url           VARCHAR(64)  NOT NULL DEFAULT '' COMMENT 'URL',
+    name          VARCHAR(64)  NOT NULL DEFAULT '' COMMENT '资源名字',
+    description   VARCHAR(64)  NOT NULL DEFAULT '' COMMENT '资源描述',
+    path          VARCHAR(64)  NOT NULL DEFAULT '' COMMENT '路径',
+    component     VARCHAR(64)  NOT NULL DEFAULT '' COMMENT '组件',
+    iconCls       VARCHAR(200) NOT NULL DEFAULT '' COMMENT '图标',
+    keepAlive     VARCHAR(1)   NOT NULL DEFAULT 1 COMMENT '保活',
+    requireAuth   VARCHAR(1)   NOT NULL DEFAULT 1 COMMENT '需要认证',
+    parentId      CHAR(36)     NOT NULL DEFAULT '' COMMENT '父id',
+    created_time  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_time  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted       VARCHAR(1)   NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
     PRIMARY KEY (id),
     UNIQUE KEY uniq_uuid (uuid)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_bin COMMENT = '资源表';
+  COLLATE = utf8mb4_bin COMMENT = '后台资源表,用于控制后台用户可以访问的接口，使用了Ant路径的匹配规则，可以使用通配符定义一系列接口的权限';
+
+CREATE TABLE resource_category
+(
+    id           BIGINT       NOT NULL AUTO_INCREMENT COMMENT 'id',
+    uuid         CHAR(36)     NOT NULL COMMENT 'uuid',
+    name         VARCHAR(200) NOT NULL COMMENT '分类名称',
+    sort         INT          NOT NULL COMMENT '排序',
+    created_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    deleted      VARCHAR(1)   NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
+    PRIMARY KEY (id),
+    UNIQUE KEY uniq_uuid (uuid)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_bin COMMENT = '资源分类表，在细粒度进行权限控制时，可能资源会比较多，所以设计了个资源分类的概念，便于给角色分配资源';
+
+
+CREATE TABLE sidebar
+(
+    id           BIGINT       NOT NULL AUTO_INCREMENT COMMENT 'id',
+    uuid         CHAR(36)     NOT NULL COMMENT 'uuid',
+    parent_uuid  CHAR(36)     NOT NULL COMMENT '父级uuid',
+    title        VARCHAR(64)  NOT NULL COMMENT '菜单名称',
+    level        INT          NOT NULL COMMENT '菜单级数',
+    sort         INT          NOT NULL COMMENT '菜单排序',
+    name         VARCHAR(64)  NOT NULL COMMENT '前端名字',
+    icon         VARCHAR(200) NOT NULL COMMENT '前端图标',
+    hidden       VARCHAR(1)   NOT NULL DEFAULT 0 COMMENT '前端隐藏 隐藏1,不隐藏0',
+    created_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted      VARCHAR(1)   NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
+    PRIMARY KEY (id),
+    UNIQUE KEY uniq_uuid (uuid)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_bin COMMENT = '前端菜单表,用于控制用户可以访问的菜单';
+
+CREATE TABLE sidebar_role
+(
+    id           BIGINT     NOT NULL AUTO_INCREMENT COMMENT 'id',
+    uuid         CHAR(36)   NOT NULL COMMENT 'uuid',
+    sidebar_uuid CHAR(36)   NOT NULL COMMENT '菜单uuid',
+    role_uuid    CHAR(36)   NOT NULL COMMENT '角色uuid',
+    created_time DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_time DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted      VARCHAR(1) NOT NULL DEFAULT 0 COMMENT '已删除 yes:1,no:0',
+    PRIMARY KEY (id),
+    UNIQUE KEY uniq_uuid (uuid)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_bin COMMENT = '前端菜单_角色关联表';
