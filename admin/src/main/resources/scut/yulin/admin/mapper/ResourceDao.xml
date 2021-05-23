@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scut.yulin.admin.mbg.mapper.ResourceDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.admin.model.Resource">
+    <id column="resource_id" jdbcType="BIGINT" property="id" />
+    <result column="resource_uuid" jdbcType="CHAR" property="uuid" />
+    <result column="resource_category_uuid" jdbcType="CHAR" property="categoryUuid" />
+    <result column="resource_url" jdbcType="VARCHAR" property="url" />
+    <result column="resource_name" jdbcType="VARCHAR" property="name" />
+    <result column="resource_description" jdbcType="VARCHAR" property="description" />
+    <result column="resource_path" jdbcType="VARCHAR" property="path" />
+    <result column="resource_component" jdbcType="VARCHAR" property="component" />
+    <result column="resource_iconCls" jdbcType="VARCHAR" property="iconcls" />
+    <result column="resource_keepAlive" jdbcType="VARCHAR" property="keepalive" />
+    <result column="resource_requireAuth" jdbcType="VARCHAR" property="requireauth" />
+    <result column="resource_parentId" jdbcType="CHAR" property="parentid" />
+    <result column="resource_created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="resource_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="resource_deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    resource.id as resource_id, resource.uuid as resource_uuid, resource.category_uuid as resource_category_uuid, 
+    resource.url as resource_url, resource.`name` as `resource_name`, resource.description as resource_description, 
+    resource.`path` as `resource_path`, resource.component as resource_component, resource.iconCls as resource_iconCls, 
+    resource.keepAlive as resource_keepAlive, resource.requireAuth as resource_requireAuth, 
+    resource.parentId as resource_parentId, resource.created_time as resource_created_time, 
+    resource.updated_time as resource_updated_time, resource.deleted as resource_deleted
+  </sql>
+  <select id="selectByExample" parameterType="scut.yulin.admin.model.ResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resource resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resource resource
+    where resource.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resource
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scut.yulin.admin.model.ResourceExample">
+    delete from resource resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.admin.model.Resource" useGeneratedKeys="true">
+    insert into resource (uuid, category_uuid, url, 
+      `name`, description, `path`, 
+      component, iconCls, keepAlive, 
+      requireAuth, parentId, created_time, 
+      updated_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{categoryUuid,jdbcType=CHAR}, #{url,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{component,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, #{keepalive,jdbcType=VARCHAR}, 
+      #{requireauth,jdbcType=VARCHAR}, #{parentid,jdbcType=CHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.admin.model.Resource" useGeneratedKeys="true">
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="categoryUuid != null">
+        category_uuid,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="component != null">
+        component,
+      </if>
+      <if test="iconcls != null">
+        iconCls,
+      </if>
+      <if test="keepalive != null">
+        keepAlive,
+      </if>
+      <if test="requireauth != null">
+        requireAuth,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="categoryUuid != null">
+        #{categoryUuid,jdbcType=CHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null">
+        #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepalive != null">
+        #{keepalive,jdbcType=VARCHAR},
+      </if>
+      <if test="requireauth != null">
+        #{requireauth,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=CHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scut.yulin.admin.model.ResourceExample" resultType="java.lang.Long">
+    select count(*) from resource resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update resource resource
+    <set>
+      <if test="record.id != null">
+        resource.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        resource.uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.categoryUuid != null">
+        resource.category_uuid = #{record.categoryUuid,jdbcType=CHAR},
+      </if>
+      <if test="record.url != null">
+        resource.url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        resource.`name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        resource.description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null">
+        resource.`path` = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.component != null">
+        resource.component = #{record.component,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconcls != null">
+        resource.iconCls = #{record.iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keepalive != null">
+        resource.keepAlive = #{record.keepalive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requireauth != null">
+        resource.requireAuth = #{record.requireauth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        resource.parentId = #{record.parentid,jdbcType=CHAR},
+      </if>
+      <if test="record.createdTime != null">
+        resource.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null">
+        resource.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        resource.deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update resource resource
+    set resource.id = #{record.id,jdbcType=BIGINT},
+      resource.uuid = #{record.uuid,jdbcType=CHAR},
+      resource.category_uuid = #{record.categoryUuid,jdbcType=CHAR},
+      resource.url = #{record.url,jdbcType=VARCHAR},
+      resource.`name` = #{record.name,jdbcType=VARCHAR},
+      resource.description = #{record.description,jdbcType=VARCHAR},
+      resource.`path` = #{record.path,jdbcType=VARCHAR},
+      resource.component = #{record.component,jdbcType=VARCHAR},
+      resource.iconCls = #{record.iconcls,jdbcType=VARCHAR},
+      resource.keepAlive = #{record.keepalive,jdbcType=VARCHAR},
+      resource.requireAuth = #{record.requireauth,jdbcType=VARCHAR},
+      resource.parentId = #{record.parentid,jdbcType=CHAR},
+      resource.created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      resource.updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      resource.deleted = #{record.deleted,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.admin.model.Resource">
+    update resource
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="categoryUuid != null">
+        category_uuid = #{categoryUuid,jdbcType=CHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null">
+        iconCls = #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepalive != null">
+        keepAlive = #{keepalive,jdbcType=VARCHAR},
+      </if>
+      <if test="requireauth != null">
+        requireAuth = #{requireauth,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=CHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.admin.model.Resource">
+    update resource
+    set uuid = #{uuid,jdbcType=CHAR},
+      category_uuid = #{categoryUuid,jdbcType=CHAR},
+      url = #{url,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      iconCls = #{iconcls,jdbcType=VARCHAR},
+      keepAlive = #{keepalive,jdbcType=VARCHAR},
+      requireAuth = #{requireauth,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=CHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
