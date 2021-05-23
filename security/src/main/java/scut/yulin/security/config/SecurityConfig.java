@@ -79,14 +79,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        if(dynamicSecurityService!=null){
 //            registry.and().addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
 //        }
-
-        httpSecurity.csrf()// 由于使用的是JWT，我们这里不需要csrf
+        httpSecurity
+            // 由于使用的是JWT，我们这里不需要csrf
+            .csrf()
             .disable()
-            .sessionManagement()// 基于token，所以不需要session
+            // 基于token，所以不需要session
+            .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(HttpMethod.GET, // 允许对于网站静态资源的无授权访问
+            // 允许对于网站静态资源的无授权访问
+            .antMatchers(HttpMethod.GET,
                 "/",
                 "/*.html",
                 "/favicon.ico",
@@ -97,14 +100,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/v2/api-docs/**"
             )
             .permitAll()
-            .antMatchers("/admin/student/login", "/admin/student/register")// 对登录注册要允许匿名访问
+            // 对登录注册要允许匿名访问
+            .antMatchers("/admin/student/login", "/admin/student/register")
             .permitAll()
-            .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
+            //跨域请求会先进行一次options请求
+            .antMatchers(HttpMethod.OPTIONS)
             .permitAll()
-//                .antMatchers("/**")//测试时全部运行访问
-//                .permitAll()
-            .anyRequest()// 除上面外的所有请求全部需要鉴权认证
+            // 除上面外的所有请求全部需要鉴权认证
+            .anyRequest()
             .authenticated();
+
         // 禁用缓存
         httpSecurity.headers().cacheControl();
         // 添加JWT filter

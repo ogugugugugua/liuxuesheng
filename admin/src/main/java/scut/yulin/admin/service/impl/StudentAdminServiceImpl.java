@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +43,7 @@ public class StudentAdminServiceImpl implements StudentAdminService {
   @Autowired
   RedisService redisService;
 
+  @PreAuthorize("hasAuthority('list:read')")
   @Override
   public List<Student> getStudentList(QueryStudentDTO queryStudentDTO) {
     StudentExample studentExample = new StudentExample();
@@ -275,7 +277,7 @@ public class StudentAdminServiceImpl implements StudentAdminService {
 //      FIXME
 //      List<UmsResource> resourceList = getResourceList(student.getId());
 //      return new AdminUserDetails(admin,resourceList);
-      return new AdminUserDetails(student);
+      return new CustomStudentUserDetails(student);
     }
     throw new UsernameNotFoundException("用户名或密码错误");
   }
