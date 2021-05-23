@@ -21,6 +21,7 @@ import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
 import scut.yulin.admin.mbg.mapper.StudentDao;
+import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.model.Student;
 import scut.yulin.admin.model.StudentExample;
 import scut.yulin.admin.service.RedisService;
@@ -280,6 +281,12 @@ public class StudentAdminServiceImpl implements StudentAdminService {
       return new CustomStudentUserDetails(student);
     }
     throw new UsernameNotFoundException("用户名或密码错误");
+  }
+
+  @Override
+  public List<Resource> getResourceList(String uuid) {
+    // FIXME
+    return null;
   }
 
   private int changeStudentStatus(QueryStudentDTO queryStudentDTO, String accountStatus) {

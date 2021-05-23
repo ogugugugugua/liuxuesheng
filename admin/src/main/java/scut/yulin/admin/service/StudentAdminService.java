@@ -6,6 +6,7 @@ import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
+import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.model.Student;
 
 public interface StudentAdminService {
@@ -24,4 +25,9 @@ public interface StudentAdminService {
      * 获取用户信息
      */
     UserDetails loadUserByUsername(String username);
+
+    /**
+     * 获取指定用户的可访问资源
+     */
+    List<Resource> getResourceList(String uuid);
 }

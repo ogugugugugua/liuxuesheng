@@ -2,59 +2,71 @@ package scut.yulin.admin.service.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.model.Student;
 
 /**
- * SpringSecurity需要的用户详情
- * 这个项目的标准用户类(留学生)，也就是能被SpringSecurity识别的用户类
+ * SpringSecurity需要的用户详情 这个项目的标准用户类(留学生)，也就是能被SpringSecurity识别的用户类
  *
  * @author xieyulin
  * @date 2021/05/19
  */
 public class CustomStudentUserDetails implements UserDetails {
-    private Student student;
 
-    public CustomStudentUserDetails(Student student) {
-        this.student = student;
-    }
+  // 留学生信息
+  private Student student;
+  // 该留学生拥有的资源权限
+  private List<Resource> resourceList;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        //返回当前用户的权限
-//        return Arrays.asList(new SimpleGrantedAuthority("TEST"));
-        return Arrays.asList(new SimpleGrantedAuthority("list:read"));
-    }
+  public CustomStudentUserDetails(Student student) {
+    this.student = student;
+  }
 
-    @Override
-    public String getPassword() {
-        return student.getPwd();
-    }
+  public CustomStudentUserDetails(Student student, List<Resource> resourceList) {
+    this.student = student;
+    this.resourceList = resourceList;
+  }
 
-    @Override
-    public String getUsername() {
-        return student.getAccountName();
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    //返回当前用户的权限
+    return Arrays.asList(new SimpleGrantedAuthority("list:read"));
+//    return resourceList.stream()
+//        .map(role -> new SimpleGrantedAuthority(role.getUuid()+":"+role.getName()))
+//        .collect(Collectors.toList());
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  @Override
+  public String getPassword() {
+    return student.getPwd();
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+  @Override
+  public String getUsername() {
+    return student.getAccountName();
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }
