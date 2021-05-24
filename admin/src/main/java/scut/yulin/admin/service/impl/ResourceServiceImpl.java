@@ -135,6 +135,9 @@ public class ResourceServiceImpl implements ResourceService {
       if(Inspections.isNotBlank(modifyResourceDTO.getParentid())){
         resource.setParentid(modifyResourceDTO.getParentid());
       }
+      ResourceExample example = new ResourceExample();
+      example.createCriteria().andUuidEqualTo(uuid);
+      resourceDao.updateByExampleSelective(resource, example);
       return 1;
     } catch (Exception e) {
       log.debug("modifyResource failed");

@@ -123,6 +123,9 @@ public class Resource implements Serializable {
     this.parentid = parentid;
   }
 
+  public Resource() {
+  }
+
   @Override
   public boolean equals(Object that) {
     if (this == that) {
