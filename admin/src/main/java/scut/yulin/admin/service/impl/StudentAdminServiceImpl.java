@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import scut.yulin.admin.dto.hr_role.QueryHrRoleRelationDTO;
 import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
@@ -24,6 +25,7 @@ import scut.yulin.admin.mbg.mapper.StudentDao;
 import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.model.Student;
 import scut.yulin.admin.model.StudentExample;
+import scut.yulin.admin.service.HrRoleRelationService;
 import scut.yulin.admin.service.RedisService;
 import scut.yulin.admin.service.StudentAdminService;
 import scut.yulin.common.constant.CommonConstant;
@@ -43,6 +45,8 @@ public class StudentAdminServiceImpl implements StudentAdminService {
   StudentDao studentDao;
   @Autowired
   RedisService redisService;
+  @Autowired
+  private HrRoleRelationService hrRoleRelationService;
 
   @PreAuthorize("hasAuthority('list:read')")
   @Override
@@ -275,18 +279,16 @@ public class StudentAdminServiceImpl implements StudentAdminService {
     LOGGER.debug("getStudentByAccountName =====> "+student.toString());
 
     if (student != null) {
-//      FIXME
-//      List<UmsResource> resourceList = getResourceList(student.getId());
-//      return new AdminUserDetails(admin,resourceList);
-      return new CustomStudentUserDetails(student);
+      List<Resource> resourceList = getResourceList(student.getUuid());
+      return new CustomStudentUserDetails(student,resourceList);
     }
     throw new UsernameNotFoundException("用户名或密码错误");
   }
 
   @Override
-  public List<Resource> getResourceList(String uuid) {
-    // FIXME
-    return null;
+  public List<Resource> getResourceList(String hrUuid) {
+    return hrRoleRelationService
+        .getResourceListByHrUUID(new QueryHrRoleRelationDTO(hrUuid, null));
   }
 
   private int changeStudentStatus(QueryStudentDTO queryStudentDTO, String accountStatus) {
