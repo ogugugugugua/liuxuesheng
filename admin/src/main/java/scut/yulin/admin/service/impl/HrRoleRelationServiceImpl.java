@@ -2,8 +2,11 @@ package scut.yulin.admin.service.impl;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
+import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import scut.yulin.admin.dto.hr_role.InsertHrRoleRelationDTO;
 import scut.yulin.admin.dto.hr_role.ModifyHrRoleRelationDTO;
 import scut.yulin.admin.dto.hr_role.QueryHrRoleRelationDTO;
@@ -22,6 +25,8 @@ import scut.yulin.common.utils.Inspections;
  * @Author xieyulin
  * @Description TODO
  **/
+@Service
+@Slf4j
 public class HrRoleRelationServiceImpl implements HrRoleRelationService {
 
   @Autowired
@@ -51,9 +56,14 @@ public class HrRoleRelationServiceImpl implements HrRoleRelationService {
     if (hrRoleRelations.size() == 0) {
       return null;
     }
-    String roleUuid = hrRoleRelations.get(0).getRoleUuid();
-    return roleService
-        .getResourceListByRoleUUID(new QueryRoleDTO(roleUuid));
+
+    List<Resource> result = new ArrayList<>();
+    for (HrRole hrRoleRelation : hrRoleRelations) {
+      List<Resource> resourceListPerRole = roleService
+          .getResourceListByRoleUUID(new QueryRoleDTO(hrRoleRelation.getRoleUuid()));
+      result.addAll(resourceListPerRole);
+    }
+    return result;
   }
 
   @Override
