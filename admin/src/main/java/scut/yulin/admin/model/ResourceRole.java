@@ -64,6 +64,9 @@ public class ResourceRole implements Serializable {
         this.roleUuid = roleUuid;
     }
 
+    public ResourceRole() {
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {

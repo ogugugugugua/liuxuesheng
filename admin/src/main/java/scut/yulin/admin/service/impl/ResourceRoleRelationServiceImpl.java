@@ -96,9 +96,9 @@ public class ResourceRoleRelationServiceImpl implements ResourceRoleRelationServ
   @Override
   public int addNewResourceRoleRelation(
       InsertResourceRoleRelationDTO insertResourceRoleRelationDTO) {
-    Assert.notBlank(insertResourceRoleRelationDTO.getResourceUuid());
-    Assert.notBlank(insertResourceRoleRelationDTO.getRoleUuid());
-    dao.insert(
+    Assert.notBlank(insertResourceRoleRelationDTO.getResourceUuid(), "resourceUuid");
+    Assert.notBlank(insertResourceRoleRelationDTO.getRoleUuid(), "roleUuid");
+    dao.insertSelective(
         new ResourceRole(IdUtil.randomUUID(), insertResourceRoleRelationDTO.getResourceUuid(),
             insertResourceRoleRelationDTO.getRoleUuid()));
     return 1;
