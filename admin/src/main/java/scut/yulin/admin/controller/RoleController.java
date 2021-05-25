@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import scut.yulin.admin.dto.role.InsertRoleDTO;
@@ -25,7 +26,7 @@ public class RoleController {
   private RoleService roleService;
 
   @PostMapping("role")
-  public ResponseVO addNewRole(InsertRoleDTO insertRoleDTO) {
+  public ResponseVO addNewRole(@RequestBody InsertRoleDTO insertRoleDTO) {
     roleService.addNewRole(insertRoleDTO);
     return ResponseVO.success("add new Role ok");
   }

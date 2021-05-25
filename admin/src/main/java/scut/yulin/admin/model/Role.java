@@ -97,6 +97,9 @@ public class Role implements Serializable {
         this.status = status;
     }
 
+    public Role() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     @Override
