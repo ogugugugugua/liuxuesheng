@@ -63,6 +63,9 @@ public class HrRole implements Serializable {
         this.roleUuid = roleUuid;
     }
 
+    public HrRole() {
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {

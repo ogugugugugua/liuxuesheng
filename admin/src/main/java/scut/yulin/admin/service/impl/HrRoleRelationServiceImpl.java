@@ -95,9 +95,9 @@ public class HrRoleRelationServiceImpl implements HrRoleRelationService {
 
   @Override
   public int addNewHrRoleRelation(InsertHrRoleRelationDTO insertHrRoleRelationDTO) {
-    Assert.notBlank(insertHrRoleRelationDTO.getHrUuid());
-    Assert.notBlank(insertHrRoleRelationDTO.getRoleUuid());
-    dao.insert(
+    Assert.notBlank(insertHrRoleRelationDTO.getHrUuid(),"hrUuid");
+    Assert.notBlank(insertHrRoleRelationDTO.getRoleUuid(),"roleUuid");
+    dao.insertSelective(
         new HrRole(IdUtil.randomUUID(), insertHrRoleRelationDTO.getHrUuid(),
             insertHrRoleRelationDTO.getRoleUuid()));
     return 1;
