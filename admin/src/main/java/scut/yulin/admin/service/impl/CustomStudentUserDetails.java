@@ -18,13 +18,9 @@ import scut.yulin.admin.model.Student;
 public class CustomStudentUserDetails implements UserDetails {
 
   // 留学生信息
-  private Student student;
+  private final Student student;
   // 该留学生拥有的资源权限
-  private List<Resource> resourceList;
-
-  public CustomStudentUserDetails(Student student) {
-    this.student = student;
-  }
+  private final List<Resource> resourceList;
 
   public CustomStudentUserDetails(Student student, List<Resource> resourceList) {
     this.student = student;

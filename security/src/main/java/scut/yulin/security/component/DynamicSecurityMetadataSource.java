@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.util.AntPathMatcher;
@@ -51,7 +52,9 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         configAttributes.add(configAttributeMap.get(pattern));
       }
     }
-    // 未设置操作请求权限，返回空集合
+    if (configAttributes.size() < 1) {
+      configAttributes.add(new SecurityConfig("ROLE_NO_USER"));
+    }
     return configAttributes;
   }
 

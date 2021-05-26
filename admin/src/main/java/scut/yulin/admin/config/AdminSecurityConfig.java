@@ -45,7 +45,7 @@ public class AdminSecurityConfig extends SecurityConfig {
       @Override
       public Map<String, ConfigAttribute> loadDataSource() {
         Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-        // 貌似是要拿到所有的resource
+        // 拿到所有的资源
         List<Resource> resourceList = resourceService.getResourceList(new QueryResourceDTO(null));
         for (Resource resource : resourceList) {
 //          map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(
