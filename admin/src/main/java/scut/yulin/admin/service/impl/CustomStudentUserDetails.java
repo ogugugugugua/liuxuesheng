@@ -1,8 +1,8 @@
 package scut.yulin.admin.service.impl;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,10 +34,11 @@ public class CustomStudentUserDetails implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     //返回当前用户的权限
-    return Arrays.asList(new SimpleGrantedAuthority("list:read"));
-//    return resourceList.stream()
+//    return Arrays.asList(new SimpleGrantedAuthority("list:read"));
+    return resourceList.stream()
 //        .map(role -> new SimpleGrantedAuthority(role.getUuid()+":"+role.getName()))
-//        .collect(Collectors.toList());
+        .map(role -> new SimpleGrantedAuthority(role.getUrl()))
+        .collect(Collectors.toList());
   }
 
   @Override

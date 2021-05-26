@@ -48,8 +48,12 @@ public class AdminSecurityConfig extends SecurityConfig {
         // 貌似是要拿到所有的resource
         List<Resource> resourceList = resourceService.getResourceList(new QueryResourceDTO(null));
         for (Resource resource : resourceList) {
+//          map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(
+//              resource.getUuid() + ":" + resource.getName()));
+//          map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(
+//              resource.getId() + ":" + resource.getUrl()));
           map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(
-              resource.getUuid() + ":" + resource.getName()));
+              resource.getUrl()));
         }
         return map;
       }
