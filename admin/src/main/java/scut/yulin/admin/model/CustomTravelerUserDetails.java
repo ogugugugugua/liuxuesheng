@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import scut.yulin.common.utils.Inspections;
 
 /**
  * @Date 2021/5/28
@@ -31,9 +32,9 @@ public class CustomTravelerUserDetails implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return resourceList.stream()
+    return Inspections.isNotEmpty(resourceList) ? resourceList.stream()
         .map(role -> new SimpleGrantedAuthority(role.getUrl()))
-        .collect(Collectors.toList());
+        .collect(Collectors.toList()) : null;
   }
 
   @Override
