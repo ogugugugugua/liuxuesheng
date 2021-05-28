@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import scut.yulin.common.utils.Inspections;
 
 /**
  * SpringSecurity需要的用户详情 这个项目的标准用户类(留学生)，也就是能被SpringSecurity识别的用户类
@@ -33,10 +34,13 @@ public class CustomStudentUserDetails implements UserDetails {
   public Collection<? extends GrantedAuthority> getAuthorities() {
     //返回当前用户的权限
 //    return Arrays.asList(new SimpleGrantedAuthority("list:read"));
-    return resourceList.stream()
-//        .map(role -> new SimpleGrantedAuthority(role.getUuid()+":"+role.getName()))
+//    return resourceList.stream()
+////        .map(role -> new SimpleGrantedAuthority(role.getUuid()+":"+role.getName()))
+//        .map(role -> new SimpleGrantedAuthority(role.getUrl()))
+//        .collect(Collectors.toList());
+    return Inspections.isNotEmpty(resourceList) ? resourceList.stream()
         .map(role -> new SimpleGrantedAuthority(role.getUrl()))
-        .collect(Collectors.toList());
+        .collect(Collectors.toList()) : null;
   }
 
   @Override
