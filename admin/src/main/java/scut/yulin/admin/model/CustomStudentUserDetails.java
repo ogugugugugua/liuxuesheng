@@ -1,4 +1,4 @@
-package scut.yulin.admin.service.impl;
+package scut.yulin.admin.model;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.Student;
 
 /**
  * SpringSecurity需要的用户详情 这个项目的标准用户类(留学生)，也就是能被SpringSecurity识别的用户类
@@ -25,6 +23,10 @@ public class CustomStudentUserDetails implements UserDetails {
   public CustomStudentUserDetails(Student student, List<Resource> resourceList) {
     this.student = student;
     this.resourceList = resourceList;
+  }
+
+  public Student getStudent() {
+    return student;
   }
 
   @Override

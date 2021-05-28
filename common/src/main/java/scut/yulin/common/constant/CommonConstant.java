@@ -17,4 +17,14 @@ public class CommonConstant {
     public static final String SCHEDULE_SERIAL = "schedule_serial";
     public static final String ROUTINE_SERIAL = "routine_serial";
 
+    public static final String ACCOUNT_MAIL_VERIFIED = "1";
+    public static final String ACCOUNT_MAIL_NOT_VERIFIED = "0";
+
+    public static final String ACCOUNT_STATUS_VERIFIED = "1";
+    public static final String ACCOUNT_STATUS_NOT_VERIFIED = "0";
+
+    public static final String ACCOUNT_GRADE_NORMAL = "normal";
+    public static final String ACCOUNT_GRADE_VIP = "vip";
+    public static final String ACCOUNT_GRADE_SVIP = "svip";
+
 }

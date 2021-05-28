@@ -1,9 +1,12 @@
 package scut.yulin.admin.service;
 
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
+import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.traveler.InsertTravelerDTO;
 import scut.yulin.admin.dto.traveler.ModifyTravelerDTO;
 import scut.yulin.admin.dto.traveler.QueryTravelerDTO;
+import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.model.Traveler;
 
 /**
@@ -11,7 +14,7 @@ import scut.yulin.admin.model.Traveler;
  * @Author xieyulin
  * @Description TODO
  **/
-public interface TravelerService {
+public interface TravelerAdminService {
 
   public int addNewTraveler(InsertTravelerDTO dto);
 
@@ -24,4 +27,19 @@ public interface TravelerService {
   public int deleteTraveler(QueryTravelerDTO dto);
 
   public int modifyTraveler(ModifyTravelerDTO dto);
+
+  public Traveler getCurrentTraveler();
+
+  public String login(LoginDTO dto);
+
+  //TODO: register
+
+  /**
+   * 获取用户信息
+   */
+  UserDetails loadUserByUsername(String username);
+
+  List<Resource> getResourceList(String hrUuid);
+
+
 }
