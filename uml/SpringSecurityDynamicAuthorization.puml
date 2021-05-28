@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface FilterInvocationSecurityMetadataSource{
+Collection<ConfigAttribute> getAttributes(Object o)
+{method}用于判断当前路径所需权限
+}
+class DynamicSecurityMetadataSource动态安全元数据{
+Map<String, ConfigAttribute> configAttributeMap
+{field}存储全部权限
+{field}调用dynamicSecurityService.loadDataSource()获得全部权限
+..
+DynamicSecurityService dynamicSecurityService
+{field}用于注入全部权限
+__
+{method}@Override
++ Collection<ConfigAttribute> getAttributes(Object o)
+{method}用于判断当前路径所需权限
+{method}会被DynamicSecurityFilter调用
+{method}返回值作为入参进入DynamicAccessDecisionManager.decide()
+}
+interface DynamicSecurityService {
+    Map<String, ConfigAttribute> loadDataSource()
+    {method}用于获取全部权限
+}
+class AdminSecurityConfig安全配置 {
+{method} @Bean
++ DynamicSecurityService dynamicSecurityService()
+{method}接口实例组件
+}
+class DynamicSecurityFilter动态安全过滤器 {
+DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+__
+{method}@Override
++ doFilter(ServletRequest,ServletResponse,FilterChain)
+{method}核心过滤方法
+{method}调用super.beforeInvocation(fi)时会调用AccessDecisionManager.decide
+..
+{method}@Override
++ SecurityMetadataSource obtainSecurityMetadataSource()
+{method}返回自定义的dynamicSecurityMetadataSource
+}
+class AbstractSecurityInterceptor{
++ SecurityMetadataSource obtainSecurityMetadataSource()
+{method}用于获取全部权限，会被自定义方法@override
+}
+interface Filter{
+doFilter(ServletRequest,ServletResponse,FilterChain)
+}
+interface AccessDecisionManager{
+decide(authentication,object,configAttributes)
+{method}对比鉴权方法:
+{method}configAttributes为访问当前目标路径需要的权限
+{method}authentication为用户拥有的权限
+}
+class DynamicAccessDecisionManager动态权限决策管理器{
+{method}@Override
++ decide(authentication,object,configAttributes)
+{method}如果权限匹配则return
+}
+class SecurityConfig
+
+DynamicSecurityMetadataSource动态安全元数据 ..|> FilterInvocationSecurityMetadataSource
+AdminSecurityConfig安全配置 "1" o-- "1" DynamicSecurityService
+
+DynamicSecurityFilter动态安全过滤器 ..> DynamicSecurityMetadataSource动态安全元数据
+DynamicSecurityMetadataSource动态安全元数据 ..> AdminSecurityConfig安全配置
+DynamicAccessDecisionManager动态权限决策管理器 ..|> AccessDecisionManager
+DynamicAccessDecisionManager动态权限决策管理器 ..> DynamicSecurityMetadataSource动态安全元数据
+DynamicSecurityFilter动态安全过滤器 ..> DynamicAccessDecisionManager动态权限决策管理器
+DynamicSecurityFilter动态安全过滤器 ..|> Filter
+DynamicSecurityFilter动态安全过滤器 --|> AbstractSecurityInterceptor
+AdminSecurityConfig安全配置 --|> SecurityConfig
+@enduml
