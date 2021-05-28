@@ -137,9 +137,7 @@ public class Traveler implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  public Traveler(String accountName, String pwd) {
-    this.accountName = accountName;
-    this.pwd = pwd;
+  public Traveler() {
   }
 
   public Traveler(String uuid, String accountName, String pwd, String gender,
