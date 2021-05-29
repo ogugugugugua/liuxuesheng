@@ -1,12 +1,14 @@
 package scut.yulin.admin.mbg.mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import scut.yulin.admin.model.HrRole;
 import scut.yulin.admin.model.HrRoleExample;
 
 @Repository
+@Mapper
 public interface HrRoleDao {
     long countByExample(HrRoleExample example);
 

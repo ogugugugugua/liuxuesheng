@@ -1,12 +1,14 @@
 package scut.yulin.admin.mbg.mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import scut.yulin.admin.model.Student;
 import scut.yulin.admin.model.StudentExample;
 
 @Repository
+@Mapper
 public interface StudentDao {
     long countByExample(StudentExample example);
 

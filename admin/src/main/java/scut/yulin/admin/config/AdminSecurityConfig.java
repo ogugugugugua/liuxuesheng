@@ -34,7 +34,7 @@ public class AdminSecurityConfig extends SecurityConfig {
   private ResourceService resourceService;
 
   @Bean
-  public UserDetailsService studentUserDetailsService() {
+  public UserDetailsService studentAndTravelerUserDetailsService() {
     //获取登录用户信息
     return username -> adminService.loadUserByUsername(username);
   }

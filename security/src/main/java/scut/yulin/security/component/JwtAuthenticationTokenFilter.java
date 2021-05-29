@@ -29,7 +29,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private static final Logger LOGGER = LoggerFactory
         .getLogger(JwtAuthenticationTokenFilter.class);
     @Autowired
-    private UserDetailsService adminService;
+    private UserDetailsService studentAndTravelerUserDetailsService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Value("${jwt.tokenHeader}")
@@ -51,7 +51,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 用户名不为空，获取的到，就使用当前过滤器进行验证身份信息。获取不到，则继续执行正常的过滤链。
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 根据用户名找到该用户的信息
-                UserDetails userDetails = this.adminService.loadUserByUsername(username);
+                UserDetails userDetails = this.studentAndTravelerUserDetailsService
+                    .loadUserByUsername(username);
                 // 通过对比「token中的用户信息」和「数据库中找到的用户信息」验证token的有效性
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     // 貌似是将「用户信息』+『用户权限』一起放在「UsernamePasswordAuthenticationToken」这个验证令牌里了
