@@ -10,3 +10,6 @@
 10. 检查所有类的add方法是否会过度检查inspection，导致插入空字符串
 11. 给restaurant加上getAvgPrice()
 12. 添加限制规则，只有在大类存在时才能增加/修改小类，同9
+
+13. 增加留学生和旅客的共通表： uuid,user_uuid,user_type,user_name;
+    uniq_key_user_name;修改两个register方法，添加transactional操作

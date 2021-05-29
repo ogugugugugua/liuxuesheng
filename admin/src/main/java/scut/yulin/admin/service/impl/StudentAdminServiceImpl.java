@@ -274,9 +274,7 @@ public class StudentAdminServiceImpl implements StudentAdminService {
    */
   @Override
   public UserDetails loadUserByUsername(String username) {
-    LOGGER.debug("loadUserByUsername username=====>"+username);
     Student student = getStudentByAccountName(username);
-    LOGGER.debug("getStudentByAccountName =====> "+student.toString());
 
     if (student != null) {
       List<Resource> resourceList = getResourceList(student.getUuid());

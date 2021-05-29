@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import scut.yulin.admin.dto.resource.QueryResourceDTO;
 import scut.yulin.admin.model.Resource;
+import scut.yulin.admin.service.AdminService;
 import scut.yulin.admin.service.ResourceService;
-import scut.yulin.admin.service.StudentAdminService;
 import scut.yulin.security.component.DynamicSecurityService;
 import scut.yulin.security.config.SecurityConfig;
 
@@ -28,13 +28,13 @@ import scut.yulin.security.config.SecurityConfig;
 public class AdminSecurityConfig extends SecurityConfig {
 
   @Autowired
-  private StudentAdminService adminService;
+  private AdminService adminService;
 
   @Autowired
   private ResourceService resourceService;
 
   @Bean
-  public UserDetailsService userDetailsService() {
+  public UserDetailsService studentUserDetailsService() {
     //获取登录用户信息
     return username -> adminService.loadUserByUsername(username);
   }
