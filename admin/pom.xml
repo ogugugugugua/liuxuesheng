@@ -123,15 +123,20 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>scut.yulin</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+          <groupId>scut.yulin</groupId>
+          <artifactId>common</artifactId>
+          <version>1.0-SNAPSHOT</version>
         </dependency>
       <dependency>
         <groupId>scut.yulin</groupId>
         <artifactId>security</artifactId>
         <version>1.0-SNAPSHOT</version>
         <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>scut.yulin</groupId>
+        <artifactId>mbg</artifactId>
+        <version>1.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
 

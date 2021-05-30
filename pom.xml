@@ -15,6 +15,7 @@
         <module>trip</module>
         <module>security</module>
         <module>portal</module>
+        <module>mbg</module>
     </modules>
 
     <parent>

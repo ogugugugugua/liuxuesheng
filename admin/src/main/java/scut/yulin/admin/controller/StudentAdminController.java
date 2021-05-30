@@ -18,9 +18,9 @@ import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
-import scut.yulin.admin.model.Student;
 import scut.yulin.admin.service.StudentAdminService;
 import scut.yulin.common.vo.ResponseVO;
+import scut.yulin.mbg.model.Student;
 
 /**
  * @author xieyulin

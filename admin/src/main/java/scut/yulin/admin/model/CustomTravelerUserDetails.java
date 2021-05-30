@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import scut.yulin.common.utils.Inspections;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Traveler;
 
 /**
  * @Date 2021/5/28

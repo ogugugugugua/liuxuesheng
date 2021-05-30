@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="scut.yulin.admin.mbg.mapper.ResourceDao">
-  <resultMap id="BaseResultMap" type="scut.yulin.admin.model.Resource">
-    <id column="resource_id" jdbcType="BIGINT" property="id" />
-    <result column="resource_uuid" jdbcType="CHAR" property="uuid" />
-    <result column="resource_category_uuid" jdbcType="CHAR" property="categoryUuid" />
-    <result column="resource_url" jdbcType="VARCHAR" property="url" />
-    <result column="resource_name" jdbcType="VARCHAR" property="name" />
-    <result column="resource_description" jdbcType="VARCHAR" property="description" />
-    <result column="resource_path" jdbcType="VARCHAR" property="path" />
-    <result column="resource_component" jdbcType="VARCHAR" property="component" />
-    <result column="resource_iconCls" jdbcType="VARCHAR" property="iconcls" />
-    <result column="resource_keepAlive" jdbcType="VARCHAR" property="keepalive" />
+<mapper namespace="scut.yulin.mbg.mbg.mapper.ResourceDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.mbg.model.Resource">
+    <id column="resource_id" jdbcType="BIGINT" property="id"/>
+    <result column="resource_uuid" jdbcType="CHAR" property="uuid"/>
+    <result column="resource_category_uuid" jdbcType="CHAR" property="categoryUuid"/>
+    <result column="resource_url" jdbcType="VARCHAR" property="url"/>
+    <result column="resource_name" jdbcType="VARCHAR" property="name"/>
+    <result column="resource_description" jdbcType="VARCHAR" property="description"/>
+    <result column="resource_path" jdbcType="VARCHAR" property="path"/>
+    <result column="resource_component" jdbcType="VARCHAR" property="component"/>
+    <result column="resource_iconCls" jdbcType="VARCHAR" property="iconcls"/>
+    <result column="resource_keepAlive" jdbcType="VARCHAR" property="keepalive"/>
     <result column="resource_requireAuth" jdbcType="VARCHAR" property="requireauth" />
     <result column="resource_parentId" jdbcType="CHAR" property="parentid" />
     <result column="resource_created_time" jdbcType="TIMESTAMP" property="createdTime" />
@@ -84,15 +84,16 @@
     resource.parentId as resource_parentId, resource.created_time as resource_created_time, 
     resource.updated_time as resource_updated_time, resource.deleted as resource_deleted
   </sql>
-  <select id="selectByExample" parameterType="scut.yulin.admin.model.ResourceExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="scut.yulin.mbg.model.ResourceExample"
+    resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from resource resource
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
@@ -119,25 +120,29 @@
     delete from resource
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="scut.yulin.admin.model.ResourceExample">
+  <delete id="deleteByExample" parameterType="scut.yulin.mbg.model.ResourceExample">
     delete from resource resource
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.admin.model.Resource" useGeneratedKeys="true">
-    insert into resource (uuid, category_uuid, url, 
-      `name`, description, `path`, 
-      component, iconCls, keepAlive, 
-      requireAuth, parentId, created_time, 
-      updated_time, deleted)
-    values (#{uuid,jdbcType=CHAR}, #{categoryUuid,jdbcType=CHAR}, #{url,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
-      #{component,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, #{keepalive,jdbcType=VARCHAR}, 
-      #{requireauth,jdbcType=VARCHAR}, #{parentid,jdbcType=CHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.mbg.model.Resource"
+    useGeneratedKeys="true">
+    insert into resource (uuid, category_uuid, url,
+                          `name`, description, `path`,
+                          component, iconCls, keepAlive,
+                          requireAuth, parentId, created_time,
+                          updated_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{categoryUuid,jdbcType=CHAR}, #{url,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR},
+            #{component,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR},
+            #{keepalive,jdbcType=VARCHAR},
+            #{requireauth,jdbcType=VARCHAR}, #{parentid,jdbcType=CHAR},
+            #{createdTime,jdbcType=TIMESTAMP},
+            #{updatedTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.admin.model.Resource" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="scut.yulin.mbg.model.Resource" useGeneratedKeys="true">
     insert into resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -228,10 +233,11 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="scut.yulin.admin.model.ResourceExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="scut.yulin.mbg.model.ResourceExample"
+    resultType="java.lang.Long">
     select count(*) from resource resource
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -308,7 +314,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.admin.model.Resource">
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.mbg.model.Resource">
     update resource
     <set>
       <if test="uuid != null">
@@ -356,17 +362,17 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="scut.yulin.admin.model.Resource">
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.mbg.model.Resource">
     update resource
-    set uuid = #{uuid,jdbcType=CHAR},
-      category_uuid = #{categoryUuid,jdbcType=CHAR},
-      url = #{url,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      `path` = #{path,jdbcType=VARCHAR},
-      component = #{component,jdbcType=VARCHAR},
-      iconCls = #{iconcls,jdbcType=VARCHAR},
-      keepAlive = #{keepalive,jdbcType=VARCHAR},
+    set uuid          = #{uuid,jdbcType=CHAR},
+        category_uuid = #{categoryUuid,jdbcType=CHAR},
+        url           = #{url,jdbcType=VARCHAR},
+        `name`        = #{name,jdbcType=VARCHAR},
+        description   = #{description,jdbcType=VARCHAR},
+        `path`        = #{path,jdbcType=VARCHAR},
+        component     = #{component,jdbcType=VARCHAR},
+        iconCls       = #{iconcls,jdbcType=VARCHAR},
+        keepAlive     = #{keepalive,jdbcType=VARCHAR},
       requireAuth = #{requireauth,jdbcType=VARCHAR},
       parentId = #{parentid,jdbcType=CHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},

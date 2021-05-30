@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="scut.yulin.admin.mbg.mapper.StudentDao">
-  <resultMap id="BaseResultMap" type="scut.yulin.admin.model.Student">
-    <id column="student_id" jdbcType="BIGINT" property="id" />
-    <result column="student_uuid" jdbcType="CHAR" property="uuid" />
-    <result column="student_account_name" jdbcType="VARCHAR" property="accountName" />
-    <result column="student_pwd" jdbcType="VARCHAR" property="pwd" />
-    <result column="student_gender" jdbcType="VARCHAR" property="gender" />
-    <result column="student_real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="student_country" jdbcType="VARCHAR" property="country" />
-    <result column="student_city" jdbcType="VARCHAR" property="city" />
-    <result column="student_phone_code" jdbcType="VARCHAR" property="phoneCode" />
-    <result column="student_local_phone" jdbcType="VARCHAR" property="localPhone" />
+<mapper namespace="scut.yulin.mbg.mbg.mapper.StudentDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.mbg.model.Student">
+    <id column="student_id" jdbcType="BIGINT" property="id"/>
+    <result column="student_uuid" jdbcType="CHAR" property="uuid"/>
+    <result column="student_account_name" jdbcType="VARCHAR" property="accountName"/>
+    <result column="student_pwd" jdbcType="VARCHAR" property="pwd"/>
+    <result column="student_gender" jdbcType="VARCHAR" property="gender"/>
+    <result column="student_real_name" jdbcType="VARCHAR" property="realName"/>
+    <result column="student_country" jdbcType="VARCHAR" property="country"/>
+    <result column="student_city" jdbcType="VARCHAR" property="city"/>
+    <result column="student_phone_code" jdbcType="VARCHAR" property="phoneCode"/>
+    <result column="student_local_phone" jdbcType="VARCHAR" property="localPhone"/>
     <result column="student_cn_phone" jdbcType="VARCHAR" property="cnPhone" />
     <result column="student_mail" jdbcType="VARCHAR" property="mail" />
     <result column="student_id_card_number" jdbcType="VARCHAR" property="idCardNumber" />
@@ -92,15 +92,16 @@
     student.last_login as student_last_login, student.created_time as student_created_time, 
     student.update_time as student_update_time, student.deleted as student_deleted
   </sql>
-  <select id="selectByExample" parameterType="scut.yulin.admin.model.StudentExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="scut.yulin.mbg.model.StudentExample"
+    resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from student student
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
@@ -127,29 +128,31 @@
     delete from student
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="scut.yulin.admin.model.StudentExample">
+  <delete id="deleteByExample" parameterType="scut.yulin.mbg.model.StudentExample">
     delete from student student
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.admin.model.Student" useGeneratedKeys="true">
-    insert into student (uuid, account_name, pwd, 
-      gender, real_name, country, 
-      city, phone_code, local_phone, 
-      cn_phone, mail, id_card_number, 
-      passport_number, avatar_url, `status`, 
-      grade, last_login, created_time, 
-      update_time, deleted)
-    values (#{uuid,jdbcType=CHAR}, #{accountName,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR}, #{localPhone,jdbcType=VARCHAR}, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="scut.yulin.mbg.model.Student"
+    useGeneratedKeys="true">
+    insert into student (uuid, account_name, pwd,
+                         gender, real_name, country,
+                         city, phone_code, local_phone,
+                         cn_phone, mail, id_card_number,
+                         passport_number, avatar_url, `status`,
+                         grade, last_login, created_time,
+                         update_time, deleted)
+    values (#{uuid,jdbcType=CHAR}, #{accountName,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
+            #{gender,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR},
+            #{city,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR}, #{localPhone,jdbcType=VARCHAR},
       #{cnPhone,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{idCardNumber,jdbcType=VARCHAR}, 
       #{passportNumber,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{grade,jdbcType=VARCHAR}, #{lastLogin,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="scut.yulin.admin.model.Student" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="scut.yulin.mbg.model.Student" useGeneratedKeys="true">
     insert into student
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -276,10 +279,11 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="scut.yulin.admin.model.StudentExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="scut.yulin.mbg.model.StudentExample"
+    resultType="java.lang.Long">
     select count(*) from student student
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -380,7 +384,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.admin.model.Student">
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.mbg.model.Student">
     update student
     <set>
       <if test="uuid != null">
@@ -446,17 +450,17 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="scut.yulin.admin.model.Student">
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.mbg.model.Student">
     update student
-    set uuid = #{uuid,jdbcType=CHAR},
-      account_name = #{accountName,jdbcType=VARCHAR},
-      pwd = #{pwd,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      phone_code = #{phoneCode,jdbcType=VARCHAR},
-      local_phone = #{localPhone,jdbcType=VARCHAR},
+    set uuid          = #{uuid,jdbcType=CHAR},
+        account_name  = #{accountName,jdbcType=VARCHAR},
+        pwd           = #{pwd,jdbcType=VARCHAR},
+        gender        = #{gender,jdbcType=VARCHAR},
+        real_name     = #{realName,jdbcType=VARCHAR},
+        country       = #{country,jdbcType=VARCHAR},
+        city          = #{city,jdbcType=VARCHAR},
+        phone_code    = #{phoneCode,jdbcType=VARCHAR},
+        local_phone   = #{localPhone,jdbcType=VARCHAR},
       cn_phone = #{cnPhone,jdbcType=VARCHAR},
       mail = #{mail,jdbcType=VARCHAR},
       id_card_number = #{idCardNumber,jdbcType=VARCHAR},

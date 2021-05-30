@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import scut.yulin.admin.dto.resource.InsertResourceDTO;
 import scut.yulin.admin.dto.resource.ModifyResourceDTO;
 import scut.yulin.admin.dto.resource.QueryResourceDTO;
-import scut.yulin.admin.mbg.mapper.ResourceDao;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.ResourceExample;
 import scut.yulin.admin.service.ResourceService;
 import scut.yulin.common.constant.CommonConstant;
 import scut.yulin.common.utils.Inspections;
+import scut.yulin.mbg.mbg.mapper.ResourceDao;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.ResourceExample;
 
 /**
  * @Date 2021/5/23

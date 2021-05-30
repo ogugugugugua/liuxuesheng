@@ -11,14 +11,14 @@ import scut.yulin.admin.dto.hr_role.InsertHrRoleRelationDTO;
 import scut.yulin.admin.dto.hr_role.ModifyHrRoleRelationDTO;
 import scut.yulin.admin.dto.hr_role.QueryHrRoleRelationDTO;
 import scut.yulin.admin.dto.role.QueryRoleDTO;
-import scut.yulin.admin.mbg.mapper.HrRoleDao;
-import scut.yulin.admin.model.HrRole;
-import scut.yulin.admin.model.HrRoleExample;
-import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.service.HrRoleRelationService;
 import scut.yulin.admin.service.RoleService;
 import scut.yulin.common.constant.CommonConstant;
 import scut.yulin.common.utils.Inspections;
+import scut.yulin.mbg.mbg.mapper.HrRoleDao;
+import scut.yulin.mbg.model.HrRole;
+import scut.yulin.mbg.model.HrRoleExample;
+import scut.yulin.mbg.model.Resource;
 
 /**
  * @Date 2021/5/24

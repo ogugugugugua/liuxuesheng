@@ -1,4 +1,4 @@
-package scut.yulin.admin.model;
+package scut.yulin.mbg.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,13 +7,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * resource_role
+ * hr_role
  * @author 
  */
-@ApiModel(value="scut.yulin.admin.model.ResourceRole资源_角色关联表 ")
+@ApiModel(value = "scut.yulin.mbg.model.HrRole 用户-角色关联表 ")
 @Data
-public class ResourceRole implements Serializable {
-
+public class HrRole implements Serializable {
     /**
      * id
      */
@@ -27,10 +26,10 @@ public class ResourceRole implements Serializable {
     private String uuid;
 
     /**
-     * 资源uuid
+     * 用户uuid
      */
-    @ApiModelProperty(value="资源uuid")
-    private String resourceUuid;
+    @ApiModelProperty(value="用户uuid")
+    private String hrUuid;
 
     /**
      * 角色uuid
@@ -58,13 +57,13 @@ public class ResourceRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public ResourceRole(String uuid, String resourceUuid, String roleUuid) {
+    public HrRole(String uuid, String hrUuid, String roleUuid) {
         this.uuid = uuid;
-        this.resourceUuid = resourceUuid;
+        this.hrUuid = hrUuid;
         this.roleUuid = roleUuid;
     }
 
-    public ResourceRole() {
+    public HrRole() {
     }
 
     @Override
@@ -78,10 +77,10 @@ public class ResourceRole implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        ResourceRole other = (ResourceRole) that;
+        HrRole other = (HrRole) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUuid() == null ? other.getUuid() == null : this.getUuid().equals(other.getUuid()))
-            && (this.getResourceUuid() == null ? other.getResourceUuid() == null : this.getResourceUuid().equals(other.getResourceUuid()))
+            && (this.getHrUuid() == null ? other.getHrUuid() == null : this.getHrUuid().equals(other.getHrUuid()))
             && (this.getRoleUuid() == null ? other.getRoleUuid() == null : this.getRoleUuid().equals(other.getRoleUuid()))
             && (this.getCreatedTime() == null ? other.getCreatedTime() == null : this.getCreatedTime().equals(other.getCreatedTime()))
             && (this.getUpdatedTime() == null ? other.getUpdatedTime() == null : this.getUpdatedTime().equals(other.getUpdatedTime()))
@@ -94,7 +93,7 @@ public class ResourceRole implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUuid() == null) ? 0 : getUuid().hashCode());
-        result = prime * result + ((getResourceUuid() == null) ? 0 : getResourceUuid().hashCode());
+        result = prime * result + ((getHrUuid() == null) ? 0 : getHrUuid().hashCode());
         result = prime * result + ((getRoleUuid() == null) ? 0 : getRoleUuid().hashCode());
         result = prime * result + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
         result = prime * result + ((getUpdatedTime() == null) ? 0 : getUpdatedTime().hashCode());
@@ -110,7 +109,7 @@ public class ResourceRole implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", uuid=").append(uuid);
-        sb.append(", resourceUuid=").append(resourceUuid);
+        sb.append(", hrUuid=").append(hrUuid);
         sb.append(", roleUuid=").append(roleUuid);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);

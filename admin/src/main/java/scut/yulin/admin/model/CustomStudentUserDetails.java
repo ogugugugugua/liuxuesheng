@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import scut.yulin.common.utils.Inspections;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Student;
 
 /**
  * SpringSecurity需要的用户详情 这个项目的标准用户类(留学生)，也就是能被SpringSecurity识别的用户类

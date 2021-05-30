@@ -20,16 +20,16 @@ import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
-import scut.yulin.admin.mbg.mapper.StudentDao;
 import scut.yulin.admin.model.CustomStudentUserDetails;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.Student;
-import scut.yulin.admin.model.StudentExample;
 import scut.yulin.admin.service.HrRoleRelationService;
 import scut.yulin.admin.service.RedisService;
 import scut.yulin.admin.service.StudentAdminService;
 import scut.yulin.common.constant.CommonConstant;
 import scut.yulin.common.utils.Inspections;
+import scut.yulin.mbg.mbg.mapper.StudentDao;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Student;
+import scut.yulin.mbg.model.StudentExample;
 import scut.yulin.security.util.JwtTokenUtil;
 
 @Slf4j

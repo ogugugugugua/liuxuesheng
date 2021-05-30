@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="scut.yulin.admin.mbg.mapper.TravelerDao">
-  <resultMap id="BaseResultMap" type="scut.yulin.admin.model.Traveler">
+<mapper namespace="scut.yulin.mbg.mbg.mapper.TravelerDao">
+  <resultMap id="BaseResultMap" type="scut.yulin.mbg.model.Traveler">
     <id column="traveler_id" jdbcType="BIGINT" property="id"/>
     <result column="traveler_uuid" jdbcType="CHAR" property="uuid"/>
     <result column="traveler_account_name" jdbcType="VARCHAR" property="accountName"/>
@@ -97,7 +97,7 @@
     traveler.grade as traveler_grade, traveler.last_login as traveler_last_login, traveler.created_time as traveler_created_time, 
     traveler.updated_time as traveler_updated_time, traveler.deleted as traveler_deleted
   </sql>
-  <select id="selectByExample" parameterType="scut.yulin.admin.model.TravelerExample"
+  <select id="selectByExample" parameterType="scut.yulin.mbg.model.TravelerExample"
     resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -134,14 +134,14 @@
     from traveler
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="scut.yulin.admin.model.TravelerExample">
+  <delete id="deleteByExample" parameterType="scut.yulin.mbg.model.TravelerExample">
     delete from traveler traveler
     <if test="_parameter != null">
       <include refid="Example_Where_Clause"/>
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id"
-    parameterType="scut.yulin.admin.model.Traveler" useGeneratedKeys="true">
+    parameterType="scut.yulin.mbg.model.Traveler" useGeneratedKeys="true">
     insert into traveler (uuid, account_name, pwd,
                           gender, real_name, country,
                           city, phone_code, local_phone,
@@ -159,7 +159,7 @@
             #{deleted,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id"
-    parameterType="scut.yulin.admin.model.Traveler" useGeneratedKeys="true">
+    parameterType="scut.yulin.mbg.model.Traveler" useGeneratedKeys="true">
     insert into traveler
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -280,7 +280,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="scut.yulin.admin.model.TravelerExample"
+  <select id="countByExample" parameterType="scut.yulin.mbg.model.TravelerExample"
     resultType="java.lang.Long">
     select count(*) from traveler traveler
     <if test="_parameter != null">
@@ -381,7 +381,7 @@
       <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.admin.model.Traveler">
+  <update id="updateByPrimaryKeySelective" parameterType="scut.yulin.mbg.model.Traveler">
     update traveler
     <set>
       <if test="uuid != null">
@@ -444,7 +444,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="scut.yulin.admin.model.Traveler">
+  <update id="updateByPrimaryKey" parameterType="scut.yulin.mbg.model.Traveler">
     update traveler
     set uuid          = #{uuid,jdbcType=CHAR},
         account_name  = #{accountName,jdbcType=VARCHAR},

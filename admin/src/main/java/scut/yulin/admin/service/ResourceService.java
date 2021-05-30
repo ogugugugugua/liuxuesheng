@@ -4,7 +4,7 @@ import java.util.List;
 import scut.yulin.admin.dto.resource.InsertResourceDTO;
 import scut.yulin.admin.dto.resource.ModifyResourceDTO;
 import scut.yulin.admin.dto.resource.QueryResourceDTO;
-import scut.yulin.admin.model.Resource;
+import scut.yulin.mbg.model.Resource;
 
 /**
  * @Date 2021/5/23

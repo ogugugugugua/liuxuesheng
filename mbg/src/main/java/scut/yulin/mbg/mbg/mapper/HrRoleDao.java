@@ -1,11 +1,11 @@
-package scut.yulin.admin.mbg.mapper;
+package scut.yulin.mbg.mbg.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import scut.yulin.admin.model.HrRole;
-import scut.yulin.admin.model.HrRoleExample;
+import scut.yulin.mbg.model.HrRole;
+import scut.yulin.mbg.model.HrRoleExample;
 
 @Repository
 @Mapper

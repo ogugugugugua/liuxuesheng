@@ -11,9 +11,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import scut.yulin.admin.dto.resource.QueryResourceDTO;
-import scut.yulin.admin.model.Resource;
 import scut.yulin.admin.service.AdminService;
 import scut.yulin.admin.service.ResourceService;
+import scut.yulin.mbg.model.Resource;
 import scut.yulin.security.component.DynamicSecurityService;
 import scut.yulin.security.config.SecurityConfig;
 

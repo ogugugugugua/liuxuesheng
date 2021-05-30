@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import scut.yulin.admin.dto.traveler.QueryTravelerDTO;
 import scut.yulin.admin.model.CustomStudentUserDetails;
 import scut.yulin.admin.model.CustomTravelerUserDetails;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.Student;
-import scut.yulin.admin.model.Traveler;
 import scut.yulin.admin.service.AdminService;
 import scut.yulin.admin.service.StudentAdminService;
 import scut.yulin.admin.service.TravelerAdminService;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Student;
+import scut.yulin.mbg.model.Traveler;
 
 /**
  * @Date 2021/5/29

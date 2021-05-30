@@ -20,15 +20,15 @@ import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.traveler.InsertTravelerDTO;
 import scut.yulin.admin.dto.traveler.ModifyTravelerDTO;
 import scut.yulin.admin.dto.traveler.QueryTravelerDTO;
-import scut.yulin.admin.mbg.mapper.TravelerDao;
 import scut.yulin.admin.model.CustomTravelerUserDetails;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.Traveler;
-import scut.yulin.admin.model.TravelerExample;
 import scut.yulin.admin.service.HrRoleRelationService;
 import scut.yulin.admin.service.TravelerAdminService;
 import scut.yulin.common.constant.CommonConstant;
 import scut.yulin.common.utils.ReflectionCopy;
+import scut.yulin.mbg.mbg.mapper.TravelerDao;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Traveler;
+import scut.yulin.mbg.model.TravelerExample;
 import scut.yulin.security.util.JwtTokenUtil;
 
 /**

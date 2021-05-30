@@ -1,4 +1,4 @@
-package scut.yulin.admin.model;
+package scut.yulin.mbg.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

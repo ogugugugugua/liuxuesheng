@@ -6,8 +6,8 @@ import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.student.InsertStudentDTO;
 import scut.yulin.admin.dto.student.ModifyStudentDTO;
 import scut.yulin.admin.dto.student.QueryStudentDTO;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.Student;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Student;
 
 public interface StudentAdminService {
     List<Student> getStudentList(QueryStudentDTO queryStudentDTO);

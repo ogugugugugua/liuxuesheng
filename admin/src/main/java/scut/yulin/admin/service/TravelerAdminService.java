@@ -6,8 +6,8 @@ import scut.yulin.admin.dto.login.LoginDTO;
 import scut.yulin.admin.dto.traveler.InsertTravelerDTO;
 import scut.yulin.admin.dto.traveler.ModifyTravelerDTO;
 import scut.yulin.admin.dto.traveler.QueryTravelerDTO;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.Traveler;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.Traveler;
 
 /**
  * @Date 2021/5/27

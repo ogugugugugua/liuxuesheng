@@ -12,14 +12,14 @@ import scut.yulin.admin.dto.resource.QueryResourceDTO;
 import scut.yulin.admin.dto.resource_role.InsertResourceRoleRelationDTO;
 import scut.yulin.admin.dto.resource_role.ModifyResourceRoleRelationDTO;
 import scut.yulin.admin.dto.resource_role.QueryResourceRoleRelationDTO;
-import scut.yulin.admin.mbg.mapper.ResourceRoleDao;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.ResourceRole;
-import scut.yulin.admin.model.ResourceRoleExample;
 import scut.yulin.admin.service.ResourceRoleRelationService;
 import scut.yulin.admin.service.ResourceService;
 import scut.yulin.common.constant.CommonConstant;
 import scut.yulin.common.utils.Inspections;
+import scut.yulin.mbg.mbg.mapper.ResourceRoleDao;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.ResourceRole;
+import scut.yulin.mbg.model.ResourceRoleExample;
 
 /**
  * @Date 2021/5/24

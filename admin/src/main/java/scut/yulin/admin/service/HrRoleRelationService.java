@@ -4,8 +4,8 @@ import java.util.List;
 import scut.yulin.admin.dto.hr_role.InsertHrRoleRelationDTO;
 import scut.yulin.admin.dto.hr_role.ModifyHrRoleRelationDTO;
 import scut.yulin.admin.dto.hr_role.QueryHrRoleRelationDTO;
-import scut.yulin.admin.model.HrRole;
-import scut.yulin.admin.model.Resource;
+import scut.yulin.mbg.model.HrRole;
+import scut.yulin.mbg.model.Resource;
 
 /**
  * @Date 2021/5/24

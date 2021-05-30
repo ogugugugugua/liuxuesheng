@@ -2,7 +2,7 @@ package scut.yulin.admin.service;
 
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
-import scut.yulin.admin.model.Resource;
+import scut.yulin.mbg.model.Resource;
 
 /**
  * @Date 2021/5/29

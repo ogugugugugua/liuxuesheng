@@ -8,9 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import scut.yulin.admin.model.Traveler;
-import scut.yulin.admin.service.ResourceService;
 import scut.yulin.admin.service.TravelerAdminService;
+import scut.yulin.mbg.model.Traveler;
 import scut.yulin.portal.TravelerReadHistory;
 import scut.yulin.portal.respository.TravelerReadHistoryRespository;
 import scut.yulin.portal.service.TravelerReadHistoryService;
@@ -28,8 +27,8 @@ public class TravelerReadHistoryServiceImpl implements TravelerReadHistoryServic
   private TravelerReadHistoryRespository respository;
   @Autowired
   private TravelerAdminService travelerService;
-  @Autowired
-  ResourceService resourceService;
+//  @Autowired
+//  ResourceService resourceService;
 
 
   @Override

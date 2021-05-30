@@ -4,8 +4,8 @@ import java.util.List;
 import scut.yulin.admin.dto.resource_role.InsertResourceRoleRelationDTO;
 import scut.yulin.admin.dto.resource_role.ModifyResourceRoleRelationDTO;
 import scut.yulin.admin.dto.resource_role.QueryResourceRoleRelationDTO;
-import scut.yulin.admin.model.Resource;
-import scut.yulin.admin.model.ResourceRole;
+import scut.yulin.mbg.model.Resource;
+import scut.yulin.mbg.model.ResourceRole;
 
 /**
  * @Date 2021/5/24
