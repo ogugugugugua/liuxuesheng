@@ -11,6 +11,7 @@
 2. 如果使用动态权限控制，当我们已经在数据库中写入了基于路径的校验规则时， 不需要也不能在被调用的service方法上再次使用EL表达式进行进行权限控制。
    尤其当EL表达式规定的权限与数据库不相符时，请求会被拒绝！ 所以我们只需要乖乖地在数据库中对路径权限进行定义即可
 
+
 ## Mybatis-generator
 
 1. 需要加上 `<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />`
@@ -132,8 +133,10 @@ public class AdminApplication {
 
 4. 接口幂等性保持问题需要解决：比如对于tranportation的新增，就可能会导致多个相同项
 
-5. MyBatis报错 Cannot determine value type from string 'xxxxxx'：有两种情况会导致这个问题
-：（1）数据库字段和实体类的属性不匹配 （2）重写了实体类的有参构造后，没有写无参构造,补上无参构造即可 
-。这里的情况属于后者，所以只需要在类开头补上@NoArgsConstructor
-   
+5. MyBatis报错 Cannot determine value type from string 'xxxxxx'：有两种情况会导致这个问题 ：（1）数据库字段和实体类的属性不匹配
+   （2）重写了实体类的有参构造后，没有写无参构造,补上无参构造即可 。这里的情况属于后者，所以只需要在类开头补上@NoArgsConstructor
+
 6. 所有的getByUuid/modify/delete方法都需要判断uuid是否为空，如果为空则直接返回null或者返回2，表示目标项找不到
+
+7. 多个module如果需要相互引用对方的service方法，往往会涉及到数据库的CRUD。若模块A依赖模块B，记得一定要在模块A的`application.properties`处加上
+   `mybatis.mapper-locations=classpath*:scut/**/mapper/*.xml`，否则会出现mapper方法not found的错误
