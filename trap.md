@@ -142,5 +142,14 @@ public class AdminApplication {
    `mybatis.mapper-locations=classpath*:scut/**/mapper/*.xml`，否则会出现mapper方法not found的错误
 
 8. classpath 和 classpath* 区别：
-   - classpath：只会到你的class路径中查找找文件;
-   - classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找.
+    - classpath：只会到你的class路径中查找找文件;
+    - classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找.
+
+# ElasticSearch
+
+1. elasticsearch位置
+    - Data:    /usr/local/var/lib/elasticsearch/
+    - Logs:    /usr/local/var/log/elasticsearch/elasticsearch_didi.log
+    - Plugins: /usr/local/var/elasticsearch/plugins/
+    - Config:  /usr/local/etc/elasticsearch/
+   

@@ -1,0 +1,16 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>搜索系统
+++[#lightgreen] <&globe>旅客使用场景
++++ 旅客检索已有旅程规划
++++ 旅客检索境外留学生
+++[#lightgreen] <&globe>留学生使用场景
++++ 留学生检索开源旅程组件
+--[#FFBBCC] <&globe>支持功能
+--- 关键字模糊匹配
+--- 使用场景隔离
+--- 权限控制
+
+
+@endmindmap

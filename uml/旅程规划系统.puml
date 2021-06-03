@@ -1,0 +1,24 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>旅程规划系统
+++[#lightgreen] <&globe>旅程宏观信息记录
++++ 出发日期与总时长
++++ 同行人员列表
++++ 消费总预算
++++ ...
+++[#lightgreen] <&globe>多个日安排规划
++++ 多日安排顺序调整操作
++++ 单日安排增删改操作
+++++ 多行程随意组合
+++++ 行程种类
++++++ 住宿
++++++ 餐饮
++++++ 交通
++++++ 目的地
+--[#FFBBCC] <&globe>旅程规划组件复用
+--- 组件粒度大小
+--- 小粒度组件复用程度
+--- 组件间组合关系
+
+@endmindmap

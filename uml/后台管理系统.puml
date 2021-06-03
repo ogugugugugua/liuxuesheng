@@ -1,0 +1,21 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>后台管理系统
+++[#lightgreen] <&globe>超级管理员
++++[#orange] 普通管理员权限
++++[#FFBBCC] 数据录入管理员权限
++++ 系统级操作
+++++ 修改系统配置
+++++ 修改代码
+++++ 其余增删改查停启用操作
+--[#orange] <&globe>普通管理员
+--- 审核旅程规划规范性 [查]
+--- 屏蔽违法违规言论 [停用]
+--- 其余查看与停启用操作
+--[#FFBBCC] <&globe>数据录入管理员
+--- 录入基础数据 [写]
+--- 其余查看与增加操作
+
+
+@endmindmap

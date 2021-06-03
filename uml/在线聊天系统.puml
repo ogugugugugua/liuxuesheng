@@ -1,0 +1,18 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>在线聊天系统
+++[#lightgreen] <&globe>聊天类别
++++ 一对一聊天
++++ 群组聊天
+++[#lightgreen] <&globe>聊天功能
++++ 发起聊天/群聊
++++ 退出群聊
++++ 查看历史聊天记录
++++ 发送图片/文件
+--[#lightgreen] <&globe>旅程规划在线同步展示
+--- 监听留学生端增删改操作
+--- 向旅客端推送最新版本
+
+
+@endmindmap

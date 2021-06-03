@@ -16,6 +16,7 @@
         <module>security</module>
         <module>portal</module>
         <module>mbg</module>
+        <module>es</module>
     </modules>
 
     <parent>

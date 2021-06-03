@@ -1,0 +1,19 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>推荐系统
+++[#lightgreen] <&globe>个性化推荐
++++ 为旅客精确推荐旅程规划
++++ 为旅客精确推荐境外留学生
+++[#lightgreen] <&globe>系统推荐
++++ 根据大众行为推荐旅程规划
++++ 根据大众行为推荐境外留学生
+--[#FFBBCC] <&globe>链接
+--- 旅客 - 留学生
+--- 旅客 - 旅程规划
+--- 旅程规划 - 旅程规划
+--- 旅程规划 - 留学生
+--- 留学生 - 留学生
+
+
+@endmindmap

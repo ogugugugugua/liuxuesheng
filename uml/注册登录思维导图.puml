@@ -1,0 +1,30 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
+
++[#lightblue] <&flag>注册登录系统
+++[#lightgreen] <&globe>注册
++++ 账号注册
++++ 账号验证
+++++ 邮箱验证码
+++++ 短信验证码
+++[#lightgreen] <&globe>登录
++++ 系统账号登录
++++ 短信验证码登录
++++ 第三方登录
+++++ 微信
+++++ QQ
+++++ 微博
+++[#lightgreen] <&globe>找回密码
++++ 账号校验
++++ 重置密码
+--[#FFBBCC] <&globe>异常情况
+--- 账号或密码设置不符合规范
+--- 账号/手机/邮箱已注册
+--- 验证错误
+--- 登录账户或密码错误
+--[#FFBBCC] <&globe>风险控制
+--- 密码多次错误惩罚
+--- 验证码多次错误惩罚
+--- 图片验证码
+@endmindmap

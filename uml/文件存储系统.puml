@@ -1,0 +1,17 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>分布式文件存储系统
+++[#lightgreen] <&globe>功能
++++ 上传文件
++++ 删除文件
++++ 查询文件
+--[#FFBBCC] <&globe>要求
+--- 持久化
+--- 高可用性
+--- 高伸缩性
+--- 数据一致性
+--- 对其他服务透明化
+
+
+@endmindmap

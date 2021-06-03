@@ -1,0 +1,20 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>交易系统
+++[#lightgreen] <&globe>留学生端
++++ 发起交易订单并设置金额
++++ 退款申请处理
+++[#lightgreen] <&globe>旅客端
++++ 查看与支付订单
++++ 确认转账
++++ 申请退款
+--[#FFBBCC] <&globe>结算方式
+--- 微信支付
+--- 支付宝支付
+--[#FFBBCC] <&globe>通用操作
+--- 查看历史订单
+--- 取消订单
+--- 申诉
+
+@endmindmap

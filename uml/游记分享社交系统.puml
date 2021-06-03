@@ -1,0 +1,22 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>游记分享社交系统
+++[#lightgreen] <&globe>游记编辑
++++ 旅程规划导入
++++ Markdown编辑
++++ 多媒体文件插入和编辑
+++[#lightgreen] <&globe>游记分享
++++ 文件形式导出游记
++++ 游记链接分享第三方平台
+--[#FFBBCC] <&globe>社交
+--- 评论
+--- 点赞
+--- 收藏
+--- 社区内分享
+--- 发布旅行状态
+--- 筛选可见信息
+--- 关注/取消关注博主
+
+
+@endmindmap
