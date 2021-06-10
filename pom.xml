@@ -17,6 +17,7 @@
         <module>portal</module>
         <module>mbg</module>
         <module>es</module>
+        <module>im</module>
     </modules>
 
     <parent>
