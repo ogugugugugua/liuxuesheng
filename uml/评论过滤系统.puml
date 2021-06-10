@@ -1,0 +1,13 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
++[#lightblue] <&flag>评论过滤系统
+++[#lightgreen] <&globe>文本内容过滤
+++[#lightgreen] <&globe>图片/视频/音频过滤
+-- 根据违规类型分类处理
+-- 明确的违规判断依据
+-- 人工再次确认
+-- 允许申诉
+
+
+@endmindmap

@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+#pink:查询旅程;
+:查询trip表;
+if (查询精度？) then (查询旅程信息及日安排)
+  :根据旅程UUID查询关联关系表
+  获取日安排UUID列表;
+  :根据日安排UUID列表
+  依次查询routine表;
+
+else (仅查询旅程信息)
+  :直接返回;
+endif
+stop
+@enduml

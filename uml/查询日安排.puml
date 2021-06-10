@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+#pink:查询日安排;
+:根据日安排UUID查询日安排与行程关联关系表;
+:得到结果列表
+每一项为<日安排uuid，行程uuid，行程类型uuid，行程次序>;
+fork
+:行程类型为目的地
+调用目的地服务查询该行程信息;
+fork again
+:行程类型为住宿
+调用住宿服务查询该行程信息;
+fork again
+:行程类型为餐饮
+调用餐饮服务查询该行程信息;
+fork again
+:行程类型为交通
+调用交通服务查询该行程信息;
+end fork
+:根据行程次序组合查询结果为有序列表;
+:返回查询结果;
+stop
+
+@enduml
