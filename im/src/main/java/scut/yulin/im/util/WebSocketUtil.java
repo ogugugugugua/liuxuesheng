@@ -27,6 +27,14 @@ public class WebSocketUtil {
    * 用户与 Session 的映射
    */
   private static final Map<String, WebSocketSession> USER_SESSION_MAP = new ConcurrentHashMap<>();
+  /**
+   * 区分组别的 Session 与用户的映射
+   */
+  private static final Map<String, Map<WebSocketSession, String>> GROUP_SESSION_USER_MAP = new ConcurrentHashMap<>();
+  /**
+   * 区分组别的 用户与 Session 的映射
+   */
+  private static final Map<String, Map<String, WebSocketSession>> GROUP_USER_SESSION_MAP = new ConcurrentHashMap<>();
 
   /**
    * 添加 Session 。在这个方法中，会添加用户和 Session 之间的映射
@@ -55,6 +63,54 @@ public class WebSocketUtil {
     }
   }
 
+  /**
+   * 根据当前session获取当前用户
+   */
+  public static String getCurrentUser(WebSocketSession session) {
+    return SESSION_USER_MAP.get(session);
+  }
+
+  /**
+   * 添加 组Session 。在这个方法中，会按照分组添加用户和 Session 之间的映射
+   *
+   * @param groupId 组id
+   * @param session Session
+   * @param user 用户
+   */
+  public static void addGroupSession(String groupId, WebSocketSession session, String user) {
+    Map<String, WebSocketSession> userSessionMap = GROUP_USER_SESSION_MAP
+        .getOrDefault(groupId, new ConcurrentHashMap<>());
+    userSessionMap.put(user, session);
+    GROUP_USER_SESSION_MAP.put(groupId, userSessionMap);
+
+    Map<WebSocketSession, String> sessionUserMap = GROUP_SESSION_USER_MAP
+        .getOrDefault(groupId, new ConcurrentHashMap<>());
+    sessionUserMap.put(session, user);
+    GROUP_SESSION_USER_MAP.put(groupId, sessionUserMap);
+  }
+
+  /**
+   * 在分组内移除 Session 。
+   *
+   * @param session Session
+   */
+  public static void removeSessionInGroup(String groupId, WebSocketSession session) {
+    // 从 SESSION_USER_MAP 中移除
+    Map<WebSocketSession, String> sessionUserMap = GROUP_SESSION_USER_MAP
+        .getOrDefault(groupId, new ConcurrentHashMap<>());
+    String user = sessionUserMap.remove(session);
+
+    // 从 USER_SESSION_MAP 中移除
+    Map<String, WebSocketSession> userSessionMap = GROUP_USER_SESSION_MAP
+        .getOrDefault(groupId, new ConcurrentHashMap<>());
+    if (user != null && user.length() > 0) {
+      userSessionMap.remove(user);
+    }
+
+    GROUP_USER_SESSION_MAP.put(groupId, userSessionMap);
+    GROUP_SESSION_USER_MAP.put(groupId, sessionUserMap);
+  }
+
   // ========== 消息相关 ==========
 
   /**
@@ -69,6 +125,23 @@ public class WebSocketUtil {
     TextMessage textMessage = buildTextMessage(type, message);
     // 遍历 SESSION_USER_MAP ，进行逐个发送
     for (WebSocketSession session : SESSION_USER_MAP.keySet()) {
+      sendTextMessage(session, textMessage);
+    }
+  }
+
+  /**
+   * 广播发送消息给所有在线用户
+   *
+   * @param type 消息类型
+   * @param message 消息体
+   * @param <T> 消息类型
+   */
+  public static <T extends Message> void broadcastInGroup(String groupId, String type, T message) {
+    Map<WebSocketSession, String> sessionUserMap = GROUP_SESSION_USER_MAP.get(groupId);
+    // 创建消息
+    TextMessage textMessage = buildTextMessage(type, message);
+    // 遍历 SESSION_USER_MAP ，进行逐个发送
+    for (WebSocketSession session : sessionUserMap.keySet()) {
       sendTextMessage(session, textMessage);
     }
   }
