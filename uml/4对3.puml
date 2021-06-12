@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/class-diagram
+class restaurant
+class hotel
+class destination
+class vehicle
+
+together {
+class restaurant
+class hotel
+class destination
+class vehicle
+}
+
+class comment
+class image
+class price
+
+together {
+class comment
+class image
+class price
+}
+
+restaurant "1" -[#red]- "n" comment
+restaurant "1" -[#red]- "n" image
+restaurant "1" -[#red]- "n" price
+
+hotel "1" -[#blue]- "n" comment
+hotel "1" -[#blue]- "n" image
+hotel "1" -[#blue]- "n" price
+
+destination "1" -[#green]- "n" comment
+destination "1" -[#green]- "n" image
+destination "1" -[#green]- "n" price
+
+vehicle "1" -- "n" comment
+vehicle "1" -- "n" image
+vehicle "1" -- "n" price
+
+
+@enduml

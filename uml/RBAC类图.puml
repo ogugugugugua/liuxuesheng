@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class student
+class traveler
+abstract class hr
+class hr_role {
+hr_uuid
+role_uuid
+}
+class role
+class resource_role{
+role_uuid
+resource_uuid
+}
+class resource{
+resource_category_uuid
+}
+class resource_category
+class sidebar_role{
+role_uuid
+sidebar_uuid
+}
+class sidebar
+student --|> hr
+traveler --|> hr
+'hr "1" - "n" hr_role
+'hr_role "n" - "1" role
+'
+'resource "1" - "1" resource_category
+'resource "1" - "n" resource_role
+'sidebar "1" - "n" sidebar_role
+'
+'role "1" - "n" resource_role
+'role "1" - "n" sidebar_role
+
+hr "1" - "n" role
+(hr,role) .. hr_role
+
+role "1" - "n" resource
+(role,resource) .. resource_role
+
+role "1" - "n" sidebar
+(role,sidebar) .. sidebar_role
+
+resource "1" - "1" resource_category
+
+@enduml
