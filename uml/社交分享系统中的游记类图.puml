@@ -1,0 +1,49 @@
+@startuml
+
+class Blog{
+    private String uuid;
+
+    private String travelerUuid;
+    private String tripUuid;
+    private String studentUuid;
+
+    private String title;
+    private String content;
+
+    private Double tripPrice;
+    private String classification;
+    private Date departTime;
+    private Integer duration;
+    private Boolean publicBlog;
+    private Boolean original;
+    private String status;
+    private Integer likes;
+    private List<String> comments;
+    private Integer viewCounts;
+
+    private Date createTime;
+    private Date updateTime;
+    private Boolean deleted;
+
+}
+class TripStatus {
+  private String uuid;
+
+  private String userUuid;
+  private String tripUuid;
+  private String userType;
+
+  private String country;
+  private String city;
+  private String location;
+  private String mood;
+  private String content;
+
+  private Integer likes;
+  private List<String> comments;
+  private Integer viewCounts;
+
+  private Date createTime;
+  private Boolean deleted;
+}
+@enduml
