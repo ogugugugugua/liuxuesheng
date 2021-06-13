@@ -1,9 +1,9 @@
 package scut.yulin.im.message;
 
 /**
- * 用户加入指定群聊的通知 Message
+ * 用户加入指定群聊的请求Message
  */
-public class UserJoinGroupNoticeRequest implements Message {
+public class UserJoinGroupRequest implements Message {
 
   public static final String TYPE = "USER_JOIN_GROUP_NOTICE_REQUEST";
 
@@ -20,7 +20,7 @@ public class UserJoinGroupNoticeRequest implements Message {
     return nickname;
   }
 
-  public UserJoinGroupNoticeRequest setNickname(String nickname) {
+  public UserJoinGroupRequest setNickname(String nickname) {
     this.nickname = nickname;
     return this;
   }

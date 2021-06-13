@@ -5,15 +5,15 @@ import com.alibaba.druid.util.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 import scut.yulin.im.message.SendResponse;
-import scut.yulin.im.message.UserJoinGroupNoticeRequest;
 import scut.yulin.im.message.UserJoinGroupNoticeResponse;
+import scut.yulin.im.message.UserJoinGroupRequest;
 import scut.yulin.im.util.WebSocketUtil;
 
 @Component
-public class UserJoinGroupHandler implements MessageHandler<UserJoinGroupNoticeRequest> {
+public class UserJoinGroupHandler implements MessageHandler<UserJoinGroupRequest> {
 
   @Override
-  public void execute(WebSocketSession session, UserJoinGroupNoticeRequest message) {
+  public void execute(WebSocketSession session, UserJoinGroupRequest message) {
 
     if (StringUtils.isEmpty(message.getGroupId())) {
       WebSocketUtil.send(session, SendResponse.TYPE,
@@ -26,13 +26,13 @@ public class UserJoinGroupHandler implements MessageHandler<UserJoinGroupNoticeR
     // 添加到组里
     WebSocketUtil.addGroupSession(message.getGroupId(), session, currentUser);
     // 通知组员
-    WebSocketUtil.broadcastInGroup(message.getGroupId(), UserJoinGroupNoticeRequest.TYPE,
-        new UserJoinGroupNoticeRequest().setNickname(currentUser));
+    WebSocketUtil.broadcastInGroup(message.getGroupId(), UserJoinGroupRequest.TYPE,
+        new UserJoinGroupRequest().setNickname(currentUser));
   }
 
   @Override
   public String getType() {
-    return UserJoinGroupNoticeRequest.TYPE;
+    return UserJoinGroupRequest.TYPE;
   }
 
 }
