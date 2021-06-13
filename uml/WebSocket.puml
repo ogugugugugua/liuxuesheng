@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+'autonumber
+
+Client1 -> Server: HTTP Upgrade Request
+Server --> Client1: HTTP 101 Response
+Client2 -> Server: HTTP Upgrade Request
+Server --> Client2: HTTP 101 Response
+Client1 <-> Server: Bidirectional Messages
+Client2 <-> Server: Bidirectional Messages
+Client1 <-> Server: Bidirectional Messages
+Client2 <-> Server: Bidirectional Messages
+Client1 <- Server: Close
+Server <-- Client1: Close Response
+Client2 <- Server: Close
+Server <-- Client2: Close Response
+@enduml

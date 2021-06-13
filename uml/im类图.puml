@@ -1,0 +1,182 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface Message{
+消息
+}
+
+class AuthRequest{
+                 认证请求
+                 }
+
+class AuthResponse{
+                  认证结果
+                  }
+
+
+class SendResponse{
+                  消息响应结果
+                  }
+
+
+class OneChatRequest{
+                      单聊发起请求
+                      }
+class OneChatPermit{
+                      单聊请求通过
+                      }
+class SendToOneRequest{
+                      发送消息给指定用户
+                      }
+
+
+class CreateGroupRequest{
+  创建聊天群组请求
+}
+class CreateGroupResponse{
+  创建聊天群组结果
+}
+class GroupInvitationRequest{
+  邀请进入聊天群组
+}
+class EnterGroupMessage{
+  进入群聊
+}
+class QuitGroupMessage{
+  退出群聊
+}
+class SendToGroupRequest{
+发送消息给指定群聊
+}
+
+class UserEnterOrQuitGroupRequest{
+                          用户进入和退出群聊广播
+                          }
+
+class OneChatHistory{
+  查看单聊历史消息
+}
+class GroupChatHistory{
+  查看群聊历史消息
+}
+
+class UpdateTripInfoRequest{
+                           更新旅程规划
+                           }
+
+'-------------
+interface MessageHandler{
+消息处理器
+}
+
+class AuthRequestHandler{
+AuthRequest 消息处理器
+}
+class AuthResponseHandler{
+AuthResponse 消息处理器
+}
+class SendResponseHandler{
+SendResponse 消息处理器
+}
+class OneChatRequestHandler{
+OneChatRequest 消息处理器
+}
+class OneChatPermitHandler{
+OneChatPermit 消息处理器
+}
+class SendToOneRequestHandler{
+SendToOneRequest 消息处理器
+}
+class CreateGroupRequestHandler{
+CreateGroupRequest 消息处理器
+}
+class CreateGroupResponseHandler{
+CreateGroupResponse 消息处理器
+}
+class GroupInvitationRequestHandler{
+GroupInvitationRequest 消息处理器
+}
+class EnterGroupMessageHandler{
+EnterGroupMessage 消息处理器
+}
+class QuitGroupMessageHandler{
+QuitGroupMessage 消息处理器
+}
+class SendToGroupRequestHandler{
+SendToGroupRequest 消息处理器
+}
+class UserEnterOrQuitGroupRequestHandler{
+UserEnterOrQuitGroupRequest 消息处理器
+}
+class OneChatHistoryHandler{
+OneChatHistory 消息处理器
+}
+class GroupChatHistoryHandler{
+GroupChatHistory 消息处理器
+}
+class UpdateTripInfoRequestHandler{
+UpdateTripInfoRequest 消息处理器
+}
+'-------------
+Message <|--[#red]-- AuthRequest
+Message <|--[#red]-- AuthResponse
+Message <|---- SendResponse
+Message <|--[#green]-- OneChatRequest
+Message <|--[#green]-- OneChatPermit
+Message <|--[#green]-- SendToOneRequest
+Message <|--[#blue]-- CreateGroupRequest
+Message <|--[#blue]-- CreateGroupResponse
+Message <|--[#blue]-- GroupInvitationRequest
+Message <|--[#blue]-- EnterGroupMessage
+Message <|--[#blue]-- QuitGroupMessage
+Message <|--[#blue]-- SendToGroupRequest
+Message <|--[#blue]-- UserEnterOrQuitGroupRequest
+Message <|--[#orange]-- OneChatHistory
+Message <|--[#orange]-- GroupChatHistory
+Message <|---- UpdateTripInfoRequest
+
+
+MessageHandler <|--[#red]-- AuthRequestHandler
+MessageHandler <|--[#red]-- AuthResponseHandler
+MessageHandler <|---- SendResponseHandler
+MessageHandler <|--[#green]-- OneChatRequestHandler
+MessageHandler <|--[#green]-- OneChatPermitHandler
+MessageHandler <|--[#green]-- SendToOneRequestHandler
+MessageHandler <|--[#blue]-- CreateGroupRequestHandler
+MessageHandler <|--[#blue]-- CreateGroupResponseHandler
+MessageHandler <|--[#blue]-- GroupInvitationRequestHandler
+MessageHandler <|--[#blue]-- EnterGroupMessageHandler
+MessageHandler <|--[#blue]-- QuitGroupMessageHandler
+MessageHandler <|--[#blue]-- SendToGroupRequestHandler
+MessageHandler <|--[#blue]-- UserEnterOrQuitGroupRequestHandler
+MessageHandler <|--[#orange]-- OneChatHistoryHandler
+MessageHandler <|--[#orange]-- GroupChatHistoryHandler
+MessageHandler <|---- UpdateTripInfoRequestHandler
+
+AuthRequest "1" --- "1" AuthRequestHandler
+AuthResponse "1" --- "1" AuthResponseHandler
+SendResponse "1" --- "1" SendResponseHandler
+OneChatRequest "1" --- "1" OneChatRequestHandler
+OneChatPermit "1" --- "1" OneChatPermitHandler
+SendToOneRequest "1" --- "1" SendToOneRequestHandler
+CreateGroupRequest "1" --- "1" CreateGroupRequestHandler
+CreateGroupResponse "1" --- "1" CreateGroupResponseHandler
+GroupInvitationRequest "1" --- "1" GroupInvitationRequestHandler
+EnterGroupMessage "1" --- "1" EnterGroupMessageHandler
+QuitGroupMessage "1" --- "1" QuitGroupMessageHandler
+SendToGroupRequest "1" --- "1" SendToGroupRequestHandler
+UserEnterOrQuitGroupRequest "1" --- "1" UserEnterOrQuitGroupRequestHandler
+OneChatHistory "1" --- "1" OneChatHistoryHandler
+GroupChatHistory "1" --- "1" GroupChatHistoryHandler
+UpdateTripInfoRequest "1" --- "1" UpdateTripInfoRequestHandler
+'-------------
+'Message <|-- AuthRequest
+'Message <|-- AuthResponse
+'Message <|-- SendResponse
+'Message <|-- SendToGroupRequest
+'Message <|-- SendToOneRequest
+'Message <|-- UpdateTripInfoRequest
+'Message <|-- UserJoinGroupNoticeResponse
+'Message <|-- UserEnterOrQuitGroupRequest
+@enduml
