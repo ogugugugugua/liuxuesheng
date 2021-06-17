@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Client -> FileService: Upload File
+FileService -> FastDFS: Save File
+FileService -> Redis: leftPush(fileList, fileURL)
+FileService -> Client: fileURL
+Client -> TripService: request with InsertImageDTO(xxx,fileURL,xxx)
+TripService -> MySQL: Write data
+TripService -> Redis: remove(fileList, 0, fileURL)
+TripService -> Client: Response
+FileService <--> Redis: <font color=blue>@Scheduled</font> get(fileList)
+FileService --> FastDFS: <font color=blue>@Scheduled</font> delete files
+'Bob --> Alice: Authentication Response
+'
+'Alice -> Bob: Another authentication Request
+'Alice <-- Bob: another authentication Response
+@enduml

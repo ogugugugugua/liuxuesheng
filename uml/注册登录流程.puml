@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+#pink:前端界面;
+split
+partition 账户密码注册 {
+#pink:输入账户密码点击注册;
+if (Controller#register参数校验ok) then (yes)
+:调用Service#register
+插入新对象;
+if (插入成功) then (yes)
+:返回新建用户成功信息;
+else (no)
+:返回用户名已存在提示信息;
+endif
+else (no)
+:返回参数不合法提示信息;
+'stop
+endif
+}
+split again
+partition 账户密码登录 {
+#pink:输入账户密码点击登录;
+if (Controller#accountLogin参数校验ok) then (yes)
+:调用Service#accountLogin
+用户查询;
+if (存在用户&&密码匹配正确) then (yes)
+:生成JWT并返回;
+else (no)
+:返回账户或密码错误提示信息;
+endif
+else (no)
+:返回参数不合法提示信息;
+'stop
+endif
+}
+split again
+partition 发送手机号验证码 {
+#pink:输入手机号点击发送验证码;
+if (Controller#sendVerificationCode参数校验ok) then (yes)
+if (Redis中有对应验证码) then (yes)
+:返回验证码已发送提示信息;
+else (no)
+:调用第三方服务发送随机验证码
+将验证码写入Redis;
+endif
+else (no)
+:返回参数不合法提示信息;
+endif
+}
+split again
+partition 手机号验证码注册登录 {
+#pink:输入手机号及验证码点击登录;
+if (Controller#phoneLogin参数校验ok) then (yes)
+if (Redis中有对应验证码且匹配) then (yes)
+:根据手机号码查询数据库;
+if (用户存在) then (yes)
+:生成JWT并返回;
+else (no)
+:返回结果码要求前端跳转到注册页面;
+endif
+else (no)
+:返回验证码错误提示信息;
+endif
+else (no)
+:返回参数不合法提示信息;
+endif
+}
+end split
+stop
+
+@enduml

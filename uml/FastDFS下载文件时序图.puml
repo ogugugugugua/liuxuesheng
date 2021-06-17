@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+Client -> Tracker : Volume name && File name
+Tracker -> Tracker : Process
+Tracker -> Client : Storage IP address && Port
+
+Client -> Storage : Volume name && File name
+Storage -> Storage : Process
+Storage -> Client : File Content
+@enduml

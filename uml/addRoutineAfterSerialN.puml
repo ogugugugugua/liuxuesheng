@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Trip_Routine_ServiceImpl.addRoutineAfterSerialN;
+if (uuid不为空) then (yes)
+  :找出该旅程的所有序号>N的日安排列表relationList;
+  if (relationList为空) then (yes)
+  :确定旅程总天数;
+    if (总天数为0) then (yes)
+      :设置插入日安排序号为1;
+    else (no)
+      :设置插入日安排序号为总天数+1;
+    endif
+    :插入新数据;
+  else (no)
+   repeat:从relationList列表尾部往前遍历;
+   :将日安排序号+1;
+   repeat while (已经遍历完) is (no) not (yes)
+   :设置插入日安排序号为N+1;
+   :插入新数据;
+  endif
+else (no)
+  :返回参数错误提示;
+endif
+stop
+
+@enduml

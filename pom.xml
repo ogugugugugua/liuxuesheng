@@ -18,6 +18,7 @@
         <module>mbg</module>
         <module>es</module>
         <module>im</module>
+        <module>fastdfs</module>
     </modules>
 
     <parent>

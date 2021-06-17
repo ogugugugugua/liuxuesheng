@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+start
+:SendToGroupHandler.execute(WebSocketSession session, SendToGroupRequest message);
+if (参数校验ok) then (yes)
+:服务器从内存中找到当前Session对应用户;
+:向客户端返回确认接收消息;
+:根据群组id向组内在线成员广播发送消息;
+:异步发送当前消息至消息队列，随后持久化到数据库;
+else (no)
+:服务端向客户端发送参数错误提示信息;
+endif
+:前端根据服务器返回显示响应信息;
+end
+@enduml

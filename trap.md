@@ -11,6 +11,22 @@
 2. 如果使用动态权限控制，当我们已经在数据库中写入了基于路径的校验规则时， 不需要也不能在被调用的service方法上再次使用EL表达式进行进行权限控制。
    尤其当EL表达式规定的权限与数据库不相符时，请求会被拒绝！ 所以我们只需要乖乖地在数据库中对路径权限进行定义即可
 
+配置spring security spring security设置要采用响应式配置，基于WebFlux中WebFilter实现，与Spring
+MVC的Security是通过Servlet的Filter实现类似，也是一系列filter组成的过滤链。
+
+部分概念是对应的：
+
+|webflux|    mvc|    作用|
+| :----: | :----:|:----:|
+|@EnableWebFluxSecurity|    @EnableWebSecurity|    开启security配置|
+|ServerAuthenticationSuccessHandler|    AuthenticationSuccessHandler|    登录成功Handler|
+|ServerAuthenticationFailureHandler|    AuthenticationFailureHandler|    登陆失败Handler|
+|ReactiveAuthorizationManager<AuthorizationContext>    |AuthorizationManager|    认证管理|
+|ServerSecurityContextRepository|    SecurityContextHolder|    认证信息存储管理|
+|ReactiveUserDetailsService|    UserDetailsService|    用户登录|
+|ReactiveAuthorizationManager|    AccessDecisionManager|    鉴权管理|
+|ServerAuthenticationEntryPoint|    AuthenticationEntryPoint|    未认证Handler|
+|ServerAccessDeniedHandler|    AccessDeniedHandler|    鉴权失败Handler|
 
 ## Mybatis-generator
 

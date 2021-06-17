@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Trip_Routine_ServiceImpl.moveUpOneStep;
+if (uuid不为空) then (yes)
+if (找不到对应Routine) then (yes)
+:返回RoutineNotFound错误提示;
+else (no)
+if (当前Routine序号curSerial==1) then (yes)
+:返回操作成功提示;
+else (no)
+:搜索序号为curSerial-1的Routine;
+:分3次更新来互换两者序号;
+endif
+endif
+else (no)
+:返回参数错误提示;
+endif
+stop
+
+@enduml
