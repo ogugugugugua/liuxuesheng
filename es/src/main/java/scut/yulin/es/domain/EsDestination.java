@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -26,25 +25,25 @@ public class EsDestination extends EsSchedule implements Serializable {
    * 非数据库字段 该目的地附近可用交通方式列表 通过调用TransportationService进行注入
    */
   @Field(type = FieldType.Nested)
-  private List<EsTransportation> transportationList;
+  private String transportationList;
 
   /**
    * 非数据库字段 该目的地所有消费项目列表 通过调用PriceService进行注入
    */
   @Field(type = FieldType.Nested)
-  private List<EsPrice> priceList;
+  private String priceList;
 
   /**
    * 非数据库字段 该目的地所有图片描述 通过调用ImageService进行注入
    */
   @Field(type = FieldType.Nested)
-  private List<EsImage> imageList;
+  private String imageList;
 
   /**
    * 非数据库字段 该目的地所有评论 通过调用CommentService进行注入
    */
   @Field(type = FieldType.Nested)
-  private List<EsComment> commentList;
+  private String commentList;
 
   /**
    * id

@@ -13,5 +13,5 @@ public interface EsPriceService {
 
   EsPrice transform(Price price);
 
-  List<EsPrice> transform(List<Price> price);
+  String transform(List<Price> price);
 }

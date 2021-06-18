@@ -13,5 +13,5 @@ public interface EsImageService {
 
   EsImage transform(Image image);
 
-  List<EsImage> transform(List<Image> image);
+  String transform(List<Image> image);
 }

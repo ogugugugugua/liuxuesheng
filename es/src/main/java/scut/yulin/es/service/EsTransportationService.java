@@ -13,5 +13,5 @@ public interface EsTransportationService {
 
   EsTransportation transform(Transportation transportation);
 
-  List<EsTransportation> transform(List<Transportation> transportation);
+  String transform(List<Transportation> transportation);
 }

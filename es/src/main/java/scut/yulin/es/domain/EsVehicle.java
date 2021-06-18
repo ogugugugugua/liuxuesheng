@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import scut.yulin.common.constant.CommonConstant;
 
@@ -14,7 +14,7 @@ import scut.yulin.common.constant.CommonConstant;
  * @author
  */
 @ApiModel(value = "scut.yulin.trip.model.Vehicle交通 ")
-//@Data
+@Data
 //@Getter
 @NoArgsConstructor
 public class EsVehicle extends EsSchedule implements Serializable {
@@ -29,20 +29,20 @@ public class EsVehicle extends EsSchedule implements Serializable {
    * 非数据库字段 价钱列表
    */
   @ApiModelProperty(value = "非数据库字段，价钱列表")
-  private List<EsPrice> esPriceList;
+  private String esPriceList;
 
   /**
    * 非数据库字段 图片列表
    */
   @ApiModelProperty(value = "非数据库字段，图片列表")
-  private List<EsImage> esImageList;
+  private String esImageList;
 
 
   /**
    * 非数据库字段 评论列表
    */
   @ApiModelProperty(value = "非数据库字段，评论列表")
-  private List<EsComment> esCommentList;
+  private String esCommentList;
 
   /**
    * 非数据库字段 耗时，字符串表达
@@ -148,170 +148,6 @@ public class EsVehicle extends EsSchedule implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  public EsTransportationType getTransportationType() {
-    return transportationType;
-  }
-
-  public List<EsPrice> getEsPriceList() {
-    return esPriceList;
-  }
-
-  public List<EsImage> getEsImageList() {
-    return esImageList;
-  }
-
-  public List<EsComment> getEsCommentList() {
-    return esCommentList;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public String getUuid() {
-    return uuid;
-  }
-
-  public String getScheduleTypeUuid() {
-    return scheduleTypeUuid;
-  }
-
-  public String getTransportationTypeUuid() {
-    return transportationTypeUuid;
-  }
-
-  public String getLocalName() {
-    return localName;
-  }
-
-  public String getCnName() {
-    return cnName;
-  }
-
-  public String getVehicleSerial() {
-    return vehicleSerial;
-  }
-
-  public Date getDepartureTime() {
-    return departureTime;
-  }
-
-  public Date getDuration() {
-    return duration;
-  }
-
-  public Date getArrivalTime() {
-    return arrivalTime;
-  }
-
-  public String getDepartureLocation() {
-    return departureLocation;
-  }
-
-  public String getArrivalLocation() {
-    return arrivalLocation;
-  }
-
-  public String getGrade() {
-    return grade;
-  }
-
-  public Date getCreatedTime() {
-    return createdTime;
-  }
-
-  public Date getUpdatedTime() {
-    return updatedTime;
-  }
-
-  public String getDeleted() {
-    return deleted;
-  }
-
-  public static long getSerialVersionUID() {
-    return serialVersionUID;
-  }
-
-  public void setTransportationType(EsTransportationType transportationType) {
-    this.transportationType = transportationType;
-  }
-
-  public void setEsPriceList(List<EsPrice> esPriceList) {
-    this.esPriceList = esPriceList;
-  }
-
-  public void setEsImageList(List<EsImage> esImageList) {
-    this.esImageList = esImageList;
-  }
-
-  public void setEsCommentList(List<EsComment> esCommentList) {
-    this.esCommentList = esCommentList;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
-
-  public void setScheduleTypeUuid(String scheduleTypeUuid) {
-    this.scheduleTypeUuid = scheduleTypeUuid;
-  }
-
-  public void setTransportationTypeUuid(String transportationTypeUuid) {
-    this.transportationTypeUuid = transportationTypeUuid;
-  }
-
-  public void setLocalName(String localName) {
-    this.localName = localName;
-  }
-
-  public void setCnName(String cnName) {
-    this.cnName = cnName;
-  }
-
-  public void setVehicleSerial(String vehicleSerial) {
-    this.vehicleSerial = vehicleSerial;
-  }
-
-  public void setDepartureTime(Date departureTime) {
-    this.departureTime = departureTime;
-  }
-
-  public void setDuration(Date duration) {
-    this.duration = duration;
-  }
-
-  public void setArrivalTime(Date arrivalTime) {
-    this.arrivalTime = arrivalTime;
-  }
-
-  public void setDepartureLocation(String departureLocation) {
-    this.departureLocation = departureLocation;
-  }
-
-  public void setArrivalLocation(String arrivalLocation) {
-    this.arrivalLocation = arrivalLocation;
-  }
-
-  public void setGrade(String grade) {
-    this.grade = grade;
-  }
-
-  public void setCreatedTime(Date createdTime) {
-    this.createdTime = createdTime;
-  }
-
-  public void setUpdatedTime(Date updatedTime) {
-    this.updatedTime = updatedTime;
-  }
-
-  public void setDeleted(String deleted) {
-    this.deleted = deleted;
-  }
-
   public EsVehicle(String uuid, String transportationTypeUuid,
       String localName, String cnName, String vehicleSerial,
       Date departureTime, Date duration, Date arrivalTime,
@@ -328,18 +164,6 @@ public class EsVehicle extends EsSchedule implements Serializable {
     this.arrivalLocation = arrivalLocation;
     this.grade = grade;
     this.scheduleTypeUuid = CommonConstant.SCHEDULE_TYPE_VEHICLE;
-  }
-
-  public String getDurationInString() {
-    try {
-      long diff = this.getArrivalTime().getTime() - this.getDepartureTime().getTime();
-      long day = diff / (1000 * 60 * 60 * 24);
-      long hour = (diff - day * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-      long min = (diff - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60)) / (1000 * 60);
-      return day + " days, " + hour + " hours, " + min + " mins";
-    } catch (Exception e) {
-      return e.getCause() + e.getMessage();
-    }
   }
 
   @Override

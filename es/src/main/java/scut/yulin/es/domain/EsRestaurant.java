@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import scut.yulin.common.constant.CommonConstant;
@@ -23,22 +22,22 @@ public class EsRestaurant extends EsSchedule implements Serializable {
   /**
    * 非数据库字段 该目的地附近可用交通方式列表 通过调用TransportationService进行注入
    */
-  private List<EsTransportation> transportationList;
+  private String transportationList;
 
   /**
    * 非数据库字段 该目的地所有菜单列表 通过调用MenuService进行注入
    */
-  private List<EsMenu> esMenuList;
+  private String esMenuList;
 
   /**
    * 非数据库字段 该目的地所有图片描述 通过调用ImageService进行注入
    */
-  private List<EsImage> esImageList;
+  private String esImageList;
 
   /**
    * 非数据库字段 该目的地所有评论 通过调用CommentService进行注入
    */
-  private List<EsComment> esCommentList;
+  private String esCommentList;
 
   /**
    * id

@@ -13,5 +13,5 @@ public interface EsCommentService {
 
   EsComment transform(Comment comment);
 
-  List<EsComment> transform(List<Comment> comment);
+  String transform(List<Comment> comment);
 }

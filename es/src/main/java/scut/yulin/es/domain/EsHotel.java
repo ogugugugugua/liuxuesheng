@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import scut.yulin.common.constant.CommonConstant;
@@ -24,13 +23,13 @@ public class EsHotel extends EsSchedule implements Serializable {
    * 非数据库字段 房间列表
    */
   @ApiModelProperty(value = "roomList")
-  private List<EsRoom> esRoomList;
+  private String esRoomList;
 
   /**
    * 非数据库字段 酒店设施列表
    */
   @ApiModelProperty(value = "酒店设施列表")
-  private List<EsEquipment> equipmentList;
+  private String equipmentList;
 
   /**
    * id
