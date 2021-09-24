@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+#pink:前端请求旅客的历史旅程列表;
+:调用方法并返回结果
+List<Trip> TripService.getTripByTravelerUUID(QueryTravelerDTO);
+#pink:前端请求指定旅程的详情;
+:依次调用方法
+Trip TripService.getTripByUUID(QueryTripDTO)
+Blog transformToBlog(Trip)
+返回结果;
+#pink:前端Markdown编辑器显示旅程蓝本;
+stop
+
+@enduml

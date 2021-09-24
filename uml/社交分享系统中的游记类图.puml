@@ -18,7 +18,7 @@ class Blog{
     private Boolean original;
     private String status;
     private Integer likes;
-    private List<String> comments;
+    private List<Comment> comments;
     private Integer viewCounts;
 
     private Date createTime;

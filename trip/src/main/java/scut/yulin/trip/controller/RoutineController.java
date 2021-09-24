@@ -76,4 +76,14 @@ public class RoutineController {
         return ResponseVO.failed("modify routine failed");
     }
   }
+
+  @PutMapping("/schedule/up/one")
+  public ResponseVO moveUpOneStep() {
+    return ResponseVO.success("行程上移一位成功");
+  }
+
+  @PutMapping("/schedule/down/one")
+  public ResponseVO moveDownOneStep() {
+    return ResponseVO.success("行程下移一位成功");
+  }
 }

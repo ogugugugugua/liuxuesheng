@@ -4,22 +4,22 @@ import java.math.BigDecimal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import scut.yulin.es.domain.EsDestination;
+import scut.yulin.es.domain.esDestination;
 
 /**
  * @Date 2021/6/18
  * @Author xieyulin
  * @Description TODO
  **/
-public interface EsDestinationRepository extends ElasticsearchRepository<EsDestination, Long> {
+public interface EsDestinationRepository extends ElasticsearchRepository<esDestination, Long> {
 
   @Override
-  Page<EsDestination> findAll(Pageable pageable);
+  Page<esDestination> findAll(Pageable pageable);
 
   /**
    * 搜索查询
    */
-  Page<EsDestination> findByLocalNameOrCnNameOrDescriptionOrCityOrCountryUuidOrLocationOrSpecialRequirement(
+  Page<esDestination> findByLocalNameOrCnNameOrDescriptionOrCityOrCountryUuidOrLocationOrSpecialRequirement(
       String localName, String cnName, String description, String city, String countryUuid,
       String location, String specialRequirement, Pageable page
   );
@@ -27,6 +27,6 @@ public interface EsDestinationRepository extends ElasticsearchRepository<EsDesti
   /**
    * 根据评分查询
    */
-  Page<EsDestination> findByRatingGreaterThan(BigDecimal rating, Pageable page);
+  Page<esDestination> findByRatingGreaterThan(BigDecimal rating, Pageable page);
 
 }

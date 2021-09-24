@@ -4,6 +4,7 @@ import java.util.List;
 import scut.yulin.trip.dto.destination.InsertDestinationDTO;
 import scut.yulin.trip.dto.destination.ModifyDestinationDTO;
 import scut.yulin.trip.dto.destination.QueryDestinationDTO;
+import scut.yulin.trip.dto.destination.TransactionalInsertDestinationDTO;
 import scut.yulin.trip.model.Destination;
 
 /**
@@ -16,6 +17,8 @@ public interface DestinationService extends ScheduleService{
   public List<Destination> getDestinationList(QueryDestinationDTO queryDestinationDTO);
 
   public Destination getDestinationByUUID(QueryDestinationDTO queryDestinationDTO, Boolean getFullInformation);
+
+  public int addDestinationTransactional(TransactionalInsertDestinationDTO insertDestinationDTO);
 
   public int addDestination(InsertDestinationDTO insertDestinationDTO);
 

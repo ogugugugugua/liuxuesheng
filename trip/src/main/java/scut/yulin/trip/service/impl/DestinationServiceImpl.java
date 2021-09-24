@@ -13,8 +13,10 @@ import scut.yulin.trip.dto.comment.QueryCommentDTO;
 import scut.yulin.trip.dto.destination.InsertDestinationDTO;
 import scut.yulin.trip.dto.destination.ModifyDestinationDTO;
 import scut.yulin.trip.dto.destination.QueryDestinationDTO;
+import scut.yulin.trip.dto.destination.TransactionalInsertDestinationDTO;
 import scut.yulin.trip.dto.image.QueryImageDTO;
 import scut.yulin.trip.dto.price.QueryPriceDTO;
+import scut.yulin.trip.dto.routine_schedule.Insert_Routine_Schedule_DTO;
 import scut.yulin.trip.dto.transportation.QueryTransportationDTO;
 import scut.yulin.trip.mbg.mapper.DestinationDao;
 import scut.yulin.trip.model.Comment;
@@ -28,6 +30,7 @@ import scut.yulin.trip.service.CommentService;
 import scut.yulin.trip.service.DestinationService;
 import scut.yulin.trip.service.ImageService;
 import scut.yulin.trip.service.PriceService;
+import scut.yulin.trip.service.Routine_Schedule_Service;
 import scut.yulin.trip.service.TransportationService;
 
 /**
@@ -53,6 +56,9 @@ public class DestinationServiceImpl implements DestinationService {
 
   @Autowired
   CommentService commentService;
+
+  @Autowired
+  Routine_Schedule_Service routineService;
 
   @Override
   public List<Destination> getDestinationList(QueryDestinationDTO queryDestinationDTO) {
@@ -132,6 +138,45 @@ public class DestinationServiceImpl implements DestinationService {
     }
 
     return targetDestination;
+  }
+
+  @Override
+  public int addDestinationTransactional(TransactionalInsertDestinationDTO dto) {
+    String description = dto.getDescription();
+    String city = dto.getCity();
+    String location = dto.getLocation();
+    String localName = dto.getLocalName();
+    String cnName = Inspections.isNotBlank(dto.getCnName()) ? dto
+        .getCnName() : "";
+    String countryUuid =
+        Inspections.isNotBlank(dto.getCountryUuid()) ? dto
+            .getCountryUuid() : "";
+    String duration =
+        Inspections.isNotBlank(dto.getDuration()) ? dto
+            .getDuration() : "";
+    BigDecimal rating =
+        Inspections.isNotEmpty(dto.getRating()) ? dto.getRating()
+            : new BigDecimal("5");
+    String url =
+        Inspections.isNotBlank(dto.getUrl()) ? dto.getUrl() : "";
+    String specialRequirement =
+        Inspections.isNotBlank(dto.getSpecialRequirement()) ? dto
+            .getSpecialRequirement() : "";
+
+    Assert.notBlank(description, "description not found");
+    Assert.notBlank(city, "city not found");
+    Assert.notBlank(location, "location not found");
+    Assert.notBlank(localName, "localName not found");
+
+    String uuid = IdUtil.randomUUID();
+
+    Destination destination = new Destination(uuid, localName, cnName, city, countryUuid, location,
+        rating, duration, url, description, specialRequirement);
+    destinationDao.insertSelective(destination);
+    routineService.addNewRoutineScheduleRelation(
+        new Insert_Routine_Schedule_DTO(dto.getRoutineUuid(), uuid,
+            CommonConstant.SCHEDULE_TYPE_DESTINATION, dto.getScheduleSerial()));
+    return 1;
   }
 
   @Override

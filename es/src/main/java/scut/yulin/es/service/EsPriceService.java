@@ -1,6 +1,7 @@
 package scut.yulin.es.service;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 import scut.yulin.es.domain.EsPrice;
 import scut.yulin.trip.model.Price;
 

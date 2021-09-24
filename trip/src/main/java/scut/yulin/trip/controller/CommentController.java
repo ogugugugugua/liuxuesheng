@@ -28,7 +28,7 @@ public class CommentController {
     public ResponseVO addNewComment(@RequestBody InsertCommentDTO insertCommentDTO) {
         int result = service.addNewComment(insertCommentDTO);
         if (result == 1) {
-            return ResponseVO.success("insert ok");
+            return ResponseVO.success("新增评论成功");
         }
         return ResponseVO.failed("insert failed");
     }
@@ -60,21 +60,21 @@ public class CommentController {
     public ResponseVO deleteComment(@RequestBody QueryCommentDTO queryCommentDTO){
         int status = service.deleteComment(queryCommentDTO);
         if (status == 1) {
-            return ResponseVO.success("delete comment ok");
+            return ResponseVO.success("删除评论成功");
         }
         if (status == 2) {
-            return ResponseVO.failed("delete comment not found");
+            return ResponseVO.failed("目标评论不存在");
         }
-        return ResponseVO.failed("delete commnet failed");
+        return ResponseVO.failed("删除评论失败");
     }
 
     @PutMapping("not/visible")
     public ResponseVO setCommentNotVisible(@RequestBody QueryCommentDTO queryCommentDTO){
         int status = service.setCommentNotVisible(queryCommentDTO);
         if (status == 1) {
-            return ResponseVO.success("comment not visible ok");
+            return ResponseVO.success("屏蔽违规评论成功");
         }
-        return ResponseVO.failed("comment not found");
+        return ResponseVO.failed("找不到该评论");
     }
 
     @PutMapping("visible")
@@ -86,4 +86,10 @@ public class CommentController {
         }
         return ResponseVO.failed("comment not found");
     }
+
+    @GetMapping("comment/schedule/list")
+    public List<Comment> getCommentListByScheduleUUID(@RequestBody QueryCommentDTO queryCommentDTO) {
+        return service.getCommentListByScheduleUUID(queryCommentDTO);
+    }
+
 }

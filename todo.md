@@ -13,3 +13,23 @@
 
 13. 增加留学生和旅客的共通表： uuid,user_uuid,user_type,user_name;
     uniq_key_user_name;修改两个register方法，添加transactional操作
+    
+
+
+这个平台填补了目前市场上留学人员与出境游旅客间交流与制定旅程的专属应用的领域空白。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

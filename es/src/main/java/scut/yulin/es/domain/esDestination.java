@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import scut.yulin.common.constant.CommonConstant;
@@ -16,10 +17,11 @@ import scut.yulin.common.constant.CommonConstant;
  *
  * @author
  */
+@Document(indexName = "pms", type = "esDestination",shards = 1,replicas = 0)
 @ApiModel(value = "scut.yulin.trip.model.Destination目的地 ")
 @Data
 @NoArgsConstructor
-public class EsDestination extends EsSchedule implements Serializable {
+public class esDestination extends EsSchedule implements Serializable {
 
   /**
    * 非数据库字段 该目的地附近可用交通方式列表 通过调用TransportationService进行注入
@@ -125,7 +127,7 @@ public class EsDestination extends EsSchedule implements Serializable {
   @Field(type = FieldType.Keyword)
   private static final long serialVersionUID = 1L;
 
-  public EsDestination(String uuid, String localName, String cnName, String city,
+  public esDestination(String uuid, String localName, String cnName, String city,
       String countryUuid,
       String location, BigDecimal rating, String description,
       String specialRequirement) {
@@ -152,7 +154,7 @@ public class EsDestination extends EsSchedule implements Serializable {
     if (getClass() != that.getClass()) {
       return false;
     }
-    EsDestination other = (EsDestination) that;
+    esDestination other = (esDestination) that;
     return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
         && (this.getUuid() == null ? other.getUuid() == null
         : this.getUuid().equals(other.getUuid()))

@@ -39,12 +39,13 @@ public class CommentServiceImpl implements CommentService {
     String scheduleTypeUuid = insertCommentDTO.getScheduleTypeUuid();
     String parentUuid =
         Inspections.isNotBlank(insertCommentDTO.getParentUuid()) ? insertCommentDTO.getParentUuid()
-            : IdUtil.randomUUID();
+            : "0";
 
-    Assert.notBlank(creatorUuid);
+//    Assert.notBlank(creatorUuid);
+    creatorUuid = IdUtil.randomUUID();
     Assert.notBlank(scheduleUuid);
     Assert.notBlank(scheduleTypeUuid);
-    Assert.notBlank(parentUuid);
+//    Assert.notBlank(parentUuid);
 
     Comment comment = new Comment(IdUtil.randomUUID(),
         scheduleUuid, scheduleTypeUuid,

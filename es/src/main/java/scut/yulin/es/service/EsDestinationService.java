@@ -2,7 +2,7 @@ package scut.yulin.es.service;
 
 import java.util.List;
 import org.springframework.data.domain.Page;
-import scut.yulin.es.domain.EsDestination;
+import scut.yulin.es.domain.esDestination;
 import scut.yulin.trip.model.Destination;
 
 /**
@@ -25,17 +25,19 @@ public interface EsDestinationService {
   /**
    * 根据id创建商品
    */
-  EsDestination create(String uuid);
+  esDestination create(String uuid);
 
   /**
    * 批量删除商品
    */
   void delete(List<Long> ids);
 
+  esDestination test4();
+
   /**
    * 根据关键字搜索名称或者副标题
    */
-  Page<EsDestination> findByLocalNameOrCnNameOrDescriptionOrCityOrCountryUuidOrLocationOrSpecialRequirement(
+  Page<esDestination> findByLocalNameOrCnNameOrDescriptionOrCityOrCountryUuidOrLocationOrSpecialRequirement(
       String localName, String cnName, String description, String city, String countryUuid,
       String location, String specialRequirement, Integer pageNum, Integer pageSize
   );
@@ -43,5 +45,5 @@ public interface EsDestinationService {
   /**
    * 类型转换函数
    */
-  EsDestination transform(Destination destination);
+  esDestination transform(Destination destination);
 }
